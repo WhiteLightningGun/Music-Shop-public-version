@@ -10,9 +10,18 @@ interface Props {
   audioRef: any;
   setDuration: any;
   progressBarRef: any;
+  isAudioLoading: boolean;
+  setIsAudioLoading: (isAudioLoading: boolean) => void;
 }
 
-function AudioElement({ data, audioRef, setDuration, progressBarRef }: Props) {
+function AudioElement({
+  data,
+  audioRef,
+  setDuration,
+  progressBarRef,
+  isAudioLoading,
+  setIsAudioLoading,
+}: Props) {
   const onLoadedMetadata = () => {
     const seconds = audioRef.current.duration;
     setDuration(seconds);
@@ -26,9 +35,12 @@ function AudioElement({ data, audioRef, setDuration, progressBarRef }: Props) {
         sessionStorage.getItem('Bearer'),
       );
       setAudioUrl(url);
+      setIsAudioLoading(false);
     };
     url();
-  }, [data.FilePathName]);
+    //while waiting for url to finish loading, set audioUrl to empty string, lock out controls to prevent errors
+    setIsAudioLoading(true);
+  }, [data.FilePathName, setIsAudioLoading]);
 
   return (
     <>

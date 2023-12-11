@@ -6,7 +6,8 @@ import AudioElement from './AudioElement';
 import ProgressBar from './ProgressBar';
 import configData from './config.json';
 import { useLoginContext } from './LoggedInContext';
-import VolumeControl from './AudioVolumeControl';
+import AudioPlayerControls from './AudioPlayerControls';
+import AudioPlayerControlsLoading from './AudioPlayerControlsLoading';
 
 interface Props {
   data: AlbumData;
@@ -22,6 +23,7 @@ function AudioPlayer({ data }: Props) {
   const [timeProgress, setTimeProgress] = useState<number | undefined>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
+  const [isAudioLoading, setIsAudioLoading] = useState<boolean>(false);
   const playAnimationRef = useRef<any>();
 
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -94,6 +96,8 @@ function AudioPlayer({ data }: Props) {
           audioRef={audioRef}
           setDuration={setDuration}
           progressBarRef={progressBarRef}
+          isAudioLoading={isAudioLoading}
+          setIsAudioLoading={setIsAudioLoading}
         />
         <span>
           <p className="normal-font text-dark fs-5">{currentSong.songName}</p>
@@ -107,33 +111,17 @@ function AudioPlayer({ data }: Props) {
         </span>
       </div>
       <p className="text-white fs-6">---</p>
-      <div className="row">
-        <div className="col-4 text-end">
-          <Icon.SkipBackward
-            className="mb-1 fs-2 icon-button"
-            onClick={decrementTrack}
-          />
-        </div>
-        <div className="col-4">
-          {isPlaying ? (
-            <Icon.PauseCircle
-              className="mb-1 fs-1 icon-button"
-              onClick={PlayClick}
-            />
-          ) : (
-            <Icon.PlayCircle
-              className="mb-1 fs-1 icon-button"
-              onClick={PlayClick}
-            />
-          )}
-        </div>
-        <div className="col-4 text-start ">
-          <Icon.SkipForward
-            className="mb-1 fs-2 icon-button"
-            onClick={incrementTrack}
-          />
-        </div>
-      </div>
+      {isAudioLoading ? (
+        <AudioPlayerControlsLoading />
+      ) : (
+        <AudioPlayerControls
+          decrementTrack={decrementTrack}
+          PlayClick={PlayClick}
+          incrementTrack={incrementTrack}
+          isPlaying={isPlaying}
+        />
+      )}
+
       <br></br>
       <div className="text-start">
         <h4>Notes</h4>

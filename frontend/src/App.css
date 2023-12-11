@@ -103,3 +103,33 @@
   color: rgb(234, 255, 222); /* Color of the text on hover */
   text-shadow: 0 0 6px rgba(99, 224, 136, 0.525); /* Minimal glow effect */
 }
+
+.rotate-icon {
+  animation: rotation 0.8s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+.pulse-icon {
+  animation: pulse 2s infinite ease-in-out;
+  color: #ff0000; /* Change this to your desired color */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

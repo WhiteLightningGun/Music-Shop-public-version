@@ -11,3 +11,6 @@
   Identity from first principles.
 
   A slow burn, bone chilling, spine tingling, character driven horror movie with no jumpscares.
+
+
+  dotnet run --launch-profile https

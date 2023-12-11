@@ -34,10 +34,10 @@ function AdminPagePutSong({ data }: AlbumManagerJsons) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: any) => {
-    //console.log(data);
+    console.log(data.SongID);
     let result = await postFormData(
       data.NewSongName,
-      selectedSongID,
+      data.SongID,
       data.songLength,
       data.AlbumPosition,
     );
@@ -58,7 +58,8 @@ function AdminPagePutSong({ data }: AlbumManagerJsons) {
   };
 
   const handleSongChange = (e: any) => {
-    setSelectedSongID(e.target.value);
+    let newID = e.target.value;
+    setSelectedSongID(newID);
   };
 
   return (
@@ -84,7 +85,7 @@ function AdminPagePutSong({ data }: AlbumManagerJsons) {
         <div className="form-group">
           <label>Select Song</label>
           <select
-            {...register('SongName')}
+            {...register('SongID')}
             className="form-control"
             onChange={handleSongChange}
           >
@@ -172,7 +173,8 @@ async function postFormData(
 
   if (!response.ok) {
     // handle error
-    console.log('Error uploading file');
+    const errorData = await response.json();
+    console.log('Error updating song:', errorData);
     return false;
   }
   // handle success

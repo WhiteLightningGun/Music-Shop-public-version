@@ -28,6 +28,7 @@ namespace Backend.Data
 
         [Required]
         public string? KebabCaseName { get; set; }
+        public decimal songPrice { get; set; } // Price of album, in GBP
     }
 }
 
