@@ -1,0 +1,105 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.slider {
+  transition: max-height 0.5s ease-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.slider.open {
+  max-height: 500px; /* or whatever max height you want */
+}
+
+.volume-control input[type='range'] {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #292929 !important;
+  background-color: rgb(31, 31, 31);
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  -webkit-appearance: none;
+}
+
+/*Range Reset*/
+.volume-control input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 66%;
+}
+
+/* Removes default focus */
+.volume-control input[type='range']:focus {
+  outline: none;
+}
+
+/***** Chrome, Safari, Opera and Edge Chromium styles *****/
+/* slider track */
+.volume-control input[type='range']::-webkit-slider-runnable-track {
+  background-color: rgb(31, 31, 31);
+  border-radius: 0.5rem;
+  height: 0.2rem;
+  border-color: #292d3f;
+}
+
+.text-glow {
+  transition: color 0.3s ease-in-out; /* Transition effect */
+  color: #fff;
+  text-decoration: none;
+}
+
+.text-glow:hover {
+  color: #fff; /* Color of the text on hover */
+  text-shadow: 0 0 5px #ffffff86; /* Minimal glow effect */
+}
+
+.text-glow-green {
+  transition: color 0.3s ease-in-out; /* Transition effect */
+  color: rgb(131, 255, 59);
+  text-decoration: none;
+}
+
+.text-glow-green:hover {
+  color: rgb(234, 255, 222); /* Color of the text on hover */
+  text-shadow: 0 0 6px rgba(99, 224, 136, 0.525); /* Minimal glow effect */
+}

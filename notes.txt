@@ -1,0 +1,14 @@
+ALBUM DATA TYPE
+
+Album Name - string
+Release Date - Date
+Front cover image file - possibly just a name string, linking to static files on the backend
+Track List - array of Song files (song file will be a designated data type)
+Track Count - integer [1-999], otherwise it could be [Track List].length 
+
+SONG DATA TYPE
+
+Song Name - string
+Associated album - string
+Length - string
+File path - string

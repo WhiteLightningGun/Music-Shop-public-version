@@ -1,0 +1,27 @@
+# Ignore .NET build output directories
+bin/
+obj/
+
+# Ignore NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+
+# Ignore Visual Studio user-specific files
+.vs/
+
+# Ignore user-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Ignore ReSharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Ignore Rider files
+.idea/
+
+# Ignore all files with .log extension
+*.log

@@ -1,0 +1,9 @@
+From: EmailServiceDevelopmentMode@backend.com
+Date: Thu, 23 Nov 2023 16:58:13 +0000
+Subject: Confirm your email
+Message-Id: <L4BDUMSZKLU4.3ZCD2RTXX5SC1@laptop-mi95ff8t>
+To: clemsnide@thingfish.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+Please confirm your account by <a href='https://localhost:7158/confirmEmail?userId=ff7e29eb-b3a0-487b-822e-98850e277195&amp;code=Q2ZESjhLN29ydEhOSzZkR3E4U3FjeFRiZ3FKb0VvaTdveUNzVk1YREcvMmE2Z1pVeWI4a1pUYTRNV3psaUFwa2V3K0pXbENJV2VwcjQxSk44d3RVVUtNaGVUeGJHRVh6bk91Rm5hTDA4K3NOQVVtSFhsZUZnVUpYb25SWlRzc09KekJPMUFHRndKR0Y2MkpqVkdsR2VjT2pzekFCWUcxQ1E2MHV1WGIvR1RMRHduWDllc1V3Nlc4Y2VWVTlZS2wxQ1htZ2xzb0lMWkJzSWJmSFl4R0h4ZzBGWGlWQVBjcXlROS90T3VlNGt3ODBwd1BTN2VoTjVPN1l2a2xsS2lwNkxyWVgwdz09'>clicking here</a>.
