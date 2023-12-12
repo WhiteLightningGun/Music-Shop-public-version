@@ -2,12 +2,9 @@ import { AlbumData } from './ScaffoldData';
 import configData from './config.json';
 
 async function GetAlbums() {
-  let albumsTestResult = fetch(
-    `${configData.SERVER_URL}/api/Music/GrabAlbums`,
-    {
-      method: 'GET',
-    },
-  )
+  let albumsResult = fetch(`${configData.SERVER_URL}/api/Music/GrabAlbums`, {
+    method: 'GET',
+  })
     .then((response) => (response.status === 200 ? response.json() : false))
     .then((data) => {
       return data;
@@ -15,7 +12,7 @@ async function GetAlbums() {
     .catch(() => {
       return false;
     });
-  return albumsTestResult;
+  return albumsResult;
 }
 
 export { GetAlbums };

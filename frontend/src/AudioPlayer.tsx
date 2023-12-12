@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useRef, useEffect, useCallback } from 'react';
-import * as Icon from 'react-bootstrap-icons';
 import { AlbumData, SongData } from './ScaffoldData';
 import AudioElement from './AudioElement';
 import ProgressBar from './ProgressBar';
@@ -137,7 +136,7 @@ function AudioPlayer({ data }: Props) {
             the full track.
           </p>
         ) : (
-          <p>Buy Album</p>
+          <p>Buy Album: £{data.AlbumPrice}</p>
         )}
       </div>
     </div>

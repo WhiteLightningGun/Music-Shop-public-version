@@ -75,12 +75,6 @@ function LoginPage({ setLoggedIn }: any) {
               )}
               {loggedIn ? <>Welcome back {userEmail}</> : <></>}
             </p>
-            <div>
-              <p className="text-start">
-                Forgotten your credentials? Get a password reset{' '}
-                <a href={`${configData.CLIENT_URL}/passwordReset`}>here.</a>
-              </p>
-            </div>
             <form className="text-start" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-group">
                 <label className="mb-2">Email address</label>

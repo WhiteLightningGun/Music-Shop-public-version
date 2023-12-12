@@ -4,6 +4,7 @@ export interface SongData {
   Length: string;
   FilePathName: string;
   AlbumPosition: number;
+  SongPrice: number;
 }
 
 export interface AlbumData {
@@ -13,6 +14,7 @@ export interface AlbumData {
   TrackList: SongData[];
   TrackCount: number;
   kebabCase: string;
+  AlbumPrice: number;
 }
 
 export interface AlbumDataJson {
@@ -25,6 +27,7 @@ const SneedMeSong: SongData = {
   Length: '4:23',
   FilePathName: '/static/audio/Aragainz.mp3',
   AlbumPosition: 1,
+  SongPrice: 1,
 };
 
 const HereComesTheSneed: SongData = {
@@ -33,6 +36,7 @@ const HereComesTheSneed: SongData = {
   Length: '3:53',
   FilePathName: '/static/audio/Aragainz2.mp3',
   AlbumPosition: 2,
+  SongPrice: 1,
 };
 
 const PlaceholdAlbums: AlbumData[] = [
@@ -43,6 +47,7 @@ const PlaceholdAlbums: AlbumData[] = [
     TrackList: [SneedMeSong, HereComesTheSneed],
     TrackCount: 2,
     kebabCase: 'Unknown-Feels-qxr123',
+    AlbumPrice: 3.0,
   },
   {
     AlbumName: 'Black Sabbath',
@@ -51,6 +56,7 @@ const PlaceholdAlbums: AlbumData[] = [
     TrackList: [SneedMeSong, HereComesTheSneed],
     TrackCount: 2,
     kebabCase: 'Black-Sabbath-rkd114',
+    AlbumPrice: 3.0,
   },
 ];
 

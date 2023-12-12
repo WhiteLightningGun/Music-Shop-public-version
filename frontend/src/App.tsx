@@ -3,15 +3,12 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AlbumPageTemplate from './AlbumPageTemplate';
 import FrontPageTemplate from './FrontPageTemplate';
-import { AlbumData, getAlbums } from './ScaffoldData';
+import { AlbumData } from './ScaffoldData';
 import AlbumsPage from './AlbumsPage';
 import AlbumPage from './AlbumPage';
 import LoginPage from './LoginPage';
 import { MyLoginContext } from './LoggedInContext';
-import HeaderTemplateTwo from './Header';
-import FooterTemplate from './FooterTemplate';
 import { GetAlbums } from './JsonConverters';
 import RegisterPage from './Register';
 import PasswordReset from './PasswordReset';
@@ -41,7 +38,7 @@ function App() {
     loggedInAdminCheck();
     beginLoadAlbums();
     LoggedInCheck();
-  }, []);
+  }, [isAdmin]);
   return (
     <CartProvider>
       <MyLoginContext.Provider value={{ loggedIn }}>

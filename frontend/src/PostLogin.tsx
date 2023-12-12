@@ -139,8 +139,7 @@ async function CheckLoggedIn() {
   }).then((response) => {
     return response.status === 200;
   });
-  console.log(`200 status? ${infoTestResult}`);
-  return infoTestResult; //returns boolean
+  return infoTestResult;
 }
 export { CheckLoggedIn };
 

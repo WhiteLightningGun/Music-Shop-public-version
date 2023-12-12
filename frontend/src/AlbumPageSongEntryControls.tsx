@@ -39,11 +39,6 @@ function AlbumPageSongEntryControls({ data }: Props) {
     GetDownload(songdata);
   };
   const addToCart = (data: SongData) => {
-    // add to cart function here
-    console.log(
-      `added to cart: ${data.AlbumName} - ${data.songName} - ${data.FilePathName}`,
-    );
-    // You can now use songdata here
     setCartSongData
       ? setCartSongData((prevSongs) => [...prevSongs, data])
       : console.log('setCartSongData is undefined or something');

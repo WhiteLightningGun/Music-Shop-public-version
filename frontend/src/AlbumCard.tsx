@@ -11,11 +11,14 @@ function AlbumCard({ album }: Props) {
   return (
     <div className="col-md-4">
       <div className="card no-border">
-        <img
-          src={album.FrontCoverPath}
-          className="card-img-top img-thumbnail no-border"
-          alt="an album"
-        />
+        <Link className="normal-font" to={album.kebabCase}>
+          <img
+            src={album.FrontCoverPath}
+            className="card-img-top img-thumbnail no-border"
+            alt="an album"
+          />
+        </Link>
+
         <div className="mb-3 mt-1">
           <p className="normal-font-light text-dark">
             Released:&nbsp;

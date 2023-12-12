@@ -109,6 +109,7 @@ namespace Backend.Repository
                         songName = track.songName,
                         Length = track.Length,
                         FilePathName = track.FileGetCode,
+                        SongPrice = track.songPrice
                     };
                     songJsonsForAlbum.Add(songJson);
                 }
@@ -122,7 +123,8 @@ namespace Backend.Repository
                         FrontCoverPath = $"{baseUrl}/images/{frontCoverFileName}",
                         kebabCase = thisAlbum.KebabCaseName,
                         TrackList = songJsonsForAlbum,
-                        TrackCount = allSongs.Select(x => x).Where(x => x.AlbumId == thisAlbum.AlbumId).ToList().Count().ToString()
+                        TrackCount = allSongs.Select(x => x).Where(x => x.AlbumId == thisAlbum.AlbumId).ToList().Count().ToString(),
+                        AlbumPrice = thisAlbum.albumPrice
                     });
             }
 

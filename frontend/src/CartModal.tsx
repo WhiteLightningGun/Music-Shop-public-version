@@ -5,6 +5,7 @@ import * as Icon from 'react-bootstrap-icons';
 import { useContext, useEffect } from 'react';
 import { MyCartContext, CartProvider } from './CartContext';
 import CartModalSongEntry from './CartModalSongEntry';
+import { SongData } from './ScaffoldData';
 
 export default CartModal;
 
@@ -15,6 +16,22 @@ function CartModal({ props }: any) {
     context || {};
 
   useEffect(() => {}, [cartSongData]);
+
+  const removeSong = (data: SongData) => {
+    setCartSongData
+      ? setCartSongData((prevSongs) =>
+          prevSongs.filter((song) => song.FilePathName !== data.FilePathName),
+        )
+      : console.log('setCartSongData is undefined or something');
+  };
+
+  function calculateTotalPrice(cartSongData: SongData[] | undefined) {
+    let total = 0;
+    if (cartSongData) {
+      total = cartSongData.reduce((sum, song) => sum + song.SongPrice, 0);
+    }
+    return total.toFixed(2);
+  }
 
   return (
     <>
@@ -57,12 +74,25 @@ function CartModal({ props }: any) {
               <h4>SONGS</h4>
               {cartSongData && cartSongData.length > 0 ? (
                 cartSongData.map((song, i) => (
-                  <CartModalSongEntry key={i} songData={song} />
+                  <CartModalSongEntry
+                    key={i}
+                    songData={song}
+                    removeSong={removeSong}
+                  />
                 ))
               ) : (
-                <p>Cart is empty</p>
+                <p>-</p>
               )}
+              <hr className="my-3" style={{ borderTop: '1px solid #dee2e6' }} />
               <h4>ALBUMS</h4>
+              {cartAlbumData && cartAlbumData.length > 0 ? (
+                <p>Cart has stuff init</p>
+              ) : (
+                <p>-</p>
+              )}
+              <hr className="my-3" style={{ borderTop: '1px solid #dee2e6' }} />
+              <h4>TOTAL</h4>
+              <h5>£{calculateTotalPrice(cartSongData)}</h5>
             </div>
             <div className="modal-footer">
               <button

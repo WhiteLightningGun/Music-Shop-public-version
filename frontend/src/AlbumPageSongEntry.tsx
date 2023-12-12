@@ -1,9 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import react from 'react';
-import * as Icon from 'react-bootstrap-icons';
 import { SongData } from './ScaffoldData';
-import configData from './config.json';
 import { useLoginContext } from './LoggedInContext';
 import { AlbumPageSongEntryLogin } from './AlbumPageSongEntryControls';
 import { AlbumPageSongEntryControls } from './AlbumPageSongEntryControls';
@@ -20,7 +16,8 @@ function AlbumPageSongEntry({ data }: Props) {
         <div className="row">
           <div className="col-8 d-flex align-items-center justify-content-start">
             <span>
-              &nbsp;{data.AlbumPosition}. &nbsp;{data.songName}&nbsp;
+              &nbsp;{data.AlbumPosition}. &nbsp;{data.songName}&nbsp;£
+              {data.SongPrice.toFixed(2)}&nbsp;
             </span>
           </div>
           <div className="col-4 d-flex align-items-center justify-content-end">

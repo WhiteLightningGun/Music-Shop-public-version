@@ -14,6 +14,7 @@ namespace Backend.Data
         public string? FilePathName;
 
         public int AlbumPosition;
+        public decimal SongPrice;
     }
 
     public class AlbumJsonModel
@@ -29,6 +30,7 @@ namespace Backend.Data
         public string? TrackCount;
 
         public string? kebabCase;
+        public decimal AlbumPrice;
     }
 
         public class AlbumManagerJsonModel
