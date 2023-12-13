@@ -51,6 +51,7 @@ namespace Backend.Repository
             song.songName = songPutRequest.SongName;
             song.Length = songPutRequest.SongLength;
             song.AlbumPosition = songPutRequest.AlbumPosition;
+            song.songPrice = songPutRequest.SongPrice;
             await dataContext.SaveChangesAsync();
             return true;
         }
@@ -109,7 +110,8 @@ namespace Backend.Repository
                         songName = track.songName,
                         Length = track.Length,
                         FilePathName = track.FileGetCode,
-                        SongPrice = track.songPrice
+                        SongPrice = track.songPrice,
+                        albumID = track.AlbumId
                     };
                     songJsonsForAlbum.Add(songJson);
                 }
@@ -124,7 +126,8 @@ namespace Backend.Repository
                         kebabCase = thisAlbum.KebabCaseName,
                         TrackList = songJsonsForAlbum,
                         TrackCount = allSongs.Select(x => x).Where(x => x.AlbumId == thisAlbum.AlbumId).ToList().Count().ToString(),
-                        AlbumPrice = thisAlbum.albumPrice
+                        AlbumPrice = thisAlbum.albumPrice,
+                        AlbumID = thisAlbum.AlbumId
                     });
             }
 

@@ -223,7 +223,8 @@ namespace Backend.Controllers
                 Length = "3:23",
                 FileGetCode = songNewGUID,
                 AlbumPosition = songForm.AlbumPosition,
-                KebabCaseName = ToKebabCase(songForm.SongName)
+                KebabCaseName = ToKebabCase(songForm.SongName),
+                songPrice = songForm.SongPrice
             };
             await dataRepository.AddNewSong(songData);
             return Ok("File and data received successfully");
@@ -295,7 +296,8 @@ namespace Backend.Controllers
                 AlbumName = album.AlbumName,
                 ReleaseDate = album.ReleaseDate,
                 AlbumId = Guid.NewGuid().ToString(),
-                KebabCaseName = ToKebabCase(album.AlbumName)
+                KebabCaseName = ToKebabCase(album.AlbumName),
+                albumPrice = album.AlbumPrice
             };
 
             dataContext.AlbumEntries!.Add(albumEntry);

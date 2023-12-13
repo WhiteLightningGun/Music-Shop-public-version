@@ -6,5 +6,6 @@ namespace Backend.Data
         public required IFormFile SongFile { get; set; }
         public required string AlbumID { get; set; }
         public required int AlbumPosition { get; set; }
+        public required decimal SongPrice { get; set; }
     }
 }

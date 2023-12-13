@@ -40,6 +40,7 @@ function AdminPagePutSong({ data }: AlbumManagerJsons) {
       data.SongID,
       data.songLength,
       data.AlbumPosition,
+      data.SongPrice,
     );
     if (result) {
       setNotification('Song amended successfully');
@@ -111,6 +112,17 @@ function AdminPagePutSong({ data }: AlbumManagerJsons) {
         </div>
 
         <div className="form-group">
+          <label>Song Price</label>
+          <input
+            type="number"
+            step=".01"
+            {...register('SongPrice')}
+            className="form-control"
+            required
+          />
+        </div>
+
+        <div className="form-group">
           <label>Album Position</label>
           <input
             type="number"
@@ -156,12 +168,14 @@ async function postFormData(
   SongID: string,
   SongLength: string,
   AlbumPosition: number,
+  SongPrice: number,
 ) {
   const formData = new FormData();
   formData.append('SongName', SongName);
   formData.append('SongID', SongID);
   formData.append('SongLength', SongLength);
   formData.append('AlbumPosition', AlbumPosition.toString());
+  formData.append('SongPrice', SongPrice.toString());
 
   const response = await fetch(`${configData.SERVER_URL}/api/Account/PutSong`, {
     method: 'PUT',

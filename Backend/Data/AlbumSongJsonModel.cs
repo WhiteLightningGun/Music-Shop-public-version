@@ -15,6 +15,7 @@ namespace Backend.Data
 
         public int AlbumPosition;
         public decimal SongPrice;
+        public string? albumID;
     }
 
     public class AlbumJsonModel
@@ -31,6 +32,7 @@ namespace Backend.Data
 
         public string? kebabCase;
         public decimal AlbumPrice;
+        public string? AlbumID;
     }
 
         public class AlbumManagerJsonModel
@@ -41,12 +43,13 @@ namespace Backend.Data
     public sealed class AlbumPostJsonModel
     {
         public AlbumPostJsonModel(){
-
+            AlbumPrice = 5.00m;
         }
 
         [StringLength(100, MinimumLength = 2)]
         public required string AlbumName {get; set;}
 
         public required DateTime ReleaseDate {get; set;}
+        public decimal AlbumPrice {get; set;}
     }
 }

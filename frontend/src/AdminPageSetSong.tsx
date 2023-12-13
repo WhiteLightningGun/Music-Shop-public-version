@@ -23,6 +23,7 @@ function AdminPageSetSong({ data }: AlbumManagerJsons) {
       data.Mp3File[0],
       data.AlbumPosition,
       data.SongName,
+      data.SongPrice,
     );
     if (result) {
       setNotification('Song uploaded successfully');
@@ -42,6 +43,16 @@ function AdminPageSetSong({ data }: AlbumManagerJsons) {
           <input
             defaultValue=""
             {...register('SongName')}
+            className="form-control"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Song Price</label>
+          <input
+            defaultValue=""
+            {...register('SongPrice')}
             className="form-control"
             required
           />
@@ -94,6 +105,7 @@ async function postFormData(
   selectedFile: File | null,
   songPosition: number,
   songName: string,
+  songPrice: number,
 ) {
   if (!selectedFile) {
     console.error('No file selected');
@@ -105,6 +117,7 @@ async function postFormData(
   formData.append('SongFile', selectedFile);
   formData.append('AlbumID', selectedAlbumID);
   formData.append('AlbumPosition', songPosition.toString());
+  formData.append('SongPrice', songPrice.toString());
 
   const response = await fetch(`${configData.SERVER_URL}/api/Account/SetSong`, {
     method: 'POST',

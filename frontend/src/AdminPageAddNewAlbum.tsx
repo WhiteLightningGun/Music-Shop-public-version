@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useRef, FormEvent, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import configData from './config.json';
 
 type FormData = {
   albumName: string;
   releaseDate: string;
+  albumPrice: number;
 };
 
 const AdminPageAddNewAlbum = ({ refreshAlbumData }: any) => {
@@ -21,7 +22,11 @@ const AdminPageAddNewAlbum = ({ refreshAlbumData }: any) => {
   const onSubmit = async (data: FormData) => {
     // Handle form submission logic here
     console.log(data);
-    let result = await postFormData(data.albumName, new Date(data.releaseDate));
+    let result = await postFormData(
+      data.albumName,
+      new Date(data.releaseDate),
+      data.albumPrice,
+    );
     if (result) {
       if (formRef.current) formRef.current.reset();
       setNotification('Album created successfully');
@@ -30,7 +35,7 @@ const AdminPageAddNewAlbum = ({ refreshAlbumData }: any) => {
       setNotification('Something went wrong, try again');
     }
   };
-
+  // album.AlbumPrice
   return (
     <>
       <div className="bg-light">
@@ -49,6 +54,16 @@ const AdminPageAddNewAlbum = ({ refreshAlbumData }: any) => {
               id="albumName"
             />
             {errors.albumName && <p>This field is required</p>}
+            <label htmlFor="albumPrice" className="form-label">
+              Album Price:
+            </label>
+            <input
+              {...register('albumPrice', { required: true })}
+              type="number"
+              className="form-control"
+              id="albumPrice"
+            />
+            {errors.albumPrice && <p>This field is required</p>}
             <label htmlFor="releaseDate" className="form-label">
               Release Date:
             </label>
@@ -73,7 +88,11 @@ const AdminPageAddNewAlbum = ({ refreshAlbumData }: any) => {
 
 export default AdminPageAddNewAlbum;
 
-async function postFormData(albumName: string, releaseDate: Date | null) {
+async function postFormData(
+  albumName: string,
+  releaseDate: Date | null,
+  albumPrice: number,
+) {
   if (!albumName || !releaseDate) {
     console.error('No file selected');
     return;
@@ -82,6 +101,7 @@ async function postFormData(albumName: string, releaseDate: Date | null) {
   const formDataB = {
     albumName: albumName,
     releaseDate: releaseDate.toISOString(),
+    albumPrice: albumPrice,
   };
 
   try {

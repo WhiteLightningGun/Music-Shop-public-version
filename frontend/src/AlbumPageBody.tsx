@@ -56,7 +56,7 @@ function AlbumPageBody({ data }: Props) {
           <div className="text-dark normal-font-light text-start ">
             <h3>Track List</h3>
             {data.TrackList.map((song, i) => (
-              <AlbumPageSongEntry data={song} key={i} />
+              <AlbumPageSongEntry data={song} key={i} albumID={data.AlbumID} />
             ))}
           </div>
         </div>

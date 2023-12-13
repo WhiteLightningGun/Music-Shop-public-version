@@ -6,9 +6,10 @@ import { AlbumPageSongEntryControls } from './AlbumPageSongEntryControls';
 
 interface Props {
   data: SongData;
+  albumID: string;
 }
 
-function AlbumPageSongEntry({ data }: Props) {
+function AlbumPageSongEntry({ data, albumID }: Props) {
   const { loggedIn } = useLoginContext();
   return (
     <>
@@ -17,7 +18,7 @@ function AlbumPageSongEntry({ data }: Props) {
           <div className="col-8 d-flex align-items-center justify-content-start">
             <span>
               &nbsp;{data.AlbumPosition}. &nbsp;{data.songName}&nbsp;£
-              {data.SongPrice.toFixed(2)}&nbsp;
+              {data.SongPrice.toFixed(2)}&nbsp;{albumID}
             </span>
           </div>
           <div className="col-4 d-flex align-items-center justify-content-end">

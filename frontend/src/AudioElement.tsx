@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import react from 'react';
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { SongData } from './ScaffoldData';
 import configData from './config.json';
 

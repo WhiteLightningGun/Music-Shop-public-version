@@ -99,7 +99,9 @@ function AudioPlayer({ data }: Props) {
           setIsAudioLoading={setIsAudioLoading}
         />
         <span>
-          <p className="normal-font text-dark fs-5">{currentSong.songName}</p>
+          <p className="normal-font text-dark fs-5">
+            {currentSong.songName}&nbsp;{loggedIn ? '' : '(preview)'}
+          </p>
           <ProgressBar
             progressBarRef={progressBarRef}
             audioRef={audioRef}
@@ -132,8 +134,8 @@ function AudioPlayer({ data }: Props) {
         {!loggedIn ? (
           <p className="fs-6">
             <a href={`${configData.CLIENT_URL}/login`}>Login</a>&nbsp; / &nbsp;
-            <a href={`${configData.CLIENT_URL}/register`}>Register</a> to hear
-            the full track.
+            <a href={`${configData.CLIENT_URL}/register`}>Register</a> to
+            purchase and hear all the music.
           </p>
         ) : (
           <p>Buy Album: £{data.AlbumPrice}</p>
