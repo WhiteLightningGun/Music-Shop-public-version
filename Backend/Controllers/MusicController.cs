@@ -98,6 +98,7 @@ namespace Backend.Controllers
         [HttpGet("GrabAlbums"), AllowAnonymous]
         public string GetAlbums()
         {
+            // IF user is logged in, get albums with price that reflects previous purchases
             string jsonResult = JsonConvert.SerializeObject(dataRepository.GetAlbums(baseUrl!));
             return jsonResult;
         }
@@ -106,12 +107,10 @@ namespace Backend.Controllers
         {
             if(HttpContext.User.Claims.Any())
             {
-                Console.WriteLine("Claims found, user logged in");
                 return true;
             }
             else
             {
-                Console.WriteLine("No claims found, user not logged in");
                 return false;
             }
         }

@@ -7,6 +7,7 @@ import configData from './config.json';
 import { useLoginContext } from './LoggedInContext';
 import AudioPlayerControls from './AudioPlayerControls';
 import AudioPlayerControlsLoading from './AudioPlayerControlsLoading';
+import BuyAlbum from './BuyAlbum';
 
 interface Props {
   data: AlbumData;
@@ -138,7 +139,7 @@ function AudioPlayer({ data }: Props) {
             purchase and hear all the music.
           </p>
         ) : (
-          <p>Buy Album: £{data.AlbumPrice}</p>
+          <BuyAlbum data={data} />
         )}
       </div>
     </div>

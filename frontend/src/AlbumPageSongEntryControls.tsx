@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { MyCartContext } from './CartContext';
 import SongInCart from './AlbumPageSongEntryControlsInCart';
 import AddToCart from './AlbumPageSongEntryControlsAddToCart';
+import SongInCartDumb from './AlbumPageSongEntryControlsInCartDumb';
 
 interface Props {
   data: SongData;
@@ -32,7 +33,7 @@ export { AlbumPageSongEntryLogin };
 function AlbumPageSongEntryControls({ data }: Props) {
   const context = useContext(MyCartContext);
 
-  const { cartSongData, setCartSongData } = context || {};
+  const { cartSongData, setCartSongData, cartAlbumData } = context || {};
 
   const Download = (songdata: any) => {
     // download function here
@@ -55,10 +56,16 @@ function AlbumPageSongEntryControls({ data }: Props) {
   const isInCart = cartSongData?.some(
     (song: SongData) => song.FilePathName === data.FilePathName,
   );
+
+  const isAlbumInCart = cartAlbumData?.some(
+    (song: AlbumData) => song.AlbumID === data.albumID,
+  );
   return (
     <span className="fs-7 m-1 text-end text-light">
       &nbsp;&nbsp;
-      {isInCart ? (
+      {isAlbumInCart ? (
+        <SongInCartDumb />
+      ) : isInCart ? (
         <SongInCart onClick={() => removeFromCart(data)} />
       ) : (
         <AddToCart onClick={() => addToCart(data)} />

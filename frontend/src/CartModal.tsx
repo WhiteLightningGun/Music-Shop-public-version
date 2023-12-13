@@ -2,10 +2,10 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import * as Icon from 'react-bootstrap-icons';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MyCartContext, CartProvider } from './CartContext';
 import CartModalSongEntry from './CartModalSongEntry';
-import { SongData } from './ScaffoldData';
+import { SongData, AlbumData } from './ScaffoldData';
 
 export default CartModal;
 
@@ -14,8 +14,18 @@ function CartModal({ props }: any) {
 
   const { cartSongData, setCartSongData, cartAlbumData, setCartAlbumData } =
     context || {};
+  const [totalItems, setTotalItems] = useState(0);
 
-  useEffect(() => {}, [cartSongData]);
+  useEffect(() => {
+    let total = 0;
+    if (cartSongData) {
+      total += cartSongData.length;
+    }
+    if (cartAlbumData) {
+      total += cartAlbumData.length;
+    }
+    setTotalItems(total);
+  }, [cartSongData, cartAlbumData]);
 
   const removeSong = (data: SongData) => {
     setCartSongData
@@ -25,10 +35,17 @@ function CartModal({ props }: any) {
       : console.log('setCartSongData is undefined or something');
   };
 
-  function calculateTotalPrice(cartSongData: SongData[] | undefined) {
+  function calculateTotalPrice(
+    cartSongData: SongData[] | undefined,
+    cartAlbumData: AlbumData[] | undefined,
+  ) {
     let total = 0;
     if (cartSongData) {
-      total = cartSongData.reduce((sum, song) => sum + song.SongPrice, 0);
+      total += cartSongData.reduce((sum, song) => sum + song.SongPrice, 0);
+    }
+
+    if (cartAlbumData) {
+      total += cartAlbumData.reduce((sum, album) => sum + album.AlbumPrice, 0);
     }
     return total.toFixed(2);
   }
@@ -44,7 +61,7 @@ function CartModal({ props }: any) {
       >
         <Icon.Cart className="mb-1" />
         <span className="badge bg-dark text-white ms-2 rounded-pill">
-          {cartSongData ? cartSongData.length : 0}
+          {totalItems}
         </span>
       </button>
 
@@ -86,13 +103,15 @@ function CartModal({ props }: any) {
               <hr className="my-3" style={{ borderTop: '1px solid #dee2e6' }} />
               <h4>ALBUMS</h4>
               {cartAlbumData && cartAlbumData.length > 0 ? (
-                <p>Cart has stuff init</p>
+                cartAlbumData.map((album, i) => (
+                  <p key={i}>{album.AlbumName}</p>
+                ))
               ) : (
                 <p>-</p>
               )}
               <hr className="my-3" style={{ borderTop: '1px solid #dee2e6' }} />
               <h4>TOTAL</h4>
-              <h5>£{calculateTotalPrice(cartSongData)}</h5>
+              <h5>£{calculateTotalPrice(cartSongData, cartAlbumData)}</h5>
             </div>
             <div className="modal-footer">
               <button
