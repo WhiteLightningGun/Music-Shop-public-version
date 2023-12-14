@@ -5,6 +5,7 @@ import * as Icon from 'react-bootstrap-icons';
 import { useContext, useEffect, useState } from 'react';
 import { MyCartContext, CartProvider } from './CartContext';
 import CartModalSongEntry from './CartModalSongEntry';
+import CartModalAlbumEntry from './CartModalAlbumEntry';
 import { SongData, AlbumData } from './ScaffoldData';
 
 export default CartModal;
@@ -31,6 +32,13 @@ function CartModal({ props }: any) {
     setCartSongData
       ? setCartSongData((prevSongs) =>
           prevSongs.filter((song) => song.FilePathName !== data.FilePathName),
+        )
+      : console.log('setCartSongData is undefined or something');
+  };
+  const removeAlbum = (data: AlbumData) => {
+    setCartAlbumData
+      ? setCartAlbumData((prevSongs) =>
+          prevSongs.filter((song) => song.AlbumID !== data.AlbumID),
         )
       : console.log('setCartSongData is undefined or something');
   };
@@ -104,7 +112,11 @@ function CartModal({ props }: any) {
               <h4>ALBUMS</h4>
               {cartAlbumData && cartAlbumData.length > 0 ? (
                 cartAlbumData.map((album, i) => (
-                  <p key={i}>{album.AlbumName}</p>
+                  <CartModalAlbumEntry
+                    key={i}
+                    albumData={album}
+                    removeSong={removeAlbum}
+                  />
                 ))
               ) : (
                 <p>-</p>
