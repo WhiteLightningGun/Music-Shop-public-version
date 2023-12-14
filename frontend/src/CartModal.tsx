@@ -133,12 +133,14 @@ function CartModal({ props }: any) {
               >
                 <span className="badge">CLOSE</span>
               </button>
-              <button
-                type="button"
-                className="btn normal-font btn-login btn-info"
-              >
-                <span className="badge">CHECKOUT</span>
-              </button>
+              <a href="/Checkout">
+                <button
+                  type="button"
+                  className="btn normal-font btn-login btn-info"
+                >
+                  <span className="badge">CHECKOUT</span>
+                </button>
+              </a>
             </div>
           </div>
         </div>

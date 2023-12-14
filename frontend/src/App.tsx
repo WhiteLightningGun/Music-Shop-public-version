@@ -16,6 +16,7 @@ import { CheckLoggedIn } from './PostLogin';
 import AdminPage from './AdminPage';
 import { CheckIsAdmin } from './IsAdminCheck';
 import { CartProvider } from './CartContext';
+import Checkout from './Checkout';
 
 function App() {
   const [albums, setLoadedAlbums] = useState<AlbumData[]>([]);
@@ -64,6 +65,7 @@ function App() {
                 element={<RegisterPage setLoggedIn={setLoggedIn} />}
               />
               {isAdmin ? <Route path="Admin" element={<AdminPage />} /> : null}
+              <Route path="Checkout" element={<Checkout />} />
             </Routes>
           </div>
         </BrowserRouter>
