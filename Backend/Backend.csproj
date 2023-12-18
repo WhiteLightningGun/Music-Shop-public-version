@@ -5,7 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-  </PropertyGroup>
+    <UserSecretsId>5e4cb772-6082-4d5d-9889-593a77581b41</UserSecretsId>
+</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.3.0" />

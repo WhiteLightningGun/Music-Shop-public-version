@@ -1,0 +1,11 @@
+{
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "MusicShopDB1",
+      "database": "${workspaceFolder:Music Player and Shop}/Backend/BackendIdentityDB.db"
+    }
+  ]
+}

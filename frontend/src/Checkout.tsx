@@ -6,12 +6,27 @@ import FooterTemplate from './FooterTemplate';
 import CheckoutBody from './CheckoutBody';
 import AlbumPageBody from './AlbumPageBody';
 import { AlbumData, SongData } from './ScaffoldData';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+
+const initialOptions = {
+  clientId:
+    'AQXQUpv0ZAajfVapD8LyOdFqB8bc8FkqCw56ySupuPzFFONTji3OxrQCTp3gaTif3dfW-zTbPyw2oDtz',
+  currency: 'USD',
+  intent: 'capture',
+};
 
 function Checkout() {
   return (
     <>
       <Header />
-      <CheckoutBody />
+      <PayPalScriptProvider
+        options={{
+          clientId:
+            'AQXQUpv0ZAajfVapD8LyOdFqB8bc8FkqCw56ySupuPzFFONTji3OxrQCTp3gaTif3dfW-zTbPyw2oDtz',
+        }}
+      >
+        <CheckoutBody />
+      </PayPalScriptProvider>
       <FooterTemplate />
     </>
   );
