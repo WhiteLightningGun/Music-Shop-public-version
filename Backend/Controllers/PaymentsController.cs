@@ -79,8 +79,30 @@ namespace Backend.Controllers
                         amount = new
                         {
                             currency_code = "USD",
-                            value = cartItem.Quantity // Assuming the quantity is the price
+                            value = cartItem.Quantity, // Assuming the quantity is the price
+                            breakdown = new
+                            {
+                                item_total = new
+                                {
+                                    currency_code = "USD",
+                                    value = cartItem.Quantity // Assuming the quantity is the price
+                                }
+                            }
                         },
+                        items = new[] // Add this array
+                        {
+                            new
+                            {
+                                name = "song name 123", // Add this line
+                                sku = cartItem.Id, // Add this line
+                                unit_amount = new
+                                {
+                                    currency_code = "USD",
+                                    value = cartItem.Quantity // Assuming the quantity is the price
+                                },
+                                quantity = '1' // Replace with the actual quantity
+                            }
+                        }
                     }).ToArray()
                 };
 

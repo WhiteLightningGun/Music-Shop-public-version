@@ -1,52 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { AlbumData, SongData } from './ScaffoldData';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import configData from './config.json';
+import CheckoutBodyPayPal from './CheckoutBodyPayPal';
+import { MyCartContext, CartProvider } from './CartContext';
+import * as Icon from 'react-bootstrap-icons';
 
 function CheckoutBody() {
-  const createOrder = () => {
-    console.log('createOrder was called');
-    return fetch(`${configData.SERVER_URL}/api/payments/create-order`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      // use the "body" param to optionally pass additional order information
-      // like product ids and quantities
-      body: JSON.stringify({
-        cart: [
-          {
-            id: 'Prod-ID-1',
-            quantity: '1', // i.e. used as price later
-          },
-        ],
-      }),
-    })
-      .then((response) => response.json())
-      .then((order) => order.id);
-  };
-  const onApprove = (data: any, actions: any) => {
-    console.log('onApprove was called');
-    console.log(`orderId: ${data}}`);
-    console.log(`orderId: ${data.orderID}}`);
-    return fetch(`${configData.SERVER_URL}/api/payments/capture-paypal-order`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        orderID: data.orderID,
-      }),
-    })
-      .then((response) => response.json())
-      .then((orderData) => {
-        const name = orderData.payer.name.given_name;
-        alert(`Transaction completed by ${name}`);
-      });
-  };
-
+  const context = useContext(MyCartContext);
+  const { cartSongData, setCartSongData, cartAlbumData, setCartAlbumData } =
+    context || {};
+  const [totalItems, setTotalItems] = useState(0);
   return (
     <>
       <div
@@ -57,13 +23,29 @@ function CheckoutBody() {
         <div className="container">
           <br></br>
           <div className="text-dark normal-font-light no-underline py-1">
-            <h3>Checkout</h3>
-            <PayPalButtons
-              style={{ layout: 'horizontal' }}
-              onApprove={onApprove}
-              createOrder={createOrder}
-            />
+            <h2>Checkout</h2>
           </div>
+          <div className="row text-dark normal-font-light py-1">
+            <div className="col-2 ">
+              <img
+                src="https://localhost:7158/images/3b9325cb-1bd5-4786-9212-b81d882ba8b2.jpg"
+                className="img-fluid"
+                alt="album pic"
+              />
+            </div>
+            <div className="col-8  text-start">
+              <h3>Unknown Feels</h3>
+              <p>Release Date: 2020-04-13</p>
+              <p>Track Count: 3</p>
+              <p>Price: £4.00</p>
+            </div>
+            <div className="col-2 mb-5 text-center">
+              <Icon.Trash className="text-dark fs-2 icon-hover-effect " />
+              <br></br>
+              <small>Remove Album</small>
+            </div>
+          </div>
+          <CheckoutBodyPayPal />
         </div>
       </div>
     </>

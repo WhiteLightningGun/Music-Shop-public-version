@@ -7,11 +7,13 @@ import { MyCartContext, CartProvider } from './CartContext';
 import CartModalSongEntry from './CartModalSongEntry';
 import CartModalAlbumEntry from './CartModalAlbumEntry';
 import { SongData, AlbumData } from './ScaffoldData';
+import { useLoginContext } from './LoggedInContext';
 
 export default CartModal;
 
 function CartModal({ props }: any) {
   const context = useContext(MyCartContext);
+  const { loggedIn } = useLoginContext();
 
   const { cartSongData, setCartSongData, cartAlbumData, setCartAlbumData } =
     context || {};
@@ -133,14 +135,26 @@ function CartModal({ props }: any) {
               >
                 <span className="badge">CLOSE</span>
               </button>
-              <a href="/Checkout">
-                <button
-                  type="button"
-                  className="btn normal-font btn-login btn-info"
-                >
-                  <span className="badge">CHECKOUT</span>
-                </button>
-              </a>
+
+              {loggedIn ? (
+                <a href="/Checkout">
+                  <button
+                    type="button"
+                    className="btn normal-font btn-login btn-info"
+                  >
+                    <span className="badge">CHECKOUT</span>
+                  </button>
+                </a>
+              ) : (
+                <a href="/Login">
+                  <button
+                    type="button"
+                    className="btn normal-font btn-login btn-info"
+                  >
+                    <span className="badge">LOGIN</span>
+                  </button>
+                </a>
+              )}
             </div>
           </div>
         </div>
