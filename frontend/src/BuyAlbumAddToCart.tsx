@@ -10,7 +10,7 @@ interface Props {
 const BuyAlbumAddToCart: React.FC<Props> = ({ onClick, data }: Props) => {
   return (
     <span onClick={onClick} style={{ cursor: 'pointer' }}>
-      <p>Buy Album: £{data.AlbumPrice}</p>
+      <p>Buy Album: £{data.AlbumPrice.toFixed(2)}</p>
     </span>
   );
 };

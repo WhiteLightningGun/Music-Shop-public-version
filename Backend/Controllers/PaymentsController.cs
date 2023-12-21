@@ -76,6 +76,7 @@ namespace Backend.Controllers
                     intent = "CAPTURE",
                     purchase_units = orderRequest.Cart?.Select(cartItem => new
                     {
+                        reference_id = Guid.NewGuid().ToString(),
                         amount = new
                         {
                             currency_code = "USD",
@@ -93,7 +94,7 @@ namespace Backend.Controllers
                         {
                             new
                             {
-                                name = "song name 123", // Add this line
+                                name = $"song name 123, {cartItem.Id}", // Add this line
                                 sku = cartItem.Id, // Add this line
                                 unit_amount = new
                                 {
@@ -101,7 +102,7 @@ namespace Backend.Controllers
                                     value = cartItem.Quantity // Assuming the quantity is the price
                                 },
                                 quantity = '1' // Replace with the actual quantity
-                            }
+                            },
                         }
                     }).ToArray()
                 };
@@ -120,6 +121,7 @@ namespace Backend.Controllers
                 }
                 else
                 {
+                    Console.WriteLine(response.Content.ReadAsStringAsync().Result);
                     return BadRequest("Failed to create order");
                 }
             }

@@ -38,7 +38,7 @@ function AlbumPageBody({ data }: Props) {
                   Album
                 </Link>
               </span>
-              &nbsp; /&nbsp;{data.AlbumName}
+              &nbsp;/&nbsp;{data.AlbumName}
             </h3>
           </div>
           <br></br>

@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import * as Icon from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { MyCartContext, CartProvider } from './CartContext';
 import CartModalSongEntry from './CartModalSongEntry';
@@ -137,14 +138,17 @@ function CartModal({ props }: any) {
               </button>
 
               {loggedIn ? (
-                <a href="/Checkout">
-                  <button
-                    type="button"
-                    className="btn normal-font btn-login btn-info"
-                  >
-                    <span className="badge">CHECKOUT</span>
-                  </button>
-                </a>
+                <>
+                  <Link className="nav-link normal-font" to="/Checkout">
+                    <button
+                      type="button"
+                      className="btn normal-font btn-login btn-info"
+                      data-bs-dismiss="modal"
+                    >
+                      <span className="badge">CHECKOUT</span>
+                    </button>
+                  </Link>
+                </>
               ) : (
                 <a href="/Login">
                   <button
