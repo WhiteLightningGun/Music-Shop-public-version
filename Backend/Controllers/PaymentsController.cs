@@ -47,17 +47,6 @@ namespace Backend.Controllers
             var accessToken = GetPaypalAccessToken();
             return $"Your access token is: {accessToken}";
         }
-        public class OrderRequest
-        {
-            public CartItem[]? Cart { get; set; }
-        }
-
-        public class CartItem
-        {
-            public string? Id { get; set; }
-            public string? value { get; set; }
-            public string? productID { get; set; }
-        }
 
         [HttpPost("create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest orderRequest)
@@ -126,11 +115,6 @@ namespace Backend.Controllers
                     return BadRequest("Failed to create order");
                 }
             }
-        }
-
-        public class OrderCaptureRequest
-        {
-            public string? orderID { get; set; }
         }
 
         [AllowAnonymous]
