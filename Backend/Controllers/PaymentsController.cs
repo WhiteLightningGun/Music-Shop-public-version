@@ -55,14 +55,15 @@ namespace Backend.Controllers
         public class CartItem
         {
             public string? Id { get; set; }
-            public string? Quantity { get; set; }
+            public string? value { get; set; }
+            public string? productID { get; set; }
         }
 
-        [AllowAnonymous]
         [HttpPost("create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest orderRequest)
         {
             Console.WriteLine(orderRequest.Cart);
+            Console.WriteLine($"User: {GetUserEmailFromClaims()}");
             var accessToken = GetPaypalAccessToken();
 
             using (var client = new HttpClient())
@@ -79,14 +80,14 @@ namespace Backend.Controllers
                         reference_id = Guid.NewGuid().ToString(),
                         amount = new
                         {
-                            currency_code = "USD",
-                            value = cartItem.Quantity, // Assuming the quantity is the price
+                            currency_code = "GBP",
+                            cartItem.value, // Assuming the quantity is the price
                             breakdown = new
                             {
                                 item_total = new
                                 {
-                                    currency_code = "USD",
-                                    value = cartItem.Quantity // Assuming the quantity is the price
+                                    currency_code = "GBP",
+                                    cartItem.value // Assuming the quantity is the price
                                 }
                             }
                         },
@@ -98,8 +99,8 @@ namespace Backend.Controllers
                                 sku = cartItem.Id, // Add this line
                                 unit_amount = new
                                 {
-                                    currency_code = "USD",
-                                    value = cartItem.Quantity // Assuming the quantity is the price
+                                    currency_code = "GBP",
+                                    cartItem.value // Assuming the quantity is the price
                                 },
                                 quantity = '1' // Replace with the actual quantity
                             },
@@ -207,6 +208,13 @@ namespace Backend.Controllers
                 return accessToken;
             }
         }
+
+        private string? GetUserEmailFromClaims()
+        {
+            var emailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+            return emailClaim?.Value;
+        }
+
 
     }
 }

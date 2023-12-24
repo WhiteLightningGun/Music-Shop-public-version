@@ -5,41 +5,45 @@ import { AlbumData, SongData } from './ScaffoldData';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import configData from './config.json';
 
-function CheckoutBodyPayPal() {
+interface CartBodyEntry {
+  id: string;
+  value: string;
+  productID: string;
+}
+
+interface Props {
+  songData: SongData[] | undefined;
+  albumData: AlbumData[] | undefined;
+}
+
+function CheckoutBodyPayPal({ songData, albumData }: Props) {
   const createOrder = () => {
     console.log('createOrder was called');
+    let cartBody = mapDataToCartBodyEntry(songData, albumData);
+
     return fetch(`${configData.SERVER_URL}/api/payments/create-order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
       },
       // use the "body" param to optionally pass additional order information
       // like product ids and quantities
       body: JSON.stringify({
-        cart: [
-          {
-            id: 'Prod-ID-1',
-            quantity: '1', // i.e. used as price later
-          },
-          {
-            id: 'Prod-ID-2',
-            quantity: '1', // i.e. used as price later
-          },
-        ],
+        cart: cartBody,
       }),
     })
       .then((response) => response.json())
       .then((order) => order.id);
   };
   const onApprove = async (data: any, actions: any) => {
-    console.log(`orderId: ${data}}`);
-    console.log(`orderId: ${data.orderID}}`);
     const response = await fetch(
       `${configData.SERVER_URL}/api/payments/capture-paypal-order`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
         },
         body: JSON.stringify({
           orderID: data.orderID,
@@ -67,3 +71,32 @@ function CheckoutBodyPayPal() {
 }
 
 export default CheckoutBodyPayPal;
+
+function mapDataToCartBodyEntry(
+  songData: SongData[] | undefined,
+  albumData: AlbumData[] | undefined,
+): CartBodyEntry[] {
+  const cart: CartBodyEntry[] = [];
+
+  songData
+    ? songData.forEach((song) => {
+        cart.push({
+          id: song.songName,
+          value: String(song.SongPrice),
+          productID: song.FilePathName,
+        });
+      })
+    : console.log('no songs in cart');
+
+  albumData
+    ? albumData.forEach((album) => {
+        cart.push({
+          id: album.AlbumName,
+          value: String(album.AlbumPrice),
+          productID: album.AlbumID,
+        });
+      })
+    : console.log('no album in cart');
+
+  return cart;
+}

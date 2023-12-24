@@ -11,7 +11,7 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 const initialOptions = {
   clientId:
     'AQXQUpv0ZAajfVapD8LyOdFqB8bc8FkqCw56ySupuPzFFONTji3OxrQCTp3gaTif3dfW-zTbPyw2oDtz',
-  currency: 'USD',
+  currency: 'GBP',
   intent: 'capture',
 };
 
@@ -19,12 +19,7 @@ function Checkout() {
   return (
     <>
       <Header />
-      <PayPalScriptProvider
-        options={{
-          clientId:
-            'AQXQUpv0ZAajfVapD8LyOdFqB8bc8FkqCw56ySupuPzFFONTji3OxrQCTp3gaTif3dfW-zTbPyw2oDtz',
-        }}
-      >
+      <PayPalScriptProvider options={initialOptions}>
         <CheckoutBody />
       </PayPalScriptProvider>
       <FooterTemplate />
