@@ -119,15 +119,15 @@ function CheckoutBody() {
             </>
           ) : (
             <>
-              <h3 className="text-dark normal-font-light no-underline py-1 mt-1 text-start">
+              <p className="text-dark normal-font-light no-underline py-1 mt-1 text-start">
                 You need to pick some music to buy!
-              </h3>
+              </p>
               <Link className="nav-link normal-font" to="/Albums">
                 <button
                   type="button"
                   className="btn normal-font btn-login btn-info"
                 >
-                  <span className="badge fs-2">Visit Albums</span>
+                  <span className="badge fs-3">Visit Albums</span>
                 </button>
               </Link>
             </>

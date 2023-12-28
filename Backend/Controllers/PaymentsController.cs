@@ -53,6 +53,8 @@ namespace Backend.Controllers
         {
             Console.WriteLine(orderRequest.Cart);
             Console.WriteLine($"User: {GetUserEmailFromClaims()}");
+            //Perform data integrity check here, it should be impossible for the user to buy a song which doesn't exist or has already purchased
+
             var accessToken = GetPaypalAccessToken();
 
             using (var client = new HttpClient())
@@ -103,7 +105,7 @@ namespace Backend.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Response Success");
+                    // Here is the point where we add an unconfirmed order to the DB, with form Paypal order ID, user ID, user Email, cart contents, and total price
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var createdOrder = JsonConvert.DeserializeObject<dynamic>(responseContent);
                     Console.WriteLine(createdOrder);

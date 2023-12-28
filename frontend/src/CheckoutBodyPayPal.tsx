@@ -4,6 +4,7 @@ import React from 'react';
 import { AlbumData, SongData } from './ScaffoldData';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import configData from './config.json';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface CartBodyEntry {
   id: string;
@@ -17,24 +18,28 @@ interface Props {
 }
 
 function CheckoutBodyPayPal({ songData, albumData }: Props) {
-  const createOrder = () => {
+  const navigate = useNavigate();
+  const createOrder = async () => {
     console.log('createOrder was called');
     let cartBody = mapDataToCartBodyEntry(songData, albumData);
 
-    return fetch(`${configData.SERVER_URL}/api/payments/create-order`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+    const response = await fetch(
+      `${configData.SERVER_URL}/api/payments/create-order`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+        },
+        // use the "body" param to optionally pass additional order information
+        // like product ids and quantities
+        body: JSON.stringify({
+          cart: cartBody,
+        }),
       },
-      // use the "body" param to optionally pass additional order information
-      // like product ids and quantities
-      body: JSON.stringify({
-        cart: cartBody,
-      }),
-    })
-      .then((response) => response.json())
-      .then((order) => order.id);
+    );
+    const order = await response.json();
+    return order.id;
   };
   const onApprove = async (data: any, actions: any) => {
     const response = await fetch(
@@ -55,6 +60,11 @@ function CheckoutBodyPayPal({ songData, albumData }: Props) {
     alert(`Transaction completed by ${name}`);
   };
 
+  const onError = (err: any) => {
+    console.log('something went wrong');
+    navigate('/error'); // create a new page for error
+  };
+
   return (
     <>
       <div className="row">
@@ -63,6 +73,7 @@ function CheckoutBodyPayPal({ songData, albumData }: Props) {
             style={{ layout: 'horizontal' }}
             onApprove={onApprove}
             createOrder={createOrder}
+            onError={onError}
           />
         </div>
       </div>
