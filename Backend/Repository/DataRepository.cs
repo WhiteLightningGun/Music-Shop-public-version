@@ -12,6 +12,56 @@ namespace Backend.Repository
             this.dataContext = dataContext;
         }
 
+        public async Task<bool> CheckCartItemsPrice(CartItem[] cartItems)
+        {
+            foreach (var cartItem in cartItems)
+            {
+                var songMatch = await dataContext.songData!.Select(x => x).Where(x => x.FileGetCode == cartItem.productID).FirstOrDefaultAsync();
+                var albumMatch = await dataContext.AlbumEntries!.Select(x => x).Where(x => x.AlbumId == cartItem.productID).FirstOrDefaultAsync();
+
+                if (songMatch != null && cartItem.value != null)
+                {
+                    if (songMatch.songPrice != decimal.Parse(cartItem.value))
+                    {
+                        return false;
+                    }
+                }
+                else if (albumMatch != null && cartItem.value != null)
+                {
+                    if (albumMatch.albumPrice !=  decimal.Parse(cartItem.value))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }   
+
+            }
+            return true;
+        }
+
+        public async Task<bool> AddPaypalOrder(string orderID, string userID, List<string> productIDs)
+        {
+            PaypalOrder paypalOrder = new PaypalOrder
+            {
+                OrderId = orderID,
+                OrderCompleted = false,
+                UserId = userID,
+                ProductIds = new List<string?>(),
+            };
+
+            foreach (var productID in productIDs)
+            {
+                paypalOrder.ProductIds.Add(productID);
+            }
+
+            dataContext.PaypalOrders!.Add(paypalOrder);
+            await dataContext.SaveChangesAsync();
+            return true;
+        }
+
         public SongData? GetMusic(string fileGetCode)
         {
             SongData? result = dataContext.songData?.Select(x => x).Where(x => x.FileGetCode == fileGetCode).FirstOrDefault();

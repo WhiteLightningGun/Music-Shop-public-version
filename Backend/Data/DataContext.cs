@@ -12,5 +12,6 @@ namespace Backend.Data
         public DbSet<SongData>? songData { get; set; }
         public DbSet<UserSongPurchases>? UserSongPurchases { get; set; }
         public DbSet<UserAlbumPurchases>? UserAlbumPurchases { get; set; }
+        public DbSet<PaypalOrder>? PaypalOrders { get; set; }
     }
 }

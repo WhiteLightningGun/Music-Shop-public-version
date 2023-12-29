@@ -28,32 +28,33 @@ namespace Backend.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
+        public DataContext dataContext;
+        public DataRepository dataRepository;
         private readonly string? _clientId;
         private readonly string? _clientSecret;
         public readonly string? clientUrl;
         private readonly string _payPalTokenUrl ="https://api-m.sandbox.paypal.com/v1/oauth2/token"; 
         private readonly string _payPalUrl = "https://api-m.sandbox.paypal.com";
-        public PaymentsController(IConfiguration configuration)
+        public PaymentsController(IConfiguration configuration, DataContext _dataContext)
         {
             _clientId = configuration["PayPal:ClientId"];
             _clientSecret = configuration["PayPal:ClientSecret"];
             clientUrl = configuration["ClientURL"];
+            dataContext = _dataContext;
+            dataRepository = new DataRepository(_dataContext);
 
-        }
-        [AllowAnonymous]
-        [HttpGet("TestOne")]
-        public string TestOne()
-        {
-            var accessToken = GetPaypalAccessToken();
-            return $"Your access token is: {accessToken}";
         }
 
         [HttpPost("create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest orderRequest)
         {
-            Console.WriteLine(orderRequest.Cart);
-            Console.WriteLine($"User: {GetUserEmailFromClaims()}");
+            string userEmailFromClaims = GetUserEmailFromClaims() ?? "";
+            string userIDFromClaims = GetUserID() ?? "";    
             //Perform data integrity check here, it should be impossible for the user to buy a song which doesn't exist or has already purchased
+            if (!await dataRepository.CheckCartItemsPrice(orderRequest.Cart!))
+            {
+                return BadRequest("cart integrity check failed");
+            }
 
             var accessToken = GetPaypalAccessToken();
 
@@ -93,7 +94,7 @@ namespace Backend.Controllers
                                     currency_code = "GBP",
                                     cartItem.value // Assuming the quantity is the price
                                 },
-                                quantity = '1' // Replace with the actual quantity
+                                quantity = '1' // This will always be one in the case of digital music files
                             },
                         }
                     }).ToArray()
@@ -103,11 +104,15 @@ namespace Backend.Controllers
 
                 var response = await client.SendAsync(createOrderRequest);
 
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode && orderRequest.Cart is not null)
                 {
-                    // Here is the point where we add an unconfirmed order to the DB, with form Paypal order ID, user ID, user Email, cart contents, and total price
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var createdOrder = JsonConvert.DeserializeObject<dynamic>(responseContent);
+
+                    List<string?> productsList = orderRequest.Cart.Select(item => item.productID?.ToString()).ToList();
+                    string paypalOrderId = createdOrder?.id.ToString() ?? "no order id";
+
+                    await dataRepository.AddPaypalOrder(paypalOrderId, userIDFromClaims, productsList!);
                     Console.WriteLine(createdOrder);
                     return Ok(responseContent);
                 }
@@ -201,6 +206,10 @@ namespace Backend.Controllers
             return emailClaim?.Value;
         }
 
-
+        private string? GetUserID()
+        {
+            var userIDClaim = User.Claims.FirstOrDefault( c => c.Type == ClaimTypes.NameIdentifier);
+            return userIDClaim?.Value;
+        }
     }
 }
