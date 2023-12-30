@@ -19,6 +19,14 @@ export interface AlbumData {
   AlbumID: string;
 }
 
+export interface PurchasedAlbumData {
+  AlbumID: string;
+}
+
+export interface PurchasedSongData {
+  FilePathName: string;
+}
+
 export interface AlbumDataJson {
   AllAlbums: AlbumData[];
 }

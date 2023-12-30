@@ -51,7 +51,7 @@ namespace Backend.Controllers
             string userEmailFromClaims = GetUserEmailFromClaims() ?? "";
             string userIDFromClaims = GetUserID() ?? "";    
             //Perform data integrity check here, it should be impossible for the user to buy a song which doesn't exist or has already purchased
-            if (!await dataRepository.CheckCartItemsPrice(orderRequest.Cart!))
+            if (!await dataRepository.CheckCartIntegrity(orderRequest.Cart!))
             {
                 return BadRequest("cart integrity check failed");
             }
@@ -73,13 +73,13 @@ namespace Backend.Controllers
                         amount = new
                         {
                             currency_code = "GBP",
-                            cartItem.value, // Assuming the quantity is the price
+                            cartItem.value, // Price of the item
                             breakdown = new
                             {
                                 item_total = new
                                 {
                                     currency_code = "GBP",
-                                    cartItem.value // Assuming the quantity is the price
+                                    cartItem.value // Price of the item
                                 }
                             }
                         },
@@ -87,12 +87,12 @@ namespace Backend.Controllers
                         {
                             new
                             {
-                                name = $"song name 123, {cartItem.Id}", // Add this line
-                                sku = cartItem.Id, // Add this line
+                                name = $"{cartItem.Id}", // Add this line
+                                sku = $"ET-Audio", // Add this line
                                 unit_amount = new
                                 {
                                     currency_code = "GBP",
-                                    cartItem.value // Assuming the quantity is the price
+                                    cartItem.value // Price of the item
                                 },
                                 quantity = '1' // This will always be one in the case of digital music files
                             },
@@ -124,7 +124,6 @@ namespace Backend.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpPost("capture-paypal-order")]
         public async Task<IActionResult> CaptureOrder([FromBody] OrderCaptureRequest request)
         {
@@ -146,6 +145,7 @@ namespace Backend.Controllers
                     var responseContent = await response.Content.ReadAsStringAsync();
                     // Parse the response and return the result
                     // This depends on the structure of your response
+                    await dataRepository.CompletePaypalOrder(orderId!);
                     Console.WriteLine("Order Captured: " + responseContent);
                     return Ok(responseContent);
                 }

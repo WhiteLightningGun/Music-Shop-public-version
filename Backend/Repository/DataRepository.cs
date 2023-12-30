@@ -12,7 +12,53 @@ namespace Backend.Repository
             this.dataContext = dataContext;
         }
 
-        public async Task<bool> CheckCartItemsPrice(CartItem[] cartItems)
+        public async Task<List<string>> GetUserAlbums(string userID)
+        {
+            var userAlbums = await dataContext.UserAlbumPurchases!.Select(x => x).Where(x => x.UserID == userID).ToListAsync();
+            List<string> albumIDs = new();
+            foreach (var album in userAlbums)
+            {
+                albumIDs.Add(album.AlbumID!);
+            }
+            return albumIDs;
+        }
+
+        public async Task<List<string>> GetUserSongs(string userID)
+        {
+            var userSongs = await dataContext.UserSongPurchases!.Select(x => x).Where( x=> x.UserID == userID).ToListAsync();
+            List<string> songIDs = new();
+            foreach (var song in userSongs)
+            {
+                songIDs.Add(song.SongID!);
+            }
+            return songIDs;
+        }
+
+        public async Task<string> GetSongOrAlbumNameFromId(string id)
+        {
+            var songMatch = await dataContext.songData!.Select(x => x).Where(x => x.FileGetCode == id).FirstOrDefaultAsync();
+            var albumMatch = await dataContext.AlbumEntries!.Select(x => x).Where(x => x.AlbumId == id).FirstOrDefaultAsync();
+
+            if (songMatch != null)
+            {
+                return songMatch.songName!;
+            }
+            else if (albumMatch != null)
+            {
+                return albumMatch.AlbumName!;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// Checks if the cart items are valid, i.e. the price of the song/album matches the price in the database and ensures the id exists
+        /// </summary>
+        /// <param name="cartItems"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckCartIntegrity(CartItem[] cartItems)
         {
             foreach (var cartItem in cartItems)
             {
@@ -42,6 +88,60 @@ namespace Backend.Repository
             return true;
         }
 
+        public async Task CompletePaypalOrder(string orderID)
+        {
+            var order = await dataContext.PaypalOrders!.Select(x => x).Where(x => x.OrderId == orderID).FirstOrDefaultAsync();
+            if (order != null)
+            {
+                var orderProductIds = order.ProductIds;
+                order.OrderCompleted = true;
+                await dataContext.SaveChangesAsync();
+                await UpdateUserPurchases(order.UserId!, orderProductIds!);
+            }
+        }
+
+        public async Task UpdateUserPurchases(string userID, List<string> productIDs)
+        {
+            var user = await dataContext.Users!.Select(x => x).Where(x => x.Id == userID).FirstOrDefaultAsync();
+            if (user != null)
+            {
+                foreach (var productID in productIDs)
+                {
+                    if(AlbumIdExists(productID))
+                    {
+                        var albumPurchase = new UserAlbumPurchases(userID, productID, 1.00m)
+                        {
+                            UserID = userID,
+                            UserEmail = $"{user!.Email}", // Set the user email property
+                            AlbumID = productID,
+                            SongName = "N/A", // Set the name property
+                            PricePaid = (decimal)1.00,
+                            Currency = "GBP", // Set the currency property
+                            TimeOfPurchase = DateTime.Now // Set the time of purchase property
+                        };
+
+                        dataContext.UserAlbumPurchases!.Add(albumPurchase);
+                    }
+                    else if (SongIdExists(productID))
+                    {
+                        var songPurchase = new UserSongPurchases(userID, productID, 1.00m)
+                        {
+                            UserID = userID,
+                            UserEmail = $"{user!.Email}", // Set the user email property
+                            SongID = productID,
+                            SongName = "N/A", // Set the song name property
+                            PricePaid = (decimal)1.00,
+                            Currency = "GBP", // Set the currency property
+                            TimeOfPurchase = DateTime.Now // Set the time of purchase property
+                        };
+
+                        dataContext.UserSongPurchases!.Add(songPurchase);
+                    }
+                }
+            }
+            await dataContext.SaveChangesAsync();
+        }
+    
         public async Task<bool> AddPaypalOrder(string orderID, string userID, List<string> productIDs)
         {
             PaypalOrder paypalOrder = new PaypalOrder

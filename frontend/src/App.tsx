@@ -4,7 +4,12 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import FrontPageTemplate from './FrontPageTemplate';
-import { AlbumData } from './ScaffoldData';
+import {
+  AlbumData,
+  SongData,
+  PurchasedAlbumData,
+  PurchasedSongData,
+} from './ScaffoldData';
 import AlbumsPage from './AlbumsPage';
 import AlbumPage from './AlbumPage';
 import LoginPage from './LoginPage';
@@ -22,6 +27,10 @@ function App() {
   const [albums, setLoadedAlbums] = useState<AlbumData[]>([]);
   const [loggedIn, setLoggedIn] = useState<boolean>(false); // create function to check if bearer token is still valid
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [purchasedAlbums, setPurchasedAlbums] = useState<PurchasedAlbumData[]>(
+    [],
+  );
+  const [purchasedSongs, setPurchasedSongs] = useState<PurchasedSongData[]>([]);
 
   useEffect(() => {
     const beginLoadAlbums = async () => {

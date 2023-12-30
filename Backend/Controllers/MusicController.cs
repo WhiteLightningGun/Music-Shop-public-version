@@ -103,6 +103,33 @@ namespace Backend.Controllers
             return jsonResult;
         }
 
+        [HttpGet("GetUserAlbums")]
+        public async Task<string> GetUserAlbums()
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine("User ID: " + userId);
+            if (userId is null)
+            {
+                return "[]";
+            }
+            var userAlbums = await dataRepository.GetUserAlbums(userId);
+            string jsonResult = JsonConvert.SerializeObject(userAlbums);
+            return jsonResult;
+        }
+
+        [HttpGet("GetUserSongs")]
+        public async Task<string> GetUserSongs()
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userId is null)
+            {
+                return "[]";
+            }
+            var userSongs = await dataRepository.GetUserSongs(userId);
+            string jsonResult = JsonConvert.SerializeObject(userSongs);
+            return jsonResult;   
+        }
+
         private bool IsUserLoggedIn()
         {
             if(HttpContext.User.Claims.Any())
