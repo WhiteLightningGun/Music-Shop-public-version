@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AlbumData, SongData } from './ScaffoldData';
-import { PayPalButtons } from '@paypal/react-paypal-js';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import configData from './config.json';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,10 @@ interface Props {
 }
 
 function CheckoutBodyPayPal({ songData, albumData }: Props) {
+  const [{ isPending }] = usePayPalScriptReducer();
+
   const navigate = useNavigate();
+
   const createOrder = async () => {
     console.log('createOrder was called');
     let cartBody = mapDataToCartBodyEntry(songData, albumData);
@@ -69,12 +72,16 @@ function CheckoutBodyPayPal({ songData, albumData }: Props) {
     <>
       <div className="row">
         <div className=" col-md-6 mx-auto">
-          <PayPalButtons
-            style={{ layout: 'horizontal' }}
-            onApprove={onApprove}
-            createOrder={createOrder}
-            onError={onError}
-          />
+          {isPending ? (
+            <p>Loading Paypal</p>
+          ) : (
+            <PayPalButtons
+              style={{ layout: 'horizontal' }}
+              onApprove={onApprove}
+              createOrder={createOrder}
+              onError={onError}
+            />
+          )}
         </div>
       </div>
     </>

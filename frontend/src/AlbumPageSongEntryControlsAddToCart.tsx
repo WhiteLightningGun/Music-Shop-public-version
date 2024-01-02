@@ -6,7 +6,6 @@ import { GetDownload } from './Data';
 import { AlbumData, SongData } from './ScaffoldData';
 import configData from './config.json';
 import { Link } from 'react-router-dom';
-import { MyCartContext } from './CartContext';
 
 interface Props {
   onClick: () => void;

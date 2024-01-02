@@ -8,12 +8,16 @@ import { useLoginContext } from './LoggedInContext';
 import AudioPlayerControls from './AudioPlayerControls';
 import AudioPlayerControlsLoading from './AudioPlayerControlsLoading';
 import BuyAlbum from './BuyAlbum';
+import { MyCartContext } from './CartContext';
+import { useContext } from 'react';
 
 interface Props {
   data: AlbumData;
 }
 
 function AudioPlayer({ data }: Props) {
+  const context = useContext(MyCartContext);
+  const { purchasedAlbumData, purchasedSongData } = context || {};
   const { loggedIn } = useLoginContext();
   const [trackIndex, setTrackIndex] = useState<number>(0);
   const totalTrackCount = data.TrackList.length;
@@ -78,6 +82,14 @@ function AudioPlayer({ data }: Props) {
     }
   };
 
+  const isTrackOwned =
+    purchasedSongData?.some(
+      (song) => String(song) === String(currentSong.FilePathName),
+    ) ||
+    purchasedAlbumData?.some((album) => String(album) === String(data.AlbumID))
+      ? true
+      : false;
+
   useEffect(() => {
     if (isPlaying) {
       audioRef.current?.play();
@@ -101,7 +113,7 @@ function AudioPlayer({ data }: Props) {
         />
         <span>
           <p className="normal-font text-dark fs-5">
-            {currentSong.songName}&nbsp;{loggedIn ? '' : '(preview)'}
+            {currentSong.songName}&nbsp;{isTrackOwned ? '' : '(preview)'}
           </p>
           <ProgressBar
             progressBarRef={progressBarRef}
@@ -138,9 +150,18 @@ function AudioPlayer({ data }: Props) {
             <a href={`${configData.CLIENT_URL}/register`}>Register</a> to
             purchase and hear all the music.
           </p>
-        ) : (
-          <BuyAlbum data={data} />
-        )}
+        ) : null}
+        {loggedIn ? (
+          purchasedAlbumData?.some(
+            (album) => String(album) === String(data.AlbumID),
+          ) ? (
+            <p>Already Owned</p>
+          ) : (
+            <>
+              <BuyAlbum data={data} />
+            </>
+          )
+        ) : null}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import * as Icon from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { MyCartContext, CartProvider } from './CartContext';
+import { MyCartContext } from './CartContext';
 import CartModalSongEntry from './CartModalSongEntry';
 import CartModalAlbumEntry from './CartModalAlbumEntry';
 import { SongData, AlbumData } from './ScaffoldData';

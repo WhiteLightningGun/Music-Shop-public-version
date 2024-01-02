@@ -27,16 +27,17 @@ async function GetDownload(data: SongData) {
   );
 
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    //throw new Error(`HTTP error! status: ${response.status}`);
+    //console.log('unauthorised');
+  } else {
+    const blob = await response.blob();
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = `${data.songName}.mp3`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
-
-  const blob = await response.blob();
-  const downloadUrl = window.URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = downloadUrl;
-  link.download = `${data.songName}.mp3`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
 }
 export { GetDownload };

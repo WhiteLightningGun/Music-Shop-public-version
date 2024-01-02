@@ -14,7 +14,8 @@ import AlbumsPage from './AlbumsPage';
 import AlbumPage from './AlbumPage';
 import LoginPage from './LoginPage';
 import { MyLoginContext } from './LoggedInContext';
-import { GetAlbums } from './JsonConverters';
+import { GetAlbums, GetPurchasedSongs } from './JsonConverters';
+import { GetPurchasedAlbums } from './JsonConverters';
 import RegisterPage from './Register';
 import PasswordReset from './PasswordReset';
 import { CheckLoggedIn } from './PostLogin';
@@ -45,9 +46,19 @@ function App() {
       let adminCheck = await CheckIsAdmin();
       setIsAdmin(adminCheck);
     };
+    const beginLoadPurchasedAlbums = async () => {
+      let purchasedAlbums: PurchasedAlbumData[] = await GetPurchasedAlbums();
+      setPurchasedAlbums(purchasedAlbums);
+    };
+    const beginLoadPurchasedSongs = async () => {
+      let purchasedSongs: PurchasedSongData[] = await GetPurchasedSongs();
+      setPurchasedSongs(purchasedSongs);
+    };
     loggedInAdminCheck();
     beginLoadAlbums();
     LoggedInCheck();
+    beginLoadPurchasedAlbums();
+    beginLoadPurchasedSongs();
   }, [isAdmin]);
   return (
     <CartProvider>

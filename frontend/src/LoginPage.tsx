@@ -1,15 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import Header from './Header';
 import FooterTemplate from './FooterTemplate';
 import { PostLogin, GetInfoEmail } from './PostLogin';
 import React, { useState, useContext, useEffect } from 'react';
 import { useLoginContext } from './LoggedInContext';
 import Logout from './Logout';
-import { RegisterPost, LoginForm } from './JsonConverters';
+import {
+  RegisterPost,
+  LoginForm,
+  GetPurchasedAlbums,
+  GetPurchasedSongs,
+} from './JsonConverters';
 import { useSearchParams } from 'react-router-dom';
 import configData from './config.json';
+import { MyCartContext } from './CartContext';
 
 function LoginPage({ setLoggedIn }: any) {
   const { register, handleSubmit, reset, getValues } = useForm<LoginForm>();
@@ -18,6 +24,14 @@ function LoginPage({ setLoggedIn }: any) {
   const [queryParameters] = useSearchParams();
   const [success, setSuccess] = useState<boolean>(false);
   const [userEmail, setUserEmail] = useState<string>('');
+
+  const context = useContext(MyCartContext);
+  const {
+    purchasedAlbumData,
+    purchasedSongData,
+    setPurchasedAlbums,
+    setPurchasedSongs,
+  } = context || {};
 
   useEffect(() => {
     if (queryParameters.get('success') === 'true') {
@@ -43,6 +57,17 @@ function LoginPage({ setLoggedIn }: any) {
     if (loginSuccess === true) {
       setLoggedIn(true);
       setNotification('');
+
+      let purchasedalbums = await GetPurchasedAlbums();
+      if (setPurchasedAlbums) {
+        setPurchasedAlbums(purchasedalbums);
+      }
+
+      let purchasedsongs = await GetPurchasedSongs();
+      if (setPurchasedSongs) {
+        setPurchasedSongs(purchasedsongs);
+      }
+
       //clear form values
       reset();
     } else {

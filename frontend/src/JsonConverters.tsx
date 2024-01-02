@@ -17,6 +17,75 @@ async function GetAlbums() {
 
 export { GetAlbums };
 
+async function GetPurchasedAlbums() {
+  const bearerToken = sessionStorage.getItem('Bearer');
+  let headers = {};
+
+  if (bearerToken) {
+    headers = {
+      Authorization: `Bearer ${bearerToken}`,
+    };
+  }
+
+  let albumsResult = fetch(`${configData.SERVER_URL}/api/Music/GetUserAlbums`, {
+    method: 'GET',
+    headers: headers,
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 401) {
+        console.log('Unauthorized request');
+        return false;
+      } else {
+        return false;
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch(() => {
+      return [];
+    });
+  return albumsResult;
+}
+
+export { GetPurchasedAlbums };
+
+async function GetPurchasedSongs() {
+  const bearerToken = sessionStorage.getItem('Bearer');
+  let headers = {};
+
+  if (bearerToken) {
+    headers = {
+      Authorization: `Bearer ${bearerToken}`,
+    };
+  }
+  let songsResult = fetch(`${configData.SERVER_URL}/api/Music/GetUserSongs`, {
+    method: 'GET',
+    headers: headers,
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else if (response.status === 401) {
+        console.log('Unauthorized request');
+        return false;
+      } else {
+        return false;
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch(() => {
+      return [];
+    });
+  return songsResult;
+}
+
+export { GetPurchasedSongs };
+
 export type RegisterPostBody = {
   email: string;
   password: string;

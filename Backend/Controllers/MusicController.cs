@@ -46,7 +46,6 @@ namespace Backend.Controllers
         public async Task<IActionResult> GetMusic(string fileGetCode)
         {
             var songData = dataRepository.GetMusic(fileGetCode);
-            Console.WriteLine("SongData get here");
             if (songData is null)
             {
                 // Handle the case when songData is null
@@ -54,25 +53,37 @@ namespace Backend.Controllers
             }
 
             var isUserLoggedIn = IsUserLoggedIn();
+            var userId = GetUserId();
+            var isUserAdmin = IsUserAdmin();
+            var userHasMusicPurchased = await dataRepository.HasUserPurchased(userId, fileGetCode);
 
             var musicPath = GetMusicPath(songData.AlbumId, fileGetCode);
 
             byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(musicPath);
 
-            if (!isUserLoggedIn)
+            if(isUserAdmin || userHasMusicPurchased)
             {
-                Console.WriteLine("User not logged in");
+                var fileResultAdmin = CreateFileResult(fileBytes, songData?.songName ?? string.Empty);
+                return fileResultAdmin;
+            }
+            else
+            {
                 fileBytes = GetPreview(fileBytes);
+                var fileResult = CreateFileResult(fileBytes, songData?.songName ?? string.Empty);
+                return fileResult;
             }
 
-            var fileResult = CreateFileResult(fileBytes, songData?.songName ?? string.Empty);
-            return fileResult;
         }
 
         //Currently only returns mp3
-        [HttpGet("MusicFileArgDownload"), AllowAnonymous]
+        [HttpGet("MusicFileArgDownload")]
         public async Task<IActionResult> GetMusicDownload(string fileGetCode)
         {
+            //First check if user actually has permission to download this file
+            var userId = GetUserId();
+            var isUserAdmin = IsUserAdmin();
+            var userHasMusicPurchased = await dataRepository.HasUserPurchased(userId, fileGetCode);
+
             var songData = dataRepository.GetMusic(fileGetCode);
 
             if (songData is null)
@@ -81,18 +92,21 @@ namespace Backend.Controllers
                 return NotFound();
             }
 
-            var isUserLoggedIn = IsUserLoggedIn();
-
             var musicPath = GetMusicPath(songData.AlbumId, fileGetCode);
-
             byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(musicPath);
 
-            if (!isUserLoggedIn)
+            if(isUserAdmin)
             {
-                fileBytes = GetPreview(fileBytes);
+                return File(fileBytes, "audio/mpeg", $"{songData.songName}.mp3");
             }
-            
-            return File(fileBytes, "audio/mpeg", $"{songData.songName}.mp3");
+            else if(userHasMusicPurchased)
+            {
+                return File(fileBytes, "audio/mpeg", $"{songData.songName}.mp3");
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpGet("GrabAlbums"), AllowAnonymous]
@@ -103,7 +117,7 @@ namespace Backend.Controllers
             return jsonResult;
         }
 
-        [HttpGet("GetUserAlbums")]
+        [HttpGet("GetUserAlbums"), AllowAnonymous]
         public async Task<string> GetUserAlbums()
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -117,7 +131,7 @@ namespace Backend.Controllers
             return jsonResult;
         }
 
-        [HttpGet("GetUserSongs")]
+        [HttpGet("GetUserSongs"), AllowAnonymous]
         public async Task<string> GetUserSongs()
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -142,14 +156,36 @@ namespace Backend.Controllers
             }
         }
 
+        private bool IsUserAdmin()
+        {
+            if(HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == AdminRole))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private string GetUserId()
+        {
+            var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            return userId ?? "";
+        }
+
         private static string GetMusicPath(string albumId, string fileGetCode)
         {
             return Path.Combine(MainDirectory, $"Music/{albumId}/mp3/{fileGetCode}.mp3");
         }
 
+        /// <summary>
+        /// Gets a preview of the song by returning the first 10% of the audio file bytes
+        /// </summary>
+        /// <param name="fileBytes"></param>
+        /// <returns></returns>
         private static byte[] GetPreview(byte[] fileBytes)
         {
-            Console.WriteLine("Getting preview");
             var previewLength = fileBytes.Length / 10;
             return new ArraySegment<byte>(fileBytes, 0, previewLength).ToArray();
         }

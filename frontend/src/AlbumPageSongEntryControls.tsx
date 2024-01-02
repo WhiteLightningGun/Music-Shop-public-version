@@ -33,7 +33,13 @@ export { AlbumPageSongEntryLogin };
 function AlbumPageSongEntryControls({ data }: Props) {
   const context = useContext(MyCartContext);
 
-  const { cartSongData, setCartSongData, cartAlbumData } = context || {};
+  const {
+    cartSongData,
+    setCartSongData,
+    cartAlbumData,
+    purchasedSongData,
+    purchasedAlbumData,
+  } = context || {};
 
   const Download = (songdata: any) => {
     // download function here
@@ -53,6 +59,14 @@ function AlbumPageSongEntryControls({ data }: Props) {
       : console.log('setCartSongData is undefined or something');
   };
 
+  const isOwned =
+    purchasedSongData?.some(
+      (song) => String(song) === String(data.FilePathName),
+    ) ||
+    purchasedAlbumData?.some((album) => String(album) === String(data.albumID))
+      ? true
+      : false;
+
   const isInCart = cartSongData?.some(
     (song: SongData) => song.FilePathName === data.FilePathName,
   );
@@ -63,24 +77,30 @@ function AlbumPageSongEntryControls({ data }: Props) {
   return (
     <span className="fs-7 m-1 text-end text-light">
       &nbsp;&nbsp;
-      {isAlbumInCart ? (
+      {isOwned ? (
+        <></>
+      ) : isAlbumInCart ? (
         <SongInCartDumb />
       ) : isInCart ? (
         <SongInCart onClick={() => removeFromCart(data)} />
       ) : (
         <AddToCart onClick={() => addToCart(data)} />
       )}
-      <span
-        className="text-glow text-light"
-        style={{ cursor: 'pointer' }}
-        onClick={() => {
-          Download(data);
-        }}
-        id={data.songName}
-      >
-        &nbsp;
-        <Icon.Download className="mb-1 fs-5 text-white text-glow" />
-      </span>
+      {isOwned ? (
+        <span
+          className="text-glow text-light"
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            Download(data);
+          }}
+          id={data.songName}
+        >
+          Download &nbsp;
+          <Icon.Download className="mb-1 fs-5 text-white text-glow" />
+        </span>
+      ) : (
+        <></>
+      )}
     </span>
   );
 }

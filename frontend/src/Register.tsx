@@ -50,7 +50,6 @@ function RegisterPage({ setLoggedIn }: any) {
           <br></br>
           <div className="text-dark normal-font-light no-underline py-1">
             <h3>Register</h3>
-            <p>{loggedIn ? 'true' : 'false'}</p>
             <form className="text-start" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-group">
                 <label className="mb-2">Email address</label>

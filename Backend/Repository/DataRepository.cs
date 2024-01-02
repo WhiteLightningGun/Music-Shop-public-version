@@ -12,6 +12,37 @@ namespace Backend.Repository
             this.dataContext = dataContext;
         }
 
+        public async Task<bool> HasUserPurchased(string userId, string songID)
+        {
+            // get album id associated with songID
+            var albumPurchasesCheck = await dataContext.songData!
+            .Join(dataContext.UserAlbumPurchases!,
+                songData => songData.AlbumId,
+                userAlbumPurchases => userAlbumPurchases.AlbumID,
+                (songData, userAlbumPurchase) => new { SongData = songData, UserAlbumPurchase = userAlbumPurchase })
+            .Where(x => x.SongData.FileGetCode == songID && x.UserAlbumPurchase.UserID == userId)
+            .Select(x => x.SongData.AlbumId)
+            .FirstOrDefaultAsync();
+
+            var songPurchasesCheck = await dataContext.UserSongPurchases!.Select(x => x).Where(x => x.UserID == userId && x.SongID == songID).FirstOrDefaultAsync();
+
+            if (albumPurchasesCheck != null)
+            {
+                Console.WriteLine("User has purchased album with id {0}", albumPurchasesCheck);
+                return true;
+            }
+            else if (songPurchasesCheck != null)
+            {
+                Console.WriteLine("User has purchased song with id {0}", songID);
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("User has not purchased song with id {0}", songID);
+                return false;
+            }
+        }
+
         public async Task<List<string>> GetUserAlbums(string userID)
         {
             var userAlbums = await dataContext.UserAlbumPurchases!.Select(x => x).Where(x => x.UserID == userID).ToListAsync();

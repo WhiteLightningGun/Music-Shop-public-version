@@ -14,3 +14,11 @@
 
 
   dotnet run --launch-profile https
+
+
+  ---
+
+  SELECT a.AlbumId FROM songData a 
+JOIN UserAlbumPurchases b ON b.AlbumId = a.AlbumId
+WHERE a.FileGetCode = 'e070d77f-d99c-4b67-a291-bc46796603ca'
+AND b.UserId = 'd04d52e5-663e-4f48-96bb-db97c65b927e';
