@@ -15,9 +15,16 @@ interface CartBodyEntry {
 interface Props {
   songData: SongData[] | undefined;
   albumData: AlbumData[] | undefined;
+  clearCart: () => void;
+  refreshUserPurchases: () => void;
 }
 
-function CheckoutBodyPayPal({ songData, albumData }: Props) {
+function CheckoutBodyPayPal({
+  songData,
+  albumData,
+  clearCart,
+  refreshUserPurchases,
+}: Props) {
   const [{ isPending }] = usePayPalScriptReducer();
 
   const navigate = useNavigate();
@@ -60,7 +67,11 @@ function CheckoutBodyPayPal({ songData, albumData }: Props) {
     );
     const orderData = await response.json();
     const name = orderData.payer.name.given_name;
+    clearCart();
+    //update client state on songs and albums owned by this user
+    refreshUserPurchases();
     alert(`Transaction completed by ${name}`);
+    //clear cart here
   };
 
   const onError = (err: any) => {

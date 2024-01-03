@@ -51,7 +51,7 @@ namespace Backend.Controllers
             string userEmailFromClaims = GetUserEmailFromClaims() ?? "";
             string userIDFromClaims = GetUserID() ?? "";    
             //Perform data integrity check here, it should be impossible for the user to buy a song which doesn't exist or has already purchased
-            if (!await dataRepository.CheckCartIntegrity(orderRequest.Cart!))
+            if (!await dataRepository.CheckCartIntegrity(orderRequest.Cart!, userIDFromClaims))
             {
                 return BadRequest("cart integrity check failed");
             }

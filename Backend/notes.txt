@@ -22,3 +22,10 @@
 JOIN UserAlbumPurchases b ON b.AlbumId = a.AlbumId
 WHERE a.FileGetCode = 'e070d77f-d99c-4b67-a291-bc46796603ca'
 AND b.UserId = 'd04d52e5-663e-4f48-96bb-db97c65b927e';
+
+
+--
+
+SELECT a.SongID, a.PricePaid, b.AlbumId FROM UserSongPurchases a
+JOIN songData b on a.SongID = b.FileGetCode
+WHERE b.AlbumId = '82e0d8c9-0561-4103-b9ba-86db2419c222' AND a.UserId = 'ff7e29eb-b3a0-487b-822e-98850e277195';

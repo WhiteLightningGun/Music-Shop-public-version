@@ -1,7 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import React, { useContext, useEffect, useState } from 'react';
-import { AlbumData, SongData } from './ScaffoldData';
+import {
+  AlbumData,
+  PurchasedAlbumData,
+  PurchasedSongData,
+  SongData,
+} from './ScaffoldData';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import configData from './config.json';
 import CheckoutBodyPayPal from './CheckoutBodyPayPal';
@@ -11,13 +16,22 @@ import * as Icon from 'react-bootstrap-icons';
 import CheckoutBodySongEntry from './CheckoutBodySongEntry';
 import { useLoginContext } from './LoggedInContext';
 import { Link } from 'react-router-dom';
+import { GetPurchasedAlbums, GetPurchasedSongs } from './JsonConverters';
 
 function CheckoutBody() {
   const context = useContext(MyCartContext);
   const { loggedIn } = useLoginContext();
 
-  const { cartSongData, setCartSongData, cartAlbumData, setCartAlbumData } =
-    context || {};
+  const {
+    cartSongData,
+    setCartSongData,
+    cartAlbumData,
+    setCartAlbumData,
+    purchasedAlbumData,
+    purchasedSongData,
+    setPurchasedAlbums,
+    setPurchasedSongs,
+  } = context || {};
   const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
@@ -44,6 +58,22 @@ function CheckoutBody() {
           prevSongs.filter((song) => song.AlbumID !== data.AlbumID),
         )
       : console.log('setCartSongData is undefined or something');
+  };
+
+  const clearCart = () => {
+    if (setCartAlbumData && setCartSongData) {
+      setCartAlbumData([]);
+      setCartSongData([]);
+    }
+  };
+
+  const refreshUserPurchases = async () => {
+    let purchasedAlbums: PurchasedAlbumData[] = await GetPurchasedAlbums();
+    let purchasedSongs: PurchasedSongData[] = await GetPurchasedSongs();
+    if (setPurchasedAlbums && setPurchasedSongs) {
+      setPurchasedAlbums(purchasedAlbums);
+      setPurchasedSongs(purchasedSongs);
+    }
   };
 
   function calculateTotalPrice(
@@ -115,19 +145,21 @@ function CheckoutBody() {
               <CheckoutBodyPayPal
                 songData={cartSongData}
                 albumData={cartAlbumData}
+                clearCart={clearCart}
+                refreshUserPurchases={refreshUserPurchases}
               />{' '}
             </>
           ) : (
             <>
               <p className="text-dark normal-font-light no-underline py-1 mt-1 text-start">
-                You need to pick some music to buy!
+                Nothing to see here!
               </p>
               <Link className="nav-link normal-font" to="/Albums">
                 <button
                   type="button"
                   className="btn normal-font btn-login btn-info"
                 >
-                  <span className="badge fs-3">Visit Albums</span>
+                  <span className="badge fs-3">Return To Albums</span>
                 </button>
               </Link>
             </>

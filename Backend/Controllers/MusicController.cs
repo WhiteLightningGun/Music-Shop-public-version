@@ -68,7 +68,7 @@ namespace Backend.Controllers
             }
             else
             {
-                fileBytes = GetPreview(fileBytes);
+                fileBytes = GetAudioPreview(fileBytes);
                 var fileResult = CreateFileResult(fileBytes, songData?.songName ?? string.Empty);
                 return fileResult;
             }
@@ -184,7 +184,7 @@ namespace Backend.Controllers
         /// </summary>
         /// <param name="fileBytes"></param>
         /// <returns></returns>
-        private static byte[] GetPreview(byte[] fileBytes)
+        private static byte[] GetAudioPreview(byte[] fileBytes)
         {
             var previewLength = fileBytes.Length / 10;
             return new ArraySegment<byte>(fileBytes, 0, previewLength).ToArray();

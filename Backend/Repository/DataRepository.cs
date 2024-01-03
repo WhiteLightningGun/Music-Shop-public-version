@@ -28,17 +28,14 @@ namespace Backend.Repository
 
             if (albumPurchasesCheck != null)
             {
-                Console.WriteLine("User has purchased album with id {0}", albumPurchasesCheck);
                 return true;
             }
             else if (songPurchasesCheck != null)
             {
-                Console.WriteLine("User has purchased song with id {0}", songID);
                 return true;
             }
             else
             {
-                Console.WriteLine("User has not purchased song with id {0}", songID);
                 return false;
             }
         }
@@ -89,7 +86,7 @@ namespace Backend.Repository
         /// </summary>
         /// <param name="cartItems"></param>
         /// <returns></returns>
-        public async Task<bool> CheckCartIntegrity(CartItem[] cartItems)
+        public async Task<bool> CheckCartIntegrity(CartItem[] cartItems, string userID)
         {
             foreach (var cartItem in cartItems)
             {
@@ -105,7 +102,9 @@ namespace Backend.Repository
                 }
                 else if (albumMatch != null && cartItem.value != null)
                 {
-                    if (albumMatch.albumPrice !=  decimal.Parse(cartItem.value))
+                    //check if album price for this user matches the cartItem value
+                    decimal albumPriceForUser = await GetAlbumPriceForUser(userID, cartItem.productID!);
+                    if (albumPriceForUser != decimal.Parse(cartItem.value))
                     {
                         return false;
                     }
@@ -114,9 +113,27 @@ namespace Backend.Repository
                 {
                     return false;
                 }   
-
             }
             return true;
+        }
+
+        private async Task<decimal> GetAlbumPriceForUser(string userID, string albumID)
+        {
+            // get list of user Songs already purchased and filter them by getting only the songs associated with a given AlbumID
+            var userSongsPurchasedFromThisAlbum = await (from a in dataContext.UserSongPurchases
+            join b in dataContext.songData! on a.SongID equals b.FileGetCode
+            where b.AlbumId == albumID && a.UserID == userID
+            select new { a.SongID, a.PricePaid, b.AlbumId }).ToListAsync();
+            decimal pricePaidSoFar = 0.00m;
+
+            if (userSongsPurchasedFromThisAlbum is not null)
+            {
+                pricePaidSoFar = userSongsPurchasedFromThisAlbum.Select(x => x.PricePaid).Sum();
+            }
+
+            Console.WriteLine("Price paid so far {0}", pricePaidSoFar);
+            var album = await dataContext.AlbumEntries!.Select(x => x).Where(x => x.AlbumId == albumID).FirstOrDefaultAsync();
+            return album!.albumPrice - pricePaidSoFar;
         }
 
         public async Task CompletePaypalOrder(string orderID)
