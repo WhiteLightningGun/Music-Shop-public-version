@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import { useForm } from 'react-hook-form';
 import Header from './Header';
 import FooterTemplate from './FooterTemplate';
-import { PostLogin, GetInfoEmail } from './PostLogin';
 import React, { useState, useContext, useEffect } from 'react';
 import { useLoginContext } from './LoggedInContext';
 import Logout from './Logout';

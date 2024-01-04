@@ -33,23 +33,24 @@ namespace Backend.Controllers
         private readonly string? _clientId;
         private readonly string? _clientSecret;
         public readonly string? clientUrl;
+        public IEmailSender emailSender;
         private readonly string _payPalTokenUrl ="https://api-m.sandbox.paypal.com/v1/oauth2/token"; 
         private readonly string _payPalUrl = "https://api-m.sandbox.paypal.com";
-        public PaymentsController(IConfiguration configuration, DataContext _dataContext)
+        public PaymentsController(IConfiguration configuration, DataContext _dataContext, IEmailSender _emailSender)
         {
             _clientId = configuration["PayPal:ClientId"];
             _clientSecret = configuration["PayPal:ClientSecret"];
             clientUrl = configuration["ClientURL"];
             dataContext = _dataContext;
             dataRepository = new DataRepository(_dataContext);
-
+            emailSender = _emailSender; 
         }
 
         [HttpPost("create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest orderRequest)
         {
             string userEmailFromClaims = GetUserEmailFromClaims() ?? "";
-            string userIDFromClaims = GetUserID() ?? "";    
+            string userIDFromClaims = GetUserID() ?? "";
             //Perform data integrity check here, it should be impossible for the user to buy a song which doesn't exist or has already purchased
             if (!await dataRepository.CheckCartIntegrity(orderRequest.Cart!, userIDFromClaims))
             {
@@ -110,8 +111,7 @@ namespace Backend.Controllers
                     var createdOrder = JsonConvert.DeserializeObject<dynamic>(responseContent);
 
                     List<string?> productsList = orderRequest.Cart.Select(item => item.productID?.ToString()).ToList();
-                    string paypalOrderId = createdOrder?.id.ToString() ?? "no order id";
-
+                    string paypalOrderId = createdOrder?.id.ToString() ?? "no order id";  
                     await dataRepository.AddPaypalOrder(paypalOrderId, userIDFromClaims, productsList!);
                     Console.WriteLine(createdOrder);
                     return Ok(responseContent);
@@ -127,7 +127,6 @@ namespace Backend.Controllers
         [HttpPost("capture-paypal-order")]
         public async Task<IActionResult> CaptureOrder([FromBody] OrderCaptureRequest request)
         {
-            Console.WriteLine("Capture Order Request Received: " + request.orderID);
             var orderId = request.orderID;
             var accessToken = GetPaypalAccessToken();
 
@@ -145,7 +144,11 @@ namespace Backend.Controllers
                     var responseContent = await response.Content.ReadAsStringAsync();
                     // Parse the response and return the result
                     // This depends on the structure of your response
+                    // send confirmation email
                     await dataRepository.CompletePaypalOrder(orderId!);
+                    string userEmail = await dataRepository.GetUserEmailFromPaypalOrderID(orderId!);
+                    string musicName = "music name";   
+                    await emailSender.SendEmailAsync(userEmail, $"Paypal Order Confirmation - {orderId} ", "Well done, you have successfully purchased some music! Please visit the albums page and download your music.");
                     Console.WriteLine("Order Captured: " + responseContent);
                     return Ok(responseContent);
                 }

@@ -84,7 +84,12 @@ function CheckoutBodyPayPal({
       <div className="row">
         <div className=" col-md-6 mx-auto">
           {isPending ? (
-            <p>Loading Paypal</p>
+            <>
+              <div className="spinner-border text-info" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <p>Loading Paypal</p>
+            </>
           ) : (
             <PayPalButtons
               style={{ layout: 'horizontal' }}

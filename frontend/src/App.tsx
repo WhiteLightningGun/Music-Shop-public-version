@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import FrontPageTemplate from './FrontPageTemplate';
 import {
   AlbumData,
-  SongData,
   PurchasedAlbumData,
   PurchasedSongData,
 } from './ScaffoldData';
@@ -66,7 +65,7 @@ function App() {
         <BrowserRouter>
           <div className="App ">
             <Routes>
-              <Route path="PasswordReset" element={<PasswordReset />} />
+              <Route path="passwordreset" element={<PasswordReset />} />
               <Route path="" element={<FrontPageTemplate />} />
               <Route path="Albums" element={<AlbumsPage />} />
               {albums.map((albumInstance, i) => (

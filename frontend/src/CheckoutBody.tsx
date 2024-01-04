@@ -140,7 +140,7 @@ function CheckoutBody() {
           {checkData(cartSongData, cartAlbumData) ? (
             <>
               <hr className="my-3" style={{ borderTop: '1px solid #dee2e6' }} />
-              <h4>TOTAL</h4>
+              <h4>TOTAL PRICE</h4>
               <h5>£{calculateTotalPrice(cartSongData, cartAlbumData)}</h5>
               <CheckoutBodyPayPal
                 songData={cartSongData}

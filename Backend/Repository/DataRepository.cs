@@ -12,6 +12,31 @@ namespace Backend.Repository
             this.dataContext = dataContext;
         }
 
+        public async Task<string> GetUserEmailFromPaypalOrderID(string orderID)
+        {
+            var order = await dataContext.PaypalOrders!.Select(x => x).Where(x => x.OrderId == orderID).FirstOrDefaultAsync();
+            if (order != null)
+            {
+                string? userEmail = await dataContext.Users!.Select(x => x).Where(x => x.Id == order.UserId).Select(x => x.Email).FirstOrDefaultAsync();
+                return userEmail ?? "";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public async Task<string> GetUserSongsFromPaypalID(string orderID)
+        {
+            var order = await dataContext.PaypalOrders!.Select(x => x).Where(x => x.OrderId == orderID).FirstOrDefaultAsync();
+            if (order is not null)
+            {
+                var listOfSongIds = order.ProductIds;
+            }
+
+            return "thingamajig";
+        }
+
         public async Task<bool> HasUserPurchased(string userId, string songID)
         {
             // get album id associated with songID
