@@ -147,8 +147,8 @@ namespace Backend.Controllers
                     // send confirmation email
                     await dataRepository.CompletePaypalOrder(orderId!);
                     string userEmail = await dataRepository.GetUserEmailFromPaypalOrderID(orderId!);
-                    string musicName = "music name";   
-                    await emailSender.SendEmailAsync(userEmail, $"Paypal Order Confirmation - {orderId} ", "Well done, you have successfully purchased some music! Please visit the albums page and download your music.");
+                    string musicList = await dataRepository.GetMusicListFromPaypalOrder(orderId!); 
+                    await emailSender.SendEmailAsync(userEmail, $"Paypal Order Confirmation - {orderId} ", $"Well done, you have successfully purchased: {musicList}. Please visit the albums page and download your music.");
                     Console.WriteLine("Order Captured: " + responseContent);
                     return Ok(responseContent);
                 }

@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import React from 'react';
 import HeaderTemplateTwo from './Header';
 import FooterTemplate from './FooterTemplate';
-import ETLogoPic from './PlaceholderData/Images/ETLogoPic.png';
+import ETLogoPic from './PlaceholderData/Images/ETLogoPicB.jpg';
 import { Link } from 'react-router-dom';
 import { useLoginContext } from './LoggedInContext';
 
@@ -28,7 +28,7 @@ function FrontPageTemplate() {
               </h5>
               <h5 className="nav-link normal-font">
                 If you are a customer of mine here you may login and gain access
-                to your music. Otherwise, scroll down to learn more.
+                to your music.
               </h5>
               <br />
               <Link className="normal-font nav-link text-white " to="/Login">

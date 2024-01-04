@@ -1,4 +1,5 @@
-﻿using Backend.Data;
+﻿using System.Linq;
+using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository
@@ -26,15 +27,20 @@ namespace Backend.Repository
             }
         }
 
-        public async Task<string> GetUserSongsFromPaypalID(string orderID)
+        public async Task<string> GetMusicListFromPaypalOrder(string orderID)
         {
-            var order = await dataContext.PaypalOrders!.Select(x => x).Where(x => x.OrderId == orderID).FirstOrDefaultAsync();
-            if (order is not null)
+            var order = await dataContext.PaypalOrders!.SingleOrDefaultAsync(x => x.OrderId == orderID);
+            if (order is null)
             {
-                var listOfSongIds = order.ProductIds;
+                return string.Empty;
             }
 
-            return "thingamajig";
+            var songNames = await dataContext.songData!
+                .Where(song => order.ProductIds.Contains(song.FileGetCode))
+                .Select(song => song.songName)
+                .ToListAsync();
+
+            return string.Join(", ", songNames);
         }
 
         public async Task<bool> HasUserPurchased(string userId, string songID)
