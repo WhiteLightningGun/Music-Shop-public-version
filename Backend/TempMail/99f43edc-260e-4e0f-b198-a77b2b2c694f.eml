@@ -1,0 +1,42 @@
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Sat, 06 Jan 2024 00:11:11 +0000
+Subject: Reset your password
+Message-Id: <GFX29D79YLU4.KV3FTRAO9U5M2@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: chrisbaylis85@gmail.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Electric Trojan - Email</title>
+  </head>
+  <body style="background-color: rgb(57, 104, 156); margin: 0">
+    <div
+      style="
+        background-color: white;
+        width: 80%;
+        min-height: 100vh;
+        margin: auto;
+        padding: 2%;
+        padding-top: 0.3%;
+      "
+    >
+      <h1
+        style="
+          text-align: left;
+          font-family: Tahoma;
+          font-size: 2.5rem;
+          color: #000000;
+        "
+      >
+        Message from Electric Trojan...
+      </h1>
+      <p style="font-family: monospace; font-size: 1.2rem; word-wrap: break-word; overflow-wrap: break-word;">
+        Hello chrisbaylis85@gmail.com. Please reset your password using the following code: Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNnWkVBQU9SaG1Ca2l2TzBpaFNwZG5jZ1FuTlpDZVNTV2dLN25sbFQ0NGxCVVJPV2xTeHdBQmRQMGdSdysyWm1NeE84SFFlcXVnYlhGUUl1c2hqczYyR1JQN09sSDJLZ0t5UmlDWlNnOC9YRzU0TTQvejMyVFJ3NVplQTNBTzRUb0FlNUdvS2crNGNpQ1VKT2xZeFdRUjBHYzdTYmxrOFBTRlloc3l4K3FGUHZjR3ltZE02R1FscHJCZGZEaHkyMG1CVGZ1dS9sdmp1ekNuWEp2UXhDdVUy
+      </p>
+    </div>
+  </body>
+</html>

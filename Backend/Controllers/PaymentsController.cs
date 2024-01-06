@@ -34,16 +34,26 @@ namespace Backend.Controllers
         private readonly string? _clientSecret;
         public readonly string? clientUrl;
         public IEmailSender emailSender;
-        private readonly string _payPalTokenUrl ="https://api-m.sandbox.paypal.com/v1/oauth2/token"; 
-        private readonly string _payPalUrl = "https://api-m.sandbox.paypal.com";
+        private readonly string _payPalTokenUrl;
+        private readonly string _payPalUrl;
         public PaymentsController(IConfiguration configuration, DataContext _dataContext, IEmailSender _emailSender)
         {
             _clientId = configuration["PayPal:ClientId"];
             _clientSecret = configuration["PayPal:ClientSecret"];
             clientUrl = configuration["ClientURL"];
+            _payPalTokenUrl = configuration["PaypalTokenURL"]!;
+            _payPalUrl = configuration["PaypalURL"]!;
             dataContext = _dataContext;
             dataRepository = new DataRepository(_dataContext);
             emailSender = _emailSender; 
+        }
+
+        [HttpGet("send-test-email"), AllowAnonymous]
+        public async Task<IActionResult> SendTestEmail()
+        {
+            string userEmailFromClaims = "no-one@emailservice.co.uk";
+            await emailSender.SendEmailAsync(userEmailFromClaims, "subject line here", $"...body of email here sent from SendTestEmail() method");
+            return Ok("email sent");    
         }
 
         [HttpPost("create-order")]
@@ -51,6 +61,7 @@ namespace Backend.Controllers
         {
             string userEmailFromClaims = GetUserEmailFromClaims() ?? "";
             string userIDFromClaims = GetUserID() ?? "";
+            await emailSender.SendEmailAsync(userEmailFromClaims, "subject", $"body of email here tp {userIDFromClaims}");
             //Perform data integrity check here, it should be impossible for the user to buy a song which doesn't exist or has already purchased
             if (!await dataRepository.CheckCartIntegrity(orderRequest.Cart!, userIDFromClaims))
             {

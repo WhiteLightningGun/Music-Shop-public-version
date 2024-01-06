@@ -18,6 +18,7 @@ using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Backend.Repository;
+using Backend.Services;
 
 
 
@@ -39,6 +40,7 @@ namespace Backend.Controllers
         public DataContext dataContext;
         public SignInManager<IdentityUser> _signInManager;
         public IEmailSender<IdentityUser> emailSender;
+        public EmailService emailSenderB;
         public DataRepository dataRepository;
         public AccountController(IHttpClientFactory clientFactory,
             UserManager<IdentityUser> userManager,
@@ -109,6 +111,8 @@ namespace Backend.Controllers
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
                 await emailSender.SendPasswordResetCodeAsync(user, resetRequest.Email, HtmlEncoder.Default.Encode(code));
+                //await emailSenderB.SendPasswordResetEmail(resetRequest.Email, "Password Reset Request", HtmlEncoder.Default.Encode(code));
+
             }
             // Don't reveal that the user does not exist or is not confirmed, so don't return a 200 if we would have
             // returned a 400 for an invalid code given a valid user email.

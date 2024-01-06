@@ -29,3 +29,18 @@ AND b.UserId = 'd04d52e5-663e-4f48-96bb-db97c65b927e';
 SELECT a.SongID, a.PricePaid, b.AlbumId FROM UserSongPurchases a
 JOIN songData b on a.SongID = b.FileGetCode
 WHERE b.AlbumId = '82e0d8c9-0561-4103-b9ba-86db2419c222' AND a.UserId = 'ff7e29eb-b3a0-487b-822e-98850e277195';
+
+---
+
+
+Name	Isabell Murazik
+Username	isabell.murazik@ethereal.email
+Password	7bh5R5hzNnMxPFchnh
+
+-
+
+Host	smtp.ethereal.email
+Port	587
+Security	STARTTLS
+Username	isabell.murazik@ethereal.email
+Password	7bh5R5hzNnMxPFchnh
