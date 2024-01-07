@@ -25,11 +25,15 @@ function PasswordResetCodeInput() {
     // post to password reset api
     let passwordResetForm = getValues();
     try {
+      //set state to spinner here
+      setNotification('');
+
       const response = await postNewPassword(passwordResetForm);
       if (response.status === 200) {
         // Clear the form
         reset();
         // Set a success notification
+
         setNotification('Password reset successful.');
       } else {
         // Set an error notification

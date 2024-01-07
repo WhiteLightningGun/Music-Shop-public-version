@@ -8,8 +8,6 @@ type LoginPostBody = {
   twoFactorRecoveryCode: string;
 };
 async function PostLogin(formData: LoginForm) {
-  //fetch('https://localhost:7158/login');
-
   let body: LoginPostBody = {
     email: formData.email,
     password: formData.password,

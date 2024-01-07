@@ -1,3 +1,5 @@
+@using Backend.Data; @model OrderConfirmationEmailModel
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -30,22 +32,32 @@
           font-size: 1.2rem;
         "
       >
-        Hello @Model.Name. @Model.Data Here is your password reset code:
+        Hello @Model.Name. You have ordered the following music:
       </p>
-      <p
+
+      <ul
         style="
           font-family: monospace, 'Times New Roman', Times, serif;
           font-size: 1.2rem;
-          word-wrap: break-word;
-          overflow-wrap: break-word;
           background-color: aliceblue;
           padding: 0.5rem;
           border-radius: 4px;
           max-width: 1200px;
           margin: auto;
+          padding-left: 2rem;
         "
       >
-        sdfvisdufblsdfbhvldfhjbvsldfjvsldksdlkfjnvsldjfnvlsjdkfbvlsdfbsjdhfvbksdhfbvlksdhbfkvsjhdbfkhbsdfvfvsdfvsdjfhvgkdsfhvbsdlkfjhvbsldhjkfbvksjdhfbvkshdfkshdbfkhbvsdkfhbvkshdbfkvhsdbfkvhbsdkfhvb
+        <li>Andrada Neutral</li>
+        <li>Necron Attack</li>
+        <li>The Feed and Seed Purity Test</li>
+      </ul>
+      <p
+        style="
+          font-family: Georgia, 'Times New Roman', Times, serif;
+          font-size: 1.2rem;
+        "
+      >
+        Your Paypal order ID is: @Model.OrderID
       </p>
       <p
         style="
@@ -53,8 +65,9 @@
           font-size: 1.2rem;
         "
       >
-        Double click the text and copy it to the
-        <a href="https://www.google.co.uk">password reset page</a>.
+        Visit the albums page to
+        <a href="https://www.google.co.uk">listen to and download your audio</a
+        >.
       </p>
       <p
         style="

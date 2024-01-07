@@ -1,0 +1,48 @@
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Sat, 06 Jan 2024 23:42:15 +0000
+Subject: Account Confirmation Link
+Message-Id: <8NFP5B0KYLU4.ZB7MJWAURCHP@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: carpenterbrut@music.co.uk
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Electric Trojan - Email</title>
+  </head>
+  <body style="background-color: rgb(57, 104, 156); margin: 0">
+    <div
+      style="
+        background-color: white;
+        width: 80%;
+        min-height: 100vh;
+        margin: auto;
+        padding: 2%;
+        padding-top: 0.3%;
+      "
+    >
+      <h1
+        style="
+          text-align: left;
+          font-family: Tahoma;
+          font-size: 2.5rem;
+          color: #000000;
+        "
+      >
+        Message from Electric Trojan...
+      </h1>
+      <p style="font-family: monospace; font-size: 1.2rem;">
+        Hello carpenterbrut@music.co.uk, please click this to confirm you account or whatever:
+      </p>
+      <p style="font-family: monospace; font-size: 1.2rem; word-wrap: break-word; overflow-wrap: break-word;">
+        https://localhost:7158/confirmEmail?userId=e6c4b565-1dbf-44a8-a49b-25979d79cfeb&amp;amp;code=Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNoLy9FbzYwV0tvOUROanJoS0dSVXhXdVBiQjRQMzR1M2I1aVV2aEhVRGlPUWowS1V3cGN6dk91cEIrNjlZU25Ha2l1MDRLUFlzNThxNXdNdEhTYVRRSVVCYlY1aWRRdVl5ZitNRG9waTdPR2Y0dzRBSjZ0bjNXZUltcTBtNHBxMnNuRVdPdGRjNm5uVmVSZE4wSWduVjF6VGh0eWp2SFNwZEl6bW1DZkhTRERwN2dBdTdWai96aHE5VTVCYThiMHZFVU9lOU96SFFIR2MvdktqRW9pZXNQU2N3NWppa08ySC9BUzQ4UWNYeTVEZz09
+      </p>
+      <p style="font-family: monospace; font-size: 1.2rem;">
+        Have a nice day.
+      </p>
+    </div>
+  </body>
+</html>

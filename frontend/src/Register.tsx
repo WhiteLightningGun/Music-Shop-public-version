@@ -7,32 +7,42 @@ import InfoTester from './InfoTester';
 import React, { useState, useContext } from 'react';
 import { useLoginContext } from './LoggedInContext';
 import Logout from './Logout';
+import { useNavigate } from 'react-router-dom';
 import { RegisterPost, RegisterPostBody, LoginForm } from './JsonConverters';
-import { Navigate } from 'react-router-dom';
 
 function RegisterPage({ setLoggedIn }: any) {
   const { register, handleSubmit, reset, getValues } = useForm<LoginForm>();
   const { loggedIn } = useLoginContext();
   const [notification, setNotification] = useState<String>('');
+  const navigate = useNavigate();
 
   const onSubmit = async (formData: LoginForm) => {
     if (!getValues('consent')) {
       setNotification('Please check the opt-in.');
-      window.location.href = '/login?success=true';
       return;
     }
     sessionStorage.setItem('Bearer', '');
     localStorage.setItem('refresh', '');
     setLoggedIn(false);
-    const registerSuccess = await RegisterPost(formData);
-    if (registerSuccess === true) {
+    let newRegisterPostBody: RegisterPostBody = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    const registerResponse = await RegisterPost(newRegisterPostBody);
+    if (registerResponse.status === 200) {
       setNotification('');
       //clear form values
       reset();
       //redirect to login page
-      window.location.href = '/login?success=true';
+      navigate('/login?success=true');
+      //window.location.href = '/login?success=true';
     } else {
-      setNotification('Please check your login details.');
+      const errorResponse = await registerResponse.json();
+      const errorMessages = Object.values(errorResponse.errors)
+        .flat()
+        .join(' ');
+      setNotification(errorMessages);
     }
   };
 

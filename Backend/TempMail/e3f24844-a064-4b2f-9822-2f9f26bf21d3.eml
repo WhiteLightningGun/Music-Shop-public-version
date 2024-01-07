@@ -1,0 +1,48 @@
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Sat, 06 Jan 2024 23:32:46 +0000
+Subject: Account Confirmation Link
+Message-Id: <7XDK4PXJYLU4.UVZ9GWJ4DYG41@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: isabell.murazik@ethereal.email
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Electric Trojan - Email</title>
+  </head>
+  <body style="background-color: rgb(57, 104, 156); margin: 0">
+    <div
+      style="
+        background-color: white;
+        width: 80%;
+        min-height: 100vh;
+        margin: auto;
+        padding: 2%;
+        padding-top: 0.3%;
+      "
+    >
+      <h1
+        style="
+          text-align: left;
+          font-family: Tahoma;
+          font-size: 2.5rem;
+          color: #000000;
+        "
+      >
+        Message from Electric Trojan...
+      </h1>
+      <p style="font-family: monospace; font-size: 1.2rem;">
+        Hello isabell.murazik@ethereal.email, please click this to confirm you account or whatever:
+      </p>
+      <p style="font-family: monospace; font-size: 1.2rem; word-wrap: break-word; overflow-wrap: break-word;">
+        https://localhost:7158/confirmEmail?userId=501b4306-75cd-4e53-970e-d130e0cdd6e4&amp;amp;code=Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNqS25VSUg5bXA5QlRUcm5iWDQ3b1VYZ1V1d2o4SHltNXR6WVFYVHlNS0NMR3hlLytZMzM0YlBFMEpYejdOa2wva2lZbU83cjhBTWY4S29UN2pVbndwUEZveTBEM05nU3lqOTEzcFZacDZoRFRlM003THRJQXVnRjg3MlhGRnVhNnI1N2RXeEVBaUdlQWw5VDZCWXpqWlllTjZ3aENRQ1dUMDdURjlKWDBEUFpKVWR1NHVOa1F3MDdObUpOZ0pYOXNuUUpPOWd6bnhhWEkrdmtlWUJ4c1ZxMFU1OGp4YVl5M0JiV214U3Eyb1Jzdz09
+      </p>
+      <p style="font-family: monospace; font-size: 1.2rem;">
+        Have a nice day.
+      </p>
+    </div>
+  </body>
+</html>

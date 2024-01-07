@@ -1,3 +1,13 @@
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Sun, 07 Jan 2024 01:21:49 +0000
+Subject: Password Reset
+Message-Id: <QDFK4RRKYLU4.W3MU4JNRG6OH2@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: DrMeds@Meds.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -30,7 +40,7 @@
           font-size: 1.2rem;
         "
       >
-        Hello @Model.Name. @Model.Data Here is your password reset code:
+        Hello DrMeds@Meds.com. Here is your password reset code:
       </p>
       <p
         style="
@@ -45,7 +55,7 @@
           margin: auto;
         "
       >
-        sdfvisdufblsdfbhvldfhjbvsldfjvsldksdlkfjnvsldjfnvlsjdkfbvlsdfbsjdhfvbksdhfbvlksdhbfkvsjhdbfkhbsdfvfvsdfvsdjfhvgkdsfhvbsdlkfjhvbsldhjkfbvksjdhfbvkshdfkshdbfkhbvsdkfhbvkshdbfkvhsdbfkvhbsdkfhvb
+        Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNpNHk5bkJtUEJRdFA4bjRnemhtMGpJZ3NFYVNDWHFrSWlsNjl4Q01XWVlOTTZ3aTBuekpnNk9YTEhYeHdQSGYvOGNXY3hBMkVzN0g2Z0JwSlRlZGJQcUV0S0FZOHVza0puSThhdTg3L1hYN0NsNTVUUFZQck1wcC9YdFdzcEhON1lrWFA4ZjlRRjB0eUtBMU5Pa1AvSHFEcWV4WXVEcVRqWkRlVmJ5ZERra3F6Zk92YmQ3dDdobHpDV3lGbXo0aE04WHFaaC8wZVZnS3R2OStyRWdsWno1
       </p>
       <p
         style="

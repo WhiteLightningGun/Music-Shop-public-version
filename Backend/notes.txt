@@ -1,6 +1,6 @@
 ﻿
   "email": "DrMeds@Meds.com",
-  "password": "Pa$$w0rd!1",
+  "password": "Sn33dfeed!!!111olollol",
 
   "email": "clemsnide@thingfish.com",
   "password": "Sn33dfeed!!!111",
@@ -35,7 +35,10 @@ WHERE b.AlbumId = '82e0d8c9-0561-4103-b9ba-86db2419c222' AND a.UserId = 'ff7e29e
 
 Name	Isabell Murazik
 Username	isabell.murazik@ethereal.email
-Password	7bh5R5hzNnMxPFchnh
+Password	7bh5R5hzNnMxPFchnh!!!
+
+carpenterbrut@music.co.uk
+7bh5R5hzNnMxPFchnh!!!
 
 -
 

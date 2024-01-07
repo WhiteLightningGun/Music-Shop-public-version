@@ -10,6 +10,7 @@ using Backend.Models;
 using RazorLight;
 using Backend.Data;
 using Microsoft.AspNetCore.Identity;
+using System.Net;
 
 namespace Backend.Services
 {
@@ -43,6 +44,11 @@ namespace Backend.Services
             await Task.CompletedTask;
         }
 
+        public Task SendOrderConfirmation()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SendPasswordResetCodeAsync(IdentityUser user, string email, string resetCode)
         {
             List<string> recipients = new() { email };
@@ -62,6 +68,45 @@ namespace Backend.Services
             await Task.CompletedTask;
         }
 
+        public async Task SendConfirmationLinkAsync(IdentityUser user, string email, string confirmationLink)
+        {
+            List<string> recipients = new() { email };
+            string decodedLink = WebUtility.HtmlDecode(confirmationLink);
+            string htmlMessageBody = await GetHtmlAccountConfirmation(decodedLink, user.UserName!);
+            MailData mailData = new(to: recipients, subject: "Account Confirmation Link", body: htmlMessageBody);
+
+            bool sendAttemptSuccessful = await SendAsync(mailData);
+
+            if(sendAttemptSuccessful)
+            {
+                Console.WriteLine("Mail == Sent, via SendConfirmationLinkAsync");
+            }
+            else
+            {
+                Console.WriteLine($"mail error: ");
+            }
+            await Task.CompletedTask;
+        }
+
+        public async Task SendPasswordResetLinkAsync(IdentityUser user, string email, string resetLink)
+        {
+            List<string> recipients = new() { email };
+            string htmlMessageBody = await GetHtmlPasswordResetLink(resetLink, user.UserName!);
+            MailData mailData = new(to: recipients, subject: "Account Confirmation Link", body: htmlMessageBody);
+
+            bool sendAttemptSuccessful = await SendAsync(mailData);
+
+            if(sendAttemptSuccessful)
+            {
+                Console.WriteLine("Mail == Sent, via SendPasswordResetLinkAsync");
+            }
+            else
+            {
+                Console.WriteLine($"mail error: ");
+            }
+            await Task.CompletedTask;
+        }
+
         public async Task<string> GetHtmlEmailString(string htmlMessageBody, string userName)
         {
             BasicEmailModel model = new()
@@ -70,6 +115,62 @@ namespace Backend.Services
                 Data = $"{htmlMessageBody}"
             };
             string razorTemplatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailRazorTemplates", "BasicEmail.cshtml");
+            // Use Razor to generate the HTML body
+            var engine = new RazorLightEngineBuilder()
+            .UseFileSystemProject(Path.GetDirectoryName(razorTemplatePath))
+            .UseMemoryCachingProvider()
+            .Build();
+
+            string result = await engine.CompileRenderAsync(Path.GetFileName(razorTemplatePath), model);
+            return result;
+        }
+
+        public async Task<string> GetHtmlEmailOrderConfirmation(string orderID, string userName, List<string> musicList)
+        {
+            OrderConfirmationEmailModel model = new()
+            {
+                Name = $"{userName}",
+                OrderID = $"{orderID}",
+                MusicList = musicList
+            };
+            string razorTemplatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailRazorTemplates", "OrderConfirmationEmail.cshtml");
+            // Use Razor to generate the HTML body
+            var engine = new RazorLightEngineBuilder()
+            .UseFileSystemProject(Path.GetDirectoryName(razorTemplatePath))
+            .UseMemoryCachingProvider()
+            .Build();
+
+            string result = await engine.CompileRenderAsync(Path.GetFileName(razorTemplatePath), model);
+            return result;
+        }
+
+        public async Task<string> GetHtmlPasswordResetLink(string resetLink, string userName)
+        {
+            Console.WriteLine($"resetLink: {resetLink}");
+            BasicEmailModel model = new()
+            {
+                Name = $"{userName}",
+                Data = $"{resetLink}"
+            };
+            string razorTemplatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailRazorTemplates", "SendResetLink.cshtml");
+            // Use Razor to generate the HTML body
+            var engine = new RazorLightEngineBuilder()
+            .UseFileSystemProject(Path.GetDirectoryName(razorTemplatePath))
+            .UseMemoryCachingProvider()
+            .Build();
+
+            string result = await engine.CompileRenderAsync(Path.GetFileName(razorTemplatePath), model);
+            return result;
+        }
+
+        public async Task<string> GetHtmlAccountConfirmation(string resetLink, string userName)
+        {
+            BasicEmailModel model = new()
+            {
+                Name = $"{userName}",
+                Data = $"{resetLink}"
+            };
+            string razorTemplatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailRazorTemplates", "SendConfirmation.cshtml");
             // Use Razor to generate the HTML body
             var engine = new RazorLightEngineBuilder()
             .UseFileSystemProject(Path.GetDirectoryName(razorTemplatePath))
@@ -216,16 +317,6 @@ namespace Backend.Services
                     throw;
                 }
             } while (true);
-        }
-
-        public Task SendConfirmationLinkAsync(IdentityUser user, string email, string confirmationLink)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SendPasswordResetLinkAsync(IdentityUser user, string email, string resetLink)
-        {
-            throw new NotImplementedException();
         }
     }
 

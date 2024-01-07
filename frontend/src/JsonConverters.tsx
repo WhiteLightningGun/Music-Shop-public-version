@@ -108,36 +108,22 @@ export type AlbumManagerJsonModel = {
   albumId: string;
 };
 
-async function RegisterPost(formData: RegisterPostBody) {
-  let body: RegisterPostBody = {
-    email: formData.email,
-    password: formData.password,
-  };
-  let jsonBody = JSON.stringify(body);
+async function RegisterPost(formData: RegisterPostBody): Promise<Response> {
+  const jsonBody = JSON.stringify(formData);
 
-  let result = fetch(`${configData.SERVER_URL}/register`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept-Encoding': 'gzip, deflate, br',
-    },
-    body: jsonBody,
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        return true;
-      } else {
-        return false;
-      }
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch(() => {
-      return false;
+  try {
+    const response = await fetch(`${configData.SERVER_URL}/register`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Encoding': 'gzip, deflate, br',
+      },
+      body: jsonBody,
     });
-
-  return result;
+    return response;
+  } catch (error) {
+    throw new Error(String(error));
+  }
 }
 export { RegisterPost };

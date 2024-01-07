@@ -13,7 +13,7 @@ import {
   GetPurchasedAlbums,
   GetPurchasedSongs,
 } from './JsonConverters';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import configData from './config.json';
 import { MyCartContext } from './CartContext';
 
@@ -137,6 +137,13 @@ function LoginPage({ setLoggedIn }: any) {
             <Logout setLoggedIn={setLoggedIn} />
           </div>
           <div className="text-dark normal-font-light no-underline py-3">
+            <p className="text-start">
+              Need to{' '}
+              <Link className="a" to="/Register">
+                Register
+              </Link>
+              {''}?
+            </p>
             <p className="text-start">
               Forgotten your credentials? Get a password reset{' '}
               <a href={`${configData.CLIENT_URL}/passwordReset`}>here.</a>

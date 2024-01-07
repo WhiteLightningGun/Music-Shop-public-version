@@ -13,25 +13,29 @@ import PasswordResetCodeInput from './PasswordResetCodeInput';
 function PasswordReset() {
   const { register, handleSubmit, reset, getValues } = useForm<LoginForm>();
   const [notification, setNotification] = useState<String>(' ');
+  const [spinner, setSpinner] = useState(false);
 
   const onSubmit = async (formData: any) => {
     if (formData.email === '') {
-      setNotification('Please check your login details.');
+      setNotification('Please enter your email address.');
       return;
     }
     // post to password reset api
     let email = getValues('email');
     try {
+      setSpinner(true);
       const response = await postEmail(email);
       if (response.status === 200) {
         // Clear the form
         reset();
         // Set a success notification
+        setSpinner(false);
         setNotification(
           'Password reset email sent successfully, please check your inbox.',
         );
       } else {
         // Set an error notification
+        setSpinner(false);
         setNotification('Failed to send password reset email.');
       }
     } catch (error) {
@@ -69,9 +73,15 @@ function PasswordReset() {
               </div>
               <br />
               <p>{notification}</p>
-              <button type="submit" className="btn btn-info btn-login">
-                <span className="badge">SUBMIT</span>
-              </button>
+              {spinner ? (
+                <div className="spinner-border text-info" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                <button type="submit" className="btn btn-info btn-login">
+                  <span className="badge">SUBMIT</span>
+                </button>
+              )}
             </form>
           </div>
           <div className="text-start">
