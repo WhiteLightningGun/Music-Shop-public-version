@@ -1,5 +1,12 @@
-@using Backend.Data; 
-@model OrderConfirmationEmailModel
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Sun, 07 Jan 2024 22:58:18 +0000
+Subject: Password Reset
+Message-Id: <GI0J24PUYLU4.4VR7TVZDRIXG2@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: DrMeds@Meds.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
 
 <!DOCTYPE html>
 <html>
@@ -33,32 +40,22 @@
           font-size: 1.2rem;
         "
       >
-        Hello @Model.Name. You have ordered the following music:
+        Hello DrMeds@Meds.com. Here is your password reset code:
       </p>
-
-      <ul
+      <p
         style="
           font-family: monospace, 'Times New Roman', Times, serif;
           font-size: 1.2rem;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
           background-color: aliceblue;
           padding: 0.5rem;
           border-radius: 4px;
           max-width: 1200px;
           margin: auto;
-          padding-left: 2rem;
         "
       >
-        <li>Andrada Neutral</li>
-        <li>Necron Attack</li>
-        <li>The Feed and Seed Purity Test</li>
-      </ul>
-      <p
-        style="
-          font-family: Georgia, 'Times New Roman', Times, serif;
-          font-size: 1.2rem;
-        "
-      >
-        Your Paypal order ID is: @Model.OrderID
+        Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNpREcvRzczSjd0bjZESkcyTGxYcXQyR2hlKzcrb1N3UUs4RE1sSWJwMjc3Rit4NGxHS1pkVEYxc21NeDRxZkJuS3RSQWw5dG1YMmJQb2FKd3FEMEx0SzJCTCszSWExMXFLQXdkeEVQVnVSMWpWc29PdUMxc044VTdXcVJCVDhCVkk4VXozamZ1UU03ZzZBb3FaaFV6UFpOSmw3SEhqTDZEdDlKZ3F5TVJsSzF6RlNybnUvNC8xYWxnL3dVQXdQTEJVdTUzMXB5c000NXdZV2EwYWQ1YVFp
       </p>
       <p
         style="
@@ -66,9 +63,8 @@
           font-size: 1.2rem;
         "
       >
-        Visit the albums page to
-        <a href="https://www.google.co.uk">listen to and download your audio</a
-        >.
+        Double click the text and copy it to the
+        <a href="https://www.google.co.uk">password reset page</a>.
       </p>
       <p
         style="

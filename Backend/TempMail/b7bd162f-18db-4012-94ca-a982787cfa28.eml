@@ -1,0 +1,89 @@
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Sun, 07 Jan 2024 22:30:27 +0000
+Subject: Order Confirmation: test-pal-123456
+Message-Id: <PZXEPFHUYLU4.5RFSXI2PGNM01@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: someone@mail.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Electric Trojan - Email</title>
+  </head>
+  <body style=3D"background-color: rgb(57, 104, 156); margin: 0">
+    <div
+      style=3D"
+        background-color: white;
+        width: 80%;
+        min-height: 100vh;
+        margin: auto;
+        padding: 2%;
+        padding-top: 0.3%;
+      "
+    >
+      <h1
+        style=3D"
+          text-align: left;
+          font-family: Tahoma;
+          font-size: 2.5rem;
+          color: #000000;
+        "
+      >
+        Message from Electric Trojan...
+      </h1>
+      <p style=3D"font-family: monospace; font-size: 1.2rem; word-wrap: bre=
+ak-word; overflow-wrap: break-word;">
+        Hello someone@mail.com. &#xD;&#xA;&lt;!DOCTYPE html&gt;&#xD;&#xA;&l=
+t;html&gt;&#xD;&#xA;  &lt;head&gt;&#xD;&#xA;    &lt;title&gt;Electric Troja=
+n - Email&lt;/title&gt;&#xD;&#xA;  &lt;/head&gt;&#xD;&#xA;  &lt;body style=3D=
+&quot;background-color: rgb(255, 255, 255); margin: 0&quot;&gt;&#xD;&#xA;  =
+  &lt;div&#xD;&#xA;      style=3D&quot;&#xD;&#xA;        background-color: =
+white;&#xD;&#xA;        width: 80%;&#xD;&#xA;        min-height: 100vh;&#xD=
+;&#xA;        margin: auto;&#xD;&#xA;        padding: 2%;&#xD;&#xA;        =
+padding-top: 0.3%;&#xD;&#xA;      &quot;&#xD;&#xA;    &gt;&#xD;&#xA;      &=
+lt;h1&#xD;&#xA;        style=3D&quot;&#xD;&#xA;          text-align: left;&=
+#xD;&#xA;          font-family: Tahoma;&#xD;&#xA;          font-size: 2.5re=
+m;&#xD;&#xA;          color: #000000;&#xD;&#xA;        &quot;&#xD;&#xA;    =
+  &gt;&#xD;&#xA;        Message from Electric Trojan...&#xD;&#xA;      &lt;=
+/h1&gt;&#xD;&#xA;      &lt;p&#xD;&#xA;        style=3D&quot;&#xD;&#xA;     =
+     font-family: Georgia, &#x27;Times New Roman&#x27;, Times, serif;&#xD;&=
+#xA;          font-size: 1.2rem;&#xD;&#xA;        &quot;&#xD;&#xA;      &gt=
+;&#xD;&#xA;        Hello testuserName. You have purchased the following mus=
+ic:&#xD;&#xA;      &lt;/p&gt;&#xD;&#xA;      &lt;ul&#xD;&#xA;        style=3D=
+&quot;&#xD;&#xA;          font-family: monospace, &#x27;Times New Roman&#x2=
+7;, Times, serif;&#xD;&#xA;          font-size: 1.2rem;&#xD;&#xA;          =
+background-color: aliceblue;&#xD;&#xA;          padding: 0.5rem;&#xD;&#xA; =
+         border-radius: 4px;&#xD;&#xA;          max-width: 1200px;&#xD;&#xA=
+;          margin: auto;&#xD;&#xA;          padding-left: 2rem;&#xD;&#xA;  =
+      &quot;&#xD;&#xA;      &gt;&#xD;&#xA;            &lt;li&gt;test song 1=
+&lt;/li&gt;&#xD;&#xA;            &lt;li&gt;test song 2&lt;/li&gt;&#xD;&#xA;=
+            &lt;li&gt;test song 3&lt;/li&gt;&#xD;&#xA;      &lt;/ul&gt;&#xD=
+;&#xA;      &lt;p&#xD;&#xA;        style=3D&quot;&#xD;&#xA;          font-f=
+amily: Georgia, &#x27;Times New Roman&#x27;, Times, serif;&#xD;&#xA;       =
+   font-size: 1.2rem;&#xD;&#xA;        &quot;&#xD;&#xA;      &gt;&#xD;&#xA;=
+        Your Paypal order ID is: test-pal-123456&#xD;&#xA;      &lt;/p&gt;&=
+#xD;&#xA;      &lt;p&#xD;&#xA;        style=3D&quot;&#xD;&#xA;          fon=
+t-family: Georgia, &#x27;Times New Roman&#x27;, Times, serif;&#xD;&#xA;    =
+      font-size: 1.2rem;&#xD;&#xA;        &quot;&#xD;&#xA;      &gt;&#xD;&#=
+xA;        Visit the albums page to&#xD;&#xA;        &lt;a href=3D&quot;htt=
+ps://www.google.co.uk&quot;&gt;listen to and download your audio&lt;/a&#xD;=
+&#xA;        &gt;.&#xD;&#xA;      &lt;/p&gt;&#xD;&#xA;      &lt;p&#xD;&#xA;=
+        style=3D&quot;&#xD;&#xA;          font-family: Georgia, &#x27;Times=
+ New Roman&#x27;, Times, serif;&#xD;&#xA;          font-size: 1.2rem;&#xD;&=
+#xA;        &quot;&#xD;&#xA;      &gt;&#xD;&#xA;        Contact the adminis=
+trator if you have any questions.&#xD;&#xA;      &lt;/p&gt;&#xD;&#xA;      =
+&lt;hr style=3D&quot;border-top: 1px solid lightgray; width: 100%&quot; /&g=
+t;&#xD;&#xA;      &lt;p&#xD;&#xA;        style=3D&quot;&#xD;&#xA;          =
+font-family: &#x27;Times New Roman&#x27;, Times, serif;&#xD;&#xA;          =
+font-size: 1rem;&#xD;&#xA;          color: gray;&#xD;&#xA;        &quot;&#x=
+D;&#xA;      &gt;&#xD;&#xA;        This email came from an unmonitored acco=
+unt.&#xD;&#xA;      &lt;/p&gt;&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;  &lt;/bo=
+dy&gt;&#xD;&#xA;&lt;/html&gt;&#xD;&#xA;
+      </p>
+    </div>
+  </body>
+</html>=

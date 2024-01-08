@@ -12,3 +12,20 @@ Song Name - string
 Associated album - string
 Length - string
 File path - string
+
+klauskinski@madactor.com
+Pa$$w0rd!!1
+
+werner@herzog.de
+Pa$$w0rd!!1
+
+aguirre@zorngott.de
+Pa$$w0rd!!1
+
+--
+
+ToDO
+
+Add delete user account function to admin page
+Ensure user can complete album purchases should they purchase > 90% of album value worth
+Make sure user can only login if account is confirmed

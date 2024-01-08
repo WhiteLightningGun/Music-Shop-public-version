@@ -20,6 +20,7 @@ using System.Text.RegularExpressions;
 using Backend.Repository;
 using System.Text.Json.Nodes;
 using System.Net.Http.Headers;
+using Backend.Services;
 
 namespace Backend.Controllers
 {
@@ -48,20 +49,11 @@ namespace Backend.Controllers
             emailSender = _emailSender; 
         }
 
-        [HttpGet("send-test-email"), AllowAnonymous]
-        public async Task<IActionResult> SendTestEmail()
-        {
-            string userEmailFromClaims = "no-one@emailservice.co.uk";
-            await emailSender.SendEmailAsync(userEmailFromClaims, "subject line here", $"...body of email here sent from SendTestEmail() method");
-            return Ok("email sent");    
-        }
-
         [HttpPost("create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest orderRequest)
         {
             string userEmailFromClaims = GetUserEmailFromClaims() ?? "";
             string userIDFromClaims = GetUserID() ?? "";
-            await emailSender.SendEmailAsync(userEmailFromClaims, "subject", $"body of email here tp {userIDFromClaims}");
             //Perform data integrity check here, it should be impossible for the user to buy a song which doesn't exist or has already purchased
             if (!await dataRepository.CheckCartIntegrity(orderRequest.Cart!, userIDFromClaims))
             {
@@ -159,7 +151,7 @@ namespace Backend.Controllers
                     await dataRepository.CompletePaypalOrder(orderId!);
                     string userEmail = await dataRepository.GetUserEmailFromPaypalOrderID(orderId!);
                     string musicList = await dataRepository.GetMusicListFromPaypalOrder(orderId!); 
-                    await emailSender.SendEmailAsync(userEmail, $"Paypal Order Confirmation - {orderId} ", $"Well done, you have successfully purchased: {musicList}. Please visit the albums page and download your music.");
+                    await emailSender.SendOrderConfirmation(userEmail, orderID: orderId!, musicList: [.. musicList.Split(',')]);
                     Console.WriteLine("Order Captured: " + responseContent);
                     return Ok(responseContent);
                 }
@@ -170,6 +162,14 @@ namespace Backend.Controllers
                     return BadRequest("Failed to capture order");
                 }
             }
+        }
+
+        [HttpGet("test-order-confirm-email"), AllowAnonymous]
+        public async Task<IActionResult> TestOrderConfirmEmail()
+        {
+            List<string> musicList = new List<string>() { "test song 1", "test song 2", "test song 3" };
+            await emailSender.SendOrderConfirmation("someone@mail.com", "test-pal-123456", musicList);
+            return Ok();
         }
 
         private string GetPaypalAccessToken()

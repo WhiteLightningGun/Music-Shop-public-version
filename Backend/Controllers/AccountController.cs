@@ -40,7 +40,6 @@ namespace Backend.Controllers
         public DataContext dataContext;
         public SignInManager<IdentityUser> _signInManager;
         public IEmailSender<IdentityUser> emailSender;
-        public EmailService emailSenderB;
         public DataRepository dataRepository;
         public AccountController(IHttpClientFactory clientFactory,
             UserManager<IdentityUser> userManager,
@@ -64,10 +63,18 @@ namespace Backend.Controllers
             dataRepository = new DataRepository(_dataContext);
         }
 
-        [HttpPost("LoginTest"), AllowAnonymous]
+        [HttpPost("Login"), AllowAnonymous]
         public async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>>
-            LoginInTest([FromBody] LoginRequest login)
+        LoginInTest([FromBody] LoginRequest login)
         {
+
+            // Check if the user's email is confirmed
+            var user = await _userManager.FindByEmailAsync(login.Email);
+            if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
+            {
+                return TypedResults.Problem("Please confirm your email.", statusCode: StatusCodes.Status401Unauthorized);
+            }
+
             var signInManager = _signInManager;
             var useSessionCookies = false;
             var useCookies = false;

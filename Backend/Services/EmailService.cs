@@ -27,8 +27,8 @@ namespace Backend.Services
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             List<string> recipients = new() { email };
-            string htmlMessageBody = await GetHtmlEmailString(htmlMessage, email);
-            MailData mailData = new(to: recipients, subject: subject, body: htmlMessageBody);
+            //string htmlMessageBody = await GetHtmlEmailString(htmlMessage, email);
+            MailData mailData = new(to: recipients, subject: subject, body: htmlMessage);
 
             bool sendAttemptSuccessful = await SendAsync(mailData);
 
@@ -44,9 +44,23 @@ namespace Backend.Services
             await Task.CompletedTask;
         }
 
-        public Task SendOrderConfirmation()
+        public async Task SendOrderConfirmation(string email, string subject, string orderID, string userName, List<string> musicList)
         {
-            throw new NotImplementedException();
+            List<string> recipients = new() { email };
+            string htmlMessageBody = await GetHtmlEmailOrderConfirmation(orderID, userName, musicList);
+            MailData mailData = new(to: recipients, subject: subject, body: htmlMessageBody);
+
+            bool sendAttemptSuccessful = await SendAsync(mailData);
+
+            if(sendAttemptSuccessful)
+            {
+                Console.WriteLine("Mail == Sent, via SendOrderConfirmation");
+            }
+            else
+            {
+                Console.WriteLine($"mail error: ");
+            }
+            await Task.CompletedTask;
         }
 
         public async Task SendPasswordResetCodeAsync(IdentityUser user, string email, string resetCode)

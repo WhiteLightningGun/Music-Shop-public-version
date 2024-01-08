@@ -24,6 +24,7 @@ function LoginPage({ setLoggedIn }: any) {
   const [queryParameters] = useSearchParams();
   const [success, setSuccess] = useState<boolean>(false);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [spinner, setSpinner] = useState(false);
 
   const context = useContext(MyCartContext);
   const {
@@ -39,16 +40,20 @@ function LoginPage({ setLoggedIn }: any) {
     }
     if (loggedIn) {
       //call the api to get user info
-
+      setSuccess(false);
       const getUserEmail = async () => {
         let result = await GetInfoEmail();
         setUserEmail(result.email);
       };
       getUserEmail();
+    } else {
+      setSuccess(false);
+      setNotification('');
     }
   }, [queryParameters, loggedIn]);
 
   const onSubmit = async (formData: LoginForm) => {
+    setSpinner(true);
     if (formData.email === '' || formData.password === '') {
       setNotification('Please check your login details.');
       return;
@@ -70,7 +75,9 @@ function LoginPage({ setLoggedIn }: any) {
 
       //clear form values
       reset();
+      setSpinner(false);
     } else {
+      setSpinner(false);
       setNotification('Please check your login details.');
     }
   };
@@ -127,9 +134,15 @@ function LoginPage({ setLoggedIn }: any) {
               <div className="form-group form-check my-2">
                 <p className="small text-danger">{notification}</p>
               </div>
-              <button type="submit" className="btn btn-info btn-login">
-                <span className="badge">SUBMIT</span>
-              </button>
+              {spinner ? (
+                <div className="spinner-border text-info" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                <button type="submit" className="btn btn-info btn-login">
+                  <span className="badge">LOGIN</span>
+                </button>
+              )}
             </form>
           </div>
           <div className="text-start">

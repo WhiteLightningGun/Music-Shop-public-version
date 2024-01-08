@@ -17,7 +17,7 @@ function AlbumPageSongEntry({ data, albumID }: Props) {
         <div className="row">
           <div className="col-8 d-flex align-items-center justify-content-start">
             <span>
-              &nbsp;{data.AlbumPosition}. &nbsp;{data.songName}&nbsp;£
+              &nbsp;{data.AlbumPosition}. &nbsp;{data.songName}&nbsp;-&nbsp;£
               {data.SongPrice.toFixed(2)}
             </span>
           </div>

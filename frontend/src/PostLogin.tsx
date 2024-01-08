@@ -7,6 +7,7 @@ type LoginPostBody = {
   twoFactorCode: string;
   twoFactorRecoveryCode: string;
 };
+
 async function PostLogin(formData: LoginForm) {
   let body: LoginPostBody = {
     email: formData.email,
@@ -17,7 +18,7 @@ async function PostLogin(formData: LoginForm) {
   let jsonBody = JSON.stringify(body);
   const backendUrl = configData.SERVER_URL;
 
-  let result = await fetch(`${backendUrl}/login`, {
+  let result = await fetch(`${backendUrl}/api/Account/Login`, {
     method: 'POST',
     body: jsonBody,
     headers: {

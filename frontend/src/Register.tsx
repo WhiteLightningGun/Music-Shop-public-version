@@ -14,9 +14,11 @@ function RegisterPage({ setLoggedIn }: any) {
   const { register, handleSubmit, reset, getValues } = useForm<LoginForm>();
   const { loggedIn } = useLoginContext();
   const [notification, setNotification] = useState<String>('');
+  const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
 
   const onSubmit = async (formData: LoginForm) => {
+    setSpinner(true);
     if (!getValues('consent')) {
       setNotification('Please check the opt-in.');
       return;
@@ -37,12 +39,14 @@ function RegisterPage({ setLoggedIn }: any) {
       //redirect to login page
       navigate('/login?success=true');
       //window.location.href = '/login?success=true';
+      setSpinner(false);
     } else {
       const errorResponse = await registerResponse.json();
       const errorMessages = Object.values(errorResponse.errors)
         .flat()
         .join(' ');
       setNotification(errorMessages);
+      setSpinner(false);
     }
   };
 
@@ -97,9 +101,15 @@ function RegisterPage({ setLoggedIn }: any) {
                 </label>
                 <p className="small text-danger">{notification}</p>
               </div>
-              <button type="submit" className="btn btn-info btn-login">
-                <span className="badge">REGISTER</span>
-              </button>
+              {spinner ? (
+                <div className="spinner-border text-info" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                <button type="submit" className="btn btn-info btn-login">
+                  <span className="badge">REGISTER</span>
+                </button>
+              )}
             </form>
           </div>
           <div className="text-start">
