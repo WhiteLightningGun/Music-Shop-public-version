@@ -160,7 +160,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost("DeleteUser"), Authorize(Roles = "Administrator")]
-        public ActionResult DeleteUser([FromBody] string email)
+        public async Task<ActionResult> DeleteUser([FromBody] string email)
         {
             var user = _userManager.FindByEmailAsync(email).Result;
             if (user is null)
@@ -172,6 +172,10 @@ namespace Backend.Controllers
 
             var result = _userManager.DeleteAsync(user).Result;
             dataContext.PaypalOrders!.RemoveRange(dataContext.PaypalOrders!.Where(o => o.UserId == userID));
+            dataContext.UserAlbumPurchases!.RemoveRange(dataContext.UserAlbumPurchases!.Where(a => a.UserID == userID));
+            dataContext.UserSongPurchases!.RemoveRange(dataContext.UserSongPurchases!.Where(s => s.UserID == userID));
+
+            await dataContext.SaveChangesAsync();
 
             if (result.Succeeded)
             {

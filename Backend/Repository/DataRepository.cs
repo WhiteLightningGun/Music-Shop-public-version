@@ -39,8 +39,15 @@ namespace Backend.Repository
                 .Where(song => order.ProductIds.Contains(song.FileGetCode))
                 .Select(song => song.songName)
                 .ToListAsync();
+            
+            var albumNames = await dataContext.AlbumEntries!
+                .Where(album => order.ProductIds.Contains(album.AlbumId))
+                .Select(album => album.AlbumName)
+                .ToListAsync();
 
-            return string.Join(", ", songNames);
+            var completeList = albumNames.Concat(songNames);
+
+            return string.Join(", ", completeList);
         }
 
         public async Task<bool> HasUserPurchased(string userId, string songID)

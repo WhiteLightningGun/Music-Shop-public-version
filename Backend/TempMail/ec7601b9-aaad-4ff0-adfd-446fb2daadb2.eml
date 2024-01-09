@@ -1,9 +1,9 @@
 From: Chuck Trojan <administrator@electric-trojan.uk>
-Date: Mon, 08 Jan 2024 23:58:07 +0000
+Date: Tue, 09 Jan 2024 14:05:37 +0000
 Subject: Account Confirmation Link
-Message-Id: <45ZFMI66ZLU4.IM7L9HRDPHXR@laptop-mi95ff8t>
+Message-Id: <UHJC94OCZLU4.34I7EVYQ078A@laptop-mi95ff8t>
 Sender: Chuck Trojan <administrator@electric-trojan.uk>
-To: chrisbaylis85@gmail.com
+To: werner@herzog.de
 MIME-Version: 1.0
 Content-Type: text/html; charset=utf-8
 
@@ -34,7 +34,7 @@ Content-Type: text/html; charset=utf-8
         Message from Electric Trojan...
       </h1>
       <p style="font-family: monospace; font-size: 1.2rem">
-        Hello chrisbaylis85@gmail.com, please click this to confirm your account or whatever:
+        Hello werner@herzog.de, please click this to confirm your account or whatever:
       </p>
       <p
         style="
@@ -46,7 +46,7 @@ Content-Type: text/html; charset=utf-8
         "
       >
         <a
-          href="https://localhost:7158/confirmEmail?userId=d04d52e5-663e-4f48-96bb-db97c65b927e&amp;code=Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNpUFVSWWRCeWRxTTh1TVdkKzVkeDFQcVJBS2JiYkUySDExMnFFa2JNRUVtSVRyR20xTExmeHdsSFZiZFpuMUJ0MkdxTkYydk5qQUgwcnpMaHEvSkIweWFYVysyODVJV3RuRGxNTlY2QmtoUnNMUlhhT3puNFNjK2Z2YnRPOUVvOFRNbEViRFRRZHlUVnBnZTZEdDdlbU9LRTdKTnkyNDJzYXB3MEdTa2RhRTE2QlVkMVhvZ2JiL0lVZktuaVZXa29rS1psSkJDVTZ6VXVWa1NKUm9obzZJQnhwdERPeFVyZTd4Wmx3cmVOaW1GUT09"
+          href="https://localhost:7158/confirmEmail?userId=a4c1086d-8355-45f9-83a8-971894ea9285&amp;code=Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNpY2hRSVdtc1VwMlgyMlJoOFkySGtBZGlDamNoeHg0SEdwZHVjRFd3VU9tVUpHRllyS3lBajZrUXdDMnNrZWZTZGVJVzZBYXBRNVFnWWZQZVh0NUxKL1NuVUZMN2FXREkwdUYwTWlwMytvN3N4QzNRd3JnQWRUNUhoMG5rQzFCTVlEMXM5YndYS3dMNVRRRER4SXcwR1lQRXk0dnJUb2IwSlhHWEsrUDhHOEpqUFhWbWhnNmJ4NTNVRUlTS3h5VDQ2S1QvUU91bFUwZHUydUtFQ0NoZlAwYWRhZzdvZGRrYW4rRmJNSm9vUXM2QT09"
           style="
             box-shadow: inset 0px 1px 0px 0px #bbdaf7;
             background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
@@ -71,6 +71,17 @@ Content-Type: text/html; charset=utf-8
         >
       </p>
       <p style="font-family: monospace; font-size: 1.2rem">Have a nice day.</p>
+      <hr style="border-top: 1px solid lightgray; width: 100%" />
+      <p
+        style="
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 1rem;
+          color: gray;
+        "
+      >
+        This email came from an unmonitored account.
+      </p>
     </div>
   </body>
 </html>
+

@@ -26,8 +26,9 @@ Pa$$w0rd!!1
 
 ToDO
 
-Make sure user can only login if account is confirmed (done)
+1. Make sure user can only login if account is confirmed (done)
 
-Add delete user account function to admin page
-Ensure user can complete album purchases should they purchase > 90% of album value worth
-add wav download functionality
+2. Test delete user function in API and then create react component in admin page
+3. Ensure user can complete album purchases should they purchase > 90% of album value worth
+4. add wav download functionality
+5. Get secrets from Azure key storage
