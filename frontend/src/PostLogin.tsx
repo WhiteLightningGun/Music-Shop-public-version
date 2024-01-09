@@ -9,43 +9,36 @@ type LoginPostBody = {
 };
 
 async function PostLogin(formData: LoginForm) {
-  let body: LoginPostBody = {
+  const body: LoginPostBody = {
     email: formData.email,
     password: formData.password,
     twoFactorCode: '',
     twoFactorRecoveryCode: '',
   };
-  let jsonBody = JSON.stringify(body);
-  const backendUrl = configData.SERVER_URL;
 
-  let result = await fetch(`${backendUrl}/api/Account/Login`, {
+  const response = await fetch(`${configData.SERVER_URL}/api/Account/Login`, {
     method: 'POST',
-    body: jsonBody,
+    body: JSON.stringify(body),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        return false;
-      }
-    })
-    .then((data) => {
-      if (data === false) {
-        return false;
-      }
-      sessionStorage.setItem('Bearer', String(data.accessToken));
-      localStorage.setItem('refresh', String(data.refreshToken));
-      return true;
-    })
-    .catch(() => {
-      console.log('login failed');
-      return false;
-    });
+  });
 
-  return result;
+  if (response.status === 401) {
+    let responseDetail = await response.json();
+    return { status: 401, message: responseDetail.detail };
+  }
+
+  if (!response.ok) {
+    console.log('login failed');
+    return { status: response.status, message: 'Login failed' };
+  }
+
+  const data = await response.json();
+  sessionStorage.setItem('Bearer', String(data.accessToken));
+  localStorage.setItem('refresh', String(data.refreshToken));
+
+  return { status: 200, message: 'Login successful' };
 }
 
 export { PostLogin };

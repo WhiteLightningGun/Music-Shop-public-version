@@ -4,6 +4,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import FrontPageTemplate from './FrontPageTemplate';
+import RequestEmailConfirm from './RequestEmailConfirmation';
 import {
   AlbumData,
   PurchasedAlbumData,
@@ -85,6 +86,10 @@ function App() {
               />
               {isAdmin ? <Route path="Admin" element={<AdminPage />} /> : null}
               <Route path="Checkout" element={<Checkout />} />
+              <Route
+                path="RequestEmailConfirmation"
+                element={<RequestEmailConfirm />}
+              />
             </Routes>
           </div>
         </BrowserRouter>

@@ -159,6 +159,30 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpPost("DeleteUser"), Authorize(Roles = "Administrator")]
+        public ActionResult DeleteUser([FromBody] string email)
+        {
+            var user = _userManager.FindByEmailAsync(email).Result;
+            if (user is null)
+            {
+                return NotFound();
+            }
+
+            var userID = user.Id;
+
+            var result = _userManager.DeleteAsync(user).Result;
+            dataContext.PaypalOrders!.RemoveRange(dataContext.PaypalOrders!.Where(o => o.UserId == userID));
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("GetAlbumsList"), Authorize(Roles = "Administrator")]
         public ActionResult<List<AlbumManagerJsonModel>> GetAlbums()
         {

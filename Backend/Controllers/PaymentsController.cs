@@ -164,14 +164,6 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("test-order-confirm-email"), AllowAnonymous]
-        public async Task<IActionResult> TestOrderConfirmEmail()
-        {
-            List<string> musicList = new List<string>() { "test song 1", "test song 2", "test song 3" };
-            await emailSender.SendOrderConfirmation("someone@mail.com", "test-pal-123456", musicList);
-            return Ok();
-        }
-
         private string GetPaypalAccessToken()
         {
             string accessToken = "";
@@ -207,7 +199,6 @@ namespace Backend.Controllers
                 else
                 {
                     Console.WriteLine(result.StatusCode);
-                    //Console.WriteLine(result.Content.ReadAsStringAsync().Result);
                 }
 
                 return accessToken;

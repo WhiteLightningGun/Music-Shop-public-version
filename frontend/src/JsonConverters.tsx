@@ -1,4 +1,3 @@
-import { AlbumData } from './ScaffoldData';
 import configData from './config.json';
 
 async function GetAlbums() {

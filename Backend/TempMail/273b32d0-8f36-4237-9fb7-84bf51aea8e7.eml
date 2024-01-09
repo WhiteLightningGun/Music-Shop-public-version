@@ -1,5 +1,12 @@
-@using Backend.Data;
-@model BasicEmailModel
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Mon, 08 Jan 2024 23:55:25 +0000
+Subject: Account Confirmation Link
+Message-Id: <VSBVPR56ZLU4.6S1CJBHLEX7D3@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: chrisbaylis85@gmail.com
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,7 +34,7 @@
         Message from Electric Trojan...
       </h1>
       <p style="font-family: monospace; font-size: 1.2rem">
-        Hello @Model.Name, please click this to confirm your account or whatever:
+        Hello chrisbaylis85@gmail.com, please click this to confirm your account or whatever:
       </p>
       <p
         style="
@@ -39,7 +46,7 @@
         "
       >
         <a
-          href="@Model.Data"
+          href="https://localhost:7158/confirmEmail?userId=d04d52e5-663e-4f48-96bb-db97c65b927e&amp;code=Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNpeVRhcUs2bkZESkxzNHFWVXR6TEgxTTRiNmRNc2VsY0Z6WFFlN09tR0ZXSitudnRpL1NyRkRvaEVhN09NN1VWdktKay84Mm80a3JyRi9VbjBVYTVTZTdtM1JiemJkNE1WR0QvOVYyRWhET2lweXpXcTk4aUc3ZnI2ZElTUUpxNWxRb1BJU2tHM2RkRkpPL25pWEpIaEJEbEhnVEFrdnNTZDRCWXNHTzNoNi9sQXdRdEpnTmVkSjI1akFWeWhabHhwTHd4eE9lbTZ5Sm1aR0NZWXR1ZWlhRnFBTy9FLzkrcGxZd0Mwd2tteDFEUT09"
           style="
             box-shadow: inset 0px 1px 0px 0px #bbdaf7;
             background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
@@ -64,17 +71,6 @@
         >
       </p>
       <p style="font-family: monospace; font-size: 1.2rem">Have a nice day.</p>
-      <hr style="border-top: 1px solid lightgray; width: 100%" />
-      <p
-        style="
-          font-family: 'Times New Roman', Times, serif;
-          font-size: 1rem;
-          color: gray;
-        "
-      >
-        This email came from an unmonitored account.
-      </p>
     </div>
   </body>
 </html>
-

@@ -26,6 +26,8 @@ Pa$$w0rd!!1
 
 ToDO
 
+Make sure user can only login if account is confirmed (done)
+
 Add delete user account function to admin page
 Ensure user can complete album purchases should they purchase > 90% of album value worth
-Make sure user can only login if account is confirmed
+add wav download functionality

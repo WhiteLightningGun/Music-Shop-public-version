@@ -59,7 +59,7 @@ function LoginPage({ setLoggedIn }: any) {
       return;
     }
     const loginSuccess = await PostLogin(formData);
-    if (loginSuccess === true) {
+    if (loginSuccess.status === 200) {
       setLoggedIn(true);
       setNotification('');
 
@@ -76,6 +76,9 @@ function LoginPage({ setLoggedIn }: any) {
       //clear form values
       reset();
       setSpinner(false);
+    } else if (loginSuccess.status === 401) {
+      setSpinner(false);
+      setNotification(loginSuccess.message);
     } else {
       setSpinner(false);
       setNotification('Please check your login details.');
@@ -160,6 +163,12 @@ function LoginPage({ setLoggedIn }: any) {
             <p className="text-start">
               Forgotten your credentials? Get a password reset{' '}
               <a href={`${configData.CLIENT_URL}/passwordReset`}>here.</a>
+            </p>
+            <p className="text-start">
+              Do you need to confirm your email address?{' '}
+              <Link className="a" to="/RequestEmailConfirmation">
+                Request a new confirmation here.
+              </Link>
             </p>
           </div>
         </div>
