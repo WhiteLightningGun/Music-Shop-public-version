@@ -7,11 +7,10 @@ import ETLogoPic from './PlaceholderData/Images/ETLogoPicB.jpg';
 import { Link } from 'react-router-dom';
 import { useLoginContext } from './LoggedInContext';
 
-function FrontPageTemplate() {
+function FrontPageBody() {
   const { loggedIn } = useLoginContext();
   return (
     <>
-      <HeaderTemplateTwo />
       <div
         className="container"
         css={css`
@@ -31,13 +30,22 @@ function FrontPageTemplate() {
                 to your music.
               </h5>
               <br />
-              <Link className="normal-font nav-link text-white " to="/Login">
-                <button className="btn btn-info btn-login" type="submit">
-                  <span className="badge ">
-                    {loggedIn ? 'GO TO ACCOUNT' : 'LOGIN'}
-                  </span>
-                </button>
-              </Link>
+              {loggedIn ? (
+                <Link
+                  className="normal-font nav-link text-white "
+                  to="/Account"
+                >
+                  <button className="btn btn-info btn-login" type="submit">
+                    <span className="badge ">GO TO ACCOUNT</span>
+                  </button>
+                </Link>
+              ) : (
+                <Link className="normal-font nav-link text-white " to="/Login">
+                  <button className="btn btn-info btn-login" type="submit">
+                    <span className="badge ">LOGIN</span>
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -52,9 +60,8 @@ function FrontPageTemplate() {
           </div>
         </div>
       </div>
-      <FooterTemplate />
     </>
   );
 }
 
-export default FrontPageTemplate;
+export default FrontPageBody;

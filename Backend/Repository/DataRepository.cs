@@ -168,8 +168,6 @@ namespace Backend.Repository
             {
                 pricePaidSoFar = userSongsPurchasedFromThisAlbum.Select(x => x.PricePaid).Sum();
             }
-
-            Console.WriteLine("Price paid so far {0}", pricePaidSoFar);
             var album = await dataContext.AlbumEntries!.Select(x => x).Where(x => x.AlbumId == albumID).FirstOrDefaultAsync();
             return album!.albumPrice - pricePaidSoFar;
         }

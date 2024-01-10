@@ -15,7 +15,7 @@ function AlbumPage({ data }: Props) {
     return (
       <>
         <Header />
-        <p>Tell the admin to fix his website.</p>
+        <p>If you see this tell the admin to fix his stupid website.</p>
         <FooterTemplate />
       </>
     );

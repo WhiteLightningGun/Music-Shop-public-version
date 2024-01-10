@@ -1,0 +1,87 @@
+From: Chuck Trojan <administrator@electric-trojan.uk>
+Date: Tue, 09 Jan 2024 15:06:10 +0000
+Subject: Account Confirmation Link
+Message-Id: <BVGIZS4DZLU4.58PT4CS9PL661@laptop-mi95ff8t>
+Sender: Chuck Trojan <administrator@electric-trojan.uk>
+To: werner@herzog.de
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Electric Trojan - Email</title>
+  </head>
+  <body style="background-color: rgb(57, 104, 156); margin: 0">
+    <div
+      style="
+        background-color: white;
+        width: 80%;
+        min-height: 100vh;
+        margin: auto;
+        padding: 2%;
+        padding-top: 0.3%;
+      "
+    >
+      <h1
+        style="
+          text-align: left;
+          font-family: Tahoma;
+          font-size: 2.5rem;
+          color: #000000;
+        "
+      >
+        Message from Electric Trojan...
+      </h1>
+      <p style="font-family: monospace; font-size: 1.2rem">
+        Hello werner@herzog.de, please click this to confirm your account or whatever:
+      </p>
+      <p
+        style="
+          font-family: monospace;
+          font-size: 1.2rem;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          text-align: center;
+        "
+      >
+        <a
+          href="https://localhost:7158/confirmEmail?userId=d0d1120c-f16d-4bd8-9f04-fbcd0abab572&amp;code=Q2ZESjhPTzdXZXVTaUF0QWpVWlBKVm1qTFNnaWxuU3ozM3lBZFZyTkhCelhpTEdCL0dPaXV6d09ZKzdpVUFPU2ZCMG0zSG9SVW1kUWpNNTYwbkZvWGhoSm0vNEZRMGsvVG85ZWpUSGc4R3NxNitUSmNiQy92aDdlTlJlNE9ZWEJSd1FibmtUZGJ6NWpsOUVKY1g3ZkYzT0xmVThXNFU0dFlGVWlVakVlM1hGYnFWdG5IUVA1Q2NCdGp6VEk3N3RmOVpLZUxNL2tVY2MvczhOL2E3UEZqUUdGNEU5OEl5WkxadjdIRkM2UlNsMnNkdk1jM0hUQ1ZyVXB2aEpMaXNaeElPSjVrZz09"
+          style="
+            box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+            background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+            background-color: #79bbff;
+            border-radius: 6px;
+            border: 1px solid #84bbf3;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 16px 68px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #528ecc;
+          "
+          onmouseover="this.style.background='linear-gradient(to bottom, #378de5 5%, #79bbff 100%)'; this.style.backgroundColor='#378de5'"
+          onmouseout="this.style.background='linear-gradient(to bottom, #79bbff 5%, #378de5 100%)'; this.style.backgroundColor='#79bbff'"
+          onmousedown="this.style.position='relative'; this.style.top='1px'"
+          onmouseup="this.style.position=''; this.style.top=''"
+          >Confirm My Email</a
+        >
+      </p>
+      <p style="font-family: monospace; font-size: 1.2rem">Have a nice day.</p>
+      <hr style="border-top: 1px solid lightgray; width: 100%" />
+      <p
+        style="
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 1rem;
+          color: gray;
+        "
+      >
+        This email came from an unmonitored account.
+      </p>
+    </div>
+  </body>
+</html>
+

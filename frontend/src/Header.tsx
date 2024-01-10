@@ -42,6 +42,13 @@ function Header() {
                   Albums
                 </Link>
               </li>
+              {loggedIn ? (
+                <li className="nav-item">
+                  <Link className="nav-link normal-font" to="/Account">
+                    Account
+                  </Link>
+                </li>
+              ) : null}
             </ul>
             <div className="d-flex">
               <CartModal />

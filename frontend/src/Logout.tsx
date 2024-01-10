@@ -3,7 +3,7 @@
 import './App.css';
 import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import FrontPageTemplate from './FrontPageTemplate';
+import FrontPageTemplate from './FrontPage';
 import {
   AlbumData,
   SongData,

@@ -5,20 +5,19 @@ import { useEffect, useState } from 'react';
 import Header from './Header';
 import AlbumsPageBody from './AlbumsPageBody';
 import FooterTemplate from './FooterTemplate';
-import { AlbumData, getAlbums } from './ScaffoldData';
-import { GetAlbums } from './JsonConverters';
+import { AlbumData } from './ScaffoldData';
 import Loading from './Loading';
 
-function AlbumsPage() {
+interface Props {
+  data: AlbumData[];
+}
+
+function AlbumsPage({ data }: Props) {
   const [albums, setLoadedAlbums] = useState<AlbumData[]>([]);
 
   useEffect(() => {
-    const beginLoadAlbums = async () => {
-      let loadedAlbums: AlbumData[] = await GetAlbums();
-      setLoadedAlbums(loadedAlbums);
-    };
-    beginLoadAlbums();
-  }, []);
+    setLoadedAlbums(data);
+  }, [data]);
 
   return (
     <>

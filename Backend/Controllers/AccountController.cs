@@ -195,7 +195,6 @@ namespace Backend.Controllers
 
             foreach(var album in albums)
             {
-                Console.WriteLine($"Album Name: {album.AlbumName}, Release Date: {album.ReleaseDate}, Album Id: {album.AlbumId}, Kebab Case Name: {album.KebabCaseName}");
                 var albumJsonModel = new AlbumManagerJsonModel()
                 {
                     AlbumName = album.AlbumName,
@@ -425,7 +424,6 @@ namespace Backend.Controllers
 
             foreach (var file in System.IO.Directory.EnumerateFiles(folderPath, searchPattern))
             {
-                //Console.WriteLine($"Deleting file: {file}");
                 System.IO.File.Delete(file);
             }
         }

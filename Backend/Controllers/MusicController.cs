@@ -121,7 +121,6 @@ namespace Backend.Controllers
         public async Task<string> GetUserAlbums()
         {
             var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            Console.WriteLine("User ID: " + userId);
             if (userId is null)
             {
                 return "[]";

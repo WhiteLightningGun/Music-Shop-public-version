@@ -82,6 +82,15 @@
   border-color: #292d3f;
 }
 
+/**** Firefox styles ***/
+
+.volume-control input[type='range']::-moz-range-track {
+  background-color: #fff; /* white background */
+  border: 1px solid #000; /* black border */
+  border-radius: 0.5rem;
+  height: 0.2rem;
+}
+
 .text-glow {
   transition: color 0.3s ease-in-out; /* Transition effect */
   color: #fff;
