@@ -41,9 +41,9 @@ namespace Backend.Controllers
         {
             _clientId = configuration["PayPal:ClientId"];
             _clientSecret = configuration["PayPal:ClientSecret"];
-            clientUrl = configuration["ClientURL"];
             _payPalTokenUrl = configuration["PaypalTokenURL"]!;
             _payPalUrl = configuration["PaypalURL"]!;
+            clientUrl = configuration["ClientURL"];
             dataContext = _dataContext;
             dataRepository = new DataRepository(_dataContext);
             emailSender = _emailSender; 
