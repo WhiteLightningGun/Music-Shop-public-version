@@ -35,6 +35,7 @@ async function PostLogin(formData: LoginForm) {
   }
 
   const data = await response.json();
+  console.log('post login called');
   sessionStorage.setItem('Bearer', String(data.accessToken));
   localStorage.setItem('refresh', String(data.refreshToken));
 

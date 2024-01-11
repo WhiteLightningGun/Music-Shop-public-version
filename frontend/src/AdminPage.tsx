@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import react from 'react';
 import { useState, useEffect } from 'react';
 import { CheckIsAdmin } from './IsAdminCheck';
 import Header from './Header';

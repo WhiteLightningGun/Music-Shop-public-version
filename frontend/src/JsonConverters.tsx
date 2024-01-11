@@ -34,7 +34,6 @@ async function GetPurchasedAlbums() {
       if (response.status === 200) {
         return response.json();
       } else if (response.status === 401) {
-        console.log('Unauthorized request');
         return false;
       } else {
         return false;
@@ -68,7 +67,6 @@ async function GetPurchasedSongs() {
       if (response.status === 200) {
         return response.json();
       } else if (response.status === 401) {
-        console.log('Unauthorized request');
         return false;
       } else {
         return false;

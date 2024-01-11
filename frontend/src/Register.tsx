@@ -4,15 +4,13 @@ import { useForm } from 'react-hook-form';
 import Header from './Header';
 import FooterTemplate from './FooterTemplate';
 import InfoTester from './InfoTester';
-import React, { useState, useContext } from 'react';
-import { useLoginContext } from './LoggedInContext';
+import React, { useState } from 'react';
 import Logout from './Logout';
 import { useNavigate } from 'react-router-dom';
 import { RegisterPost, RegisterPostBody, LoginForm } from './JsonConverters';
 
 function RegisterPage({ setLoggedIn }: any) {
   const { register, handleSubmit, reset, getValues } = useForm<LoginForm>();
-  const { loggedIn } = useLoginContext();
   const [notification, setNotification] = useState<String>('');
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();

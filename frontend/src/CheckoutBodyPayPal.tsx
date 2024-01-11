@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import React, { useEffect } from 'react';
 import { AlbumData, SongData } from './ScaffoldData';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import configData from './config.json';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface CartBodyEntry {
   id: string;

@@ -1,11 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useRef, useEffect, useCallback } from 'react';
 import * as Icon from 'react-bootstrap-icons';
-import { AlbumData, SongData } from './ScaffoldData';
-import AudioElement from './AudioElement';
-import ProgressBar from './ProgressBar';
-import configData from './config.json';
-import { useLoginContext } from './LoggedInContext';
 
 interface Props {
   decrementTrack: () => void;

@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Header from './Header';
 import FooterTemplate from './FooterTemplate';
 import { PostLogin, GetInfoEmail } from './PostLogin';
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useLoginContext } from './LoggedInContext';
 import Logout from './Logout';
 import {
-  RegisterPost,
   LoginForm,
   GetPurchasedAlbums,
   GetPurchasedSongs,
@@ -18,7 +17,7 @@ import configData from './config.json';
 import { MyCartContext } from './CartContext';
 
 function LoginPage({ setLoggedIn }: any) {
-  const { register, handleSubmit, reset, getValues } = useForm<LoginForm>();
+  const { register, handleSubmit, reset } = useForm<LoginForm>();
   const { loggedIn } = useLoginContext();
   const [notification, setNotification] = useState<String>('');
   const [queryParameters] = useSearchParams();
@@ -27,12 +26,7 @@ function LoginPage({ setLoggedIn }: any) {
   const [spinner, setSpinner] = useState(false);
 
   const context = useContext(MyCartContext);
-  const {
-    purchasedAlbumData,
-    purchasedSongData,
-    setPurchasedAlbums,
-    setPurchasedSongs,
-  } = context || {};
+  const { setPurchasedAlbums, setPurchasedSongs } = context || {};
 
   useEffect(() => {
     if (queryParameters.get('success') === 'true') {
@@ -66,11 +60,15 @@ function LoginPage({ setLoggedIn }: any) {
       let purchasedalbums = await GetPurchasedAlbums();
       if (setPurchasedAlbums) {
         setPurchasedAlbums(purchasedalbums);
+        const purchasedAlbumsData = JSON.stringify(purchasedalbums);
+        localStorage.setItem('purchasedAlbums', purchasedAlbumsData);
       }
 
       let purchasedsongs = await GetPurchasedSongs();
       if (setPurchasedSongs) {
         setPurchasedSongs(purchasedsongs);
+        const purchasedSongsData = JSON.stringify(purchasedsongs);
+        localStorage.setItem('purchasedSongs', purchasedSongsData);
       }
 
       //clear form values

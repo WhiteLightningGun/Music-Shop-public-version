@@ -1,7 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import * as Icon from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import { useLoginContext } from './LoggedInContext';
 import CartModal from './CartModal';

@@ -2,8 +2,6 @@ import React, { createContext, useState, ReactNode } from 'react';
 import { SongData } from './ScaffoldData';
 import { AlbumData } from './ScaffoldData';
 import { PurchasedAlbumData, PurchasedSongData } from './ScaffoldData';
-import { GetAlbums, GetPurchasedSongs } from './JsonConverters';
-import { GetPurchasedAlbums } from './JsonConverters';
 
 export type CartContent = {
   cartSongData: SongData[];
@@ -36,9 +34,15 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartAlbumData, setCartAlbumData] = useState<AlbumData[]>([]);
   const [purchasedAlbumData, setPurchasedAlbums] = useState<
     PurchasedAlbumData[]
-  >([]);
+  >(() => {
+    const savedAlbumData = localStorage.getItem('purchasedAlbums');
+    return savedAlbumData ? JSON.parse(savedAlbumData) : [];
+  });
   const [purchasedSongData, setPurchasedSongs] = useState<PurchasedSongData[]>(
-    [],
+    () => {
+      const savedSongData = localStorage.getItem('purchasedSongs');
+      return savedSongData ? JSON.parse(savedSongData) : [];
+    },
   );
   return (
     <MyCartContext.Provider

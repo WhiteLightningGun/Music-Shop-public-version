@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import React from 'react';
 import { AlbumData } from './ScaffoldData';
 import { Link } from 'react-router-dom';
 

@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
 import albumPic from './PlaceholderData/Images/albumCover1.jpg';
 import albumPic2 from './PlaceholderData/Images/albumCover2.jpg';
 import albumPic3 from './PlaceholderData/Images/albumCover3.jpg';

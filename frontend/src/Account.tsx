@@ -1,19 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import react, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import Header from './Header';
-import AlbumsPageBody from './AlbumsPageBody';
 import FooterTemplate from './FooterTemplate';
-import { AlbumData, getAlbums } from './ScaffoldData';
-import { GetAlbums } from './JsonConverters';
+import { AlbumData } from './ScaffoldData';
 import Loading from './Loading';
 import { Link } from 'react-router-dom';
 import AccountBody from './AccountBody';
 import { useLoginContext } from './LoggedInContext';
 import { GetInfoEmail } from './PostLogin';
-import { MyCartContext } from './CartContext';
-import { MyPurchasedContext } from './PurchasesContext';
 
 interface Props {
   albumData: AlbumData[];
@@ -23,13 +18,6 @@ function Account({ albumData }: Props) {
   const { loggedIn } = useLoginContext();
   const [userEmail, setUserEmail] = useState<string>('');
   const [loading, setLoading] = useState(false);
-  const context = useContext(MyCartContext);
-  const {
-    purchasedAlbumData,
-    purchasedSongData,
-    setPurchasedAlbums,
-    setPurchasedSongs,
-  } = context || {};
   useEffect(() => {
     setLoading(true);
     if (loggedIn) {

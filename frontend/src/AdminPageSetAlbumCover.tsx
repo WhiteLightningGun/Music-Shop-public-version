@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import react from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import configData from './config.json';
 import { AlbumManagerJsonModel } from './JsonConverters';
 

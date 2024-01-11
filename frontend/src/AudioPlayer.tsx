@@ -18,6 +18,11 @@ interface Props {
 function AudioPlayer({ data }: Props) {
   const context = useContext(MyCartContext);
   const { purchasedAlbumData, purchasedSongData } = context || {};
+  const purchasedAlbumDataStrings = useRef<string[]>([]);
+  const purchasedSongDataStrings = useRef<string[]>([]);
+  const [albumFullyPurchased, setalbumFullyPurchased] =
+    useState<boolean>(false);
+
   const { loggedIn } = useLoginContext();
   const [trackIndex, setTrackIndex] = useState<number>(0);
   const totalTrackCount = data.TrackList.length;
@@ -32,6 +37,22 @@ function AudioPlayer({ data }: Props) {
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<HTMLInputElement>();
+
+  useEffect(() => {
+    if (purchasedAlbumData) {
+      purchasedAlbumDataStrings.current = purchasedAlbumData?.map((album) => {
+        return String(album);
+      });
+    }
+    if (purchasedSongData) {
+      purchasedSongDataStrings.current = purchasedSongData?.map((album) => {
+        return String(album);
+      });
+    }
+    setalbumFullyPurchased(
+      ComparePurchasedSongsToAlbum(data, purchasedSongDataStrings.current),
+    );
+  }, [data, purchasedAlbumData, purchasedSongData]);
 
   const PlayClick = () => {
     if (audioRef.current?.paused) {
@@ -154,7 +175,7 @@ function AudioPlayer({ data }: Props) {
         {loggedIn ? (
           purchasedAlbumData?.some(
             (album) => String(album) === String(data.AlbumID),
-          ) ? (
+          ) || albumFullyPurchased ? (
             <p>Already Owned</p>
           ) : (
             <>
@@ -168,8 +189,11 @@ function AudioPlayer({ data }: Props) {
 }
 export default AudioPlayer;
 
-/*
-
-{data.ReleaseDate.toISOString().slice(0, 10)}
-
-*/
+function ComparePurchasedSongsToAlbum(
+  albumData: AlbumData,
+  purchasedSongIDs: String[],
+): boolean {
+  return albumData.TrackList.every((song) =>
+    purchasedSongIDs.includes(String(song.FilePathName)),
+  );
+}

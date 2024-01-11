@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import react from 'react';
 import Header from './Header';
 import FooterTemplate from './FooterTemplate';
 import AlbumPageBody from './AlbumPageBody';

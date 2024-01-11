@@ -1,29 +1,8 @@
 /** @jsxImportSource @emotion/react */
 //import { css } from '@emotion/react';
 import './App.css';
-import { useContext, useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import FrontPageTemplate from './FrontPage';
-import {
-  AlbumData,
-  SongData,
-  PurchasedAlbumData,
-  PurchasedSongData,
-} from './ScaffoldData';
-import AlbumsPage from './AlbumsPage';
-import AlbumPage from './AlbumPage';
-import LoginPage from './LoginPage';
-import { MyLoginContext } from './LoggedInContext';
-import { GetAlbums, GetPurchasedSongs } from './JsonConverters';
-import { GetPurchasedAlbums } from './JsonConverters';
-import RegisterPage from './Register';
-import PasswordReset from './PasswordReset';
-import { CheckLoggedIn } from './PostLogin';
-import AdminPage from './AdminPage';
-import { CheckIsAdmin } from './IsAdminCheck';
-import { CartProvider, MyCartContext } from './CartContext';
-import Checkout from './Checkout';
-import { set } from 'react-hook-form';
+import { useContext } from 'react';
+import { MyCartContext } from './CartContext';
 
 const Logout = ({ setLoggedIn }: any) => {
   const context = useContext(MyCartContext);
@@ -37,6 +16,9 @@ const Logout = ({ setLoggedIn }: any) => {
   const clickHandler = () => {
     sessionStorage.setItem('Bearer', '');
     localStorage.setItem('refresh', '');
+    localStorage.setItem('purchasedAlbums', '');
+    localStorage.setItem('purchasedSongs', '');
+
     setLoggedIn(false);
     setCartSongData
       ? setCartSongData([])

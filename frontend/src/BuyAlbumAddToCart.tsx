@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useRef, useEffect, useCallback, useContext } from 'react';
 import { AlbumData, PurchasedSongData, SongData } from './ScaffoldData';
 
 interface Props {

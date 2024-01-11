@@ -1,11 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import React, { useContext, useState } from 'react';
-import { AlbumData, SongData } from './ScaffoldData';
-import { PayPalButtons } from '@paypal/react-paypal-js';
-import configData from './config.json';
-import CheckoutBodyPayPal from './CheckoutBodyPayPal';
-import { MyCartContext, CartProvider } from './CartContext';
+import { SongData } from './ScaffoldData';
 import * as Icon from 'react-bootstrap-icons';
 
 interface Props {

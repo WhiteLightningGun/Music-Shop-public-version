@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import react from 'react';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import AlbumsPageBody from './AlbumsPageBody';

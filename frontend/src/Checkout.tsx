@@ -1,12 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import react from 'react';
 import Header from './Header';
 import FooterTemplate from './FooterTemplate';
 import CheckoutBody from './CheckoutBody';
-import AlbumPageBody from './AlbumPageBody';
-import { AlbumData, SongData } from './ScaffoldData';
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const initialOptions = {
   clientId:

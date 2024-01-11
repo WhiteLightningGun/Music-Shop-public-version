@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
 import albumPic from './PlaceholderData/Images/albumCover1.jpg';
 import * as Icon from 'react-bootstrap-icons';
 import Aragainz from './PlaceholderData/Audio/Aragainz.mp3';

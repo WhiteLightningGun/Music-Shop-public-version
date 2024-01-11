@@ -1,9 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import * as Icon from 'react-bootstrap-icons';
-import { useContext, useEffect } from 'react';
-import { MyCartContext, CartProvider } from './CartContext';
 import { AlbumData } from './ScaffoldData';
 
 interface CartModalAlbumEntryProps {

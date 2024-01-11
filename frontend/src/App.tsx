@@ -56,11 +56,15 @@ function App() {
 
     const beginLoadPurchasedAlbums = async () => {
       let purchasedAlbums: PurchasedAlbumData[] = await GetPurchasedAlbums();
+      const purchasedAlbumsData = JSON.stringify(purchasedAlbums);
+      localStorage.setItem('purchasedAlbums', purchasedAlbumsData);
       setPurchasedAlbums(purchasedAlbums);
     };
 
     const beginLoadPurchasedSongs = async () => {
       let purchasedSongs: PurchasedSongData[] = await GetPurchasedSongs();
+      const purchasedSongsData = JSON.stringify(purchasedSongs);
+      localStorage.setItem('purchasedSongs', purchasedSongsData);
       setPurchasedSongs(purchasedSongs);
     };
 

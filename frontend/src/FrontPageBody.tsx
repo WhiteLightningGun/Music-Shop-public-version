@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import React from 'react';
-import HeaderTemplateTwo from './Header';
-import FooterTemplate from './FooterTemplate';
 import ETLogoPic from './PlaceholderData/Images/ETLogoPicB.jpg';
 import { Link } from 'react-router-dom';
 import { useLoginContext } from './LoggedInContext';

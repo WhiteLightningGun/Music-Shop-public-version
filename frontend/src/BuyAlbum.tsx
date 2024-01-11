@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useRef, useEffect, useCallback, useContext } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { AlbumData, PurchasedSongData, SongData } from './ScaffoldData';
 import { MyCartContext } from './CartContext';
 import BuyAlbumAddToCart from './BuyAlbumAddToCart';
@@ -14,9 +14,7 @@ function BuyAlbum({ data }: Props) {
   const {
     cartAlbumData,
     setCartAlbumData,
-    cartSongData,
     setCartSongData,
-    purchasedAlbumData,
     purchasedSongData,
   } = context || {};
 

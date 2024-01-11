@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useRef, useEffect, useCallback, useContext } from 'react';
-import { AlbumData } from './ScaffoldData';
 
 interface Props {
   onClick: () => void;

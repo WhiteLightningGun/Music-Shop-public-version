@@ -1,34 +1,27 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   AlbumData,
   PurchasedAlbumData,
   PurchasedSongData,
   SongData,
 } from './ScaffoldData';
-import { PayPalButtons } from '@paypal/react-paypal-js';
-import configData from './config.json';
 import CheckoutBodyPayPal from './CheckoutBodyPayPal';
-import { MyCartContext, CartProvider } from './CartContext';
+import { MyCartContext } from './CartContext';
 import CheckoutBodyAlbumEntry from './CheckoutBodyAlbumEntry';
-import * as Icon from 'react-bootstrap-icons';
 import CheckoutBodySongEntry from './CheckoutBodySongEntry';
-import { useLoginContext } from './LoggedInContext';
 import { Link } from 'react-router-dom';
 import { GetPurchasedAlbums, GetPurchasedSongs } from './JsonConverters';
 
 function CheckoutBody() {
   const context = useContext(MyCartContext);
-  const { loggedIn } = useLoginContext();
 
   const {
     cartSongData,
     setCartSongData,
     cartAlbumData,
     setCartAlbumData,
-    purchasedAlbumData,
-    purchasedSongData,
     setPurchasedAlbums,
     setPurchasedSongs,
   } = context || {};
@@ -73,6 +66,10 @@ function CheckoutBody() {
     if (setPurchasedAlbums && setPurchasedSongs) {
       setPurchasedAlbums(purchasedAlbums);
       setPurchasedSongs(purchasedSongs);
+      const purchasedAlbumsData = JSON.stringify(purchasedAlbums);
+      localStorage.setItem('purchasedAlbums', purchasedAlbumsData);
+      const purchasedSongsData = JSON.stringify(purchasedSongs);
+      localStorage.setItem('purchasedAlbums', purchasedSongsData);
     }
   };
 
@@ -102,6 +99,7 @@ function CheckoutBody() {
           <br></br>
           <div className="text-dark normal-font-light no-underline py-1">
             <h1 className="text-decoration-underline">Checkout</h1>
+            {totalItems ? <p>Total Items - {totalItems}</p> : null}
           </div>
           {cartAlbumData && cartAlbumData.length > 0 ? (
             <div className="text-dark normal-font-light no-underline py-1 text-start">

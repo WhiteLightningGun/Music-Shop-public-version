@@ -1,12 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import React from 'react';
-import { useEffect, useState } from 'react';
 import * as Icon from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
-import configData from './config.json';
-import { CheckLoggedIn } from './PostLogin';
 import { useLoginContext } from './LoggedInContext';
 
 function Header() {
