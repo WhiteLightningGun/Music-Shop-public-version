@@ -1,4 +1,6 @@
 ﻿
+  Development Account Creds:
+  
   "email": "DrMeds@Meds.com",
   "password": "Sn33dfeed!!!111olollol",
 
@@ -8,13 +10,7 @@
   "email": "chrisbaylis85@gmail.com",
   "password": "Sn33dfeed!1",
 
-  Identity from first principles.
-
-  A slow burn, bone chilling, spine tingling, character driven horror movie with no jumpscares.
-
-
   dotnet run --launch-profile https
-
 
   ---
 
