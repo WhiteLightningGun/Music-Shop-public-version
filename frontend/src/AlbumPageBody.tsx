@@ -4,6 +4,7 @@ import { AlbumData } from './ScaffoldData';
 import AlbumPageSongEntry from './AlbumPageSongEntry';
 import { Link } from 'react-router-dom';
 import AudioPlayer from './AudioPlayer';
+import ReturnToTop from './ReturnToTop';
 
 interface Props {
   data: AlbumData;
@@ -60,7 +61,7 @@ function AlbumPageBody({ data }: Props) {
             ))}
           </div>
         </div>
-        <div>Space filler, or breadcrumbs, or return to top button</div>
+        <ReturnToTop />
       </div>
     </>
   );

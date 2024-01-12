@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import { AlbumData } from './ScaffoldData';
 import { MyCartContext } from './CartContext';
 import AccountBodyPurchase from './AccountBodyPurchase';
+import ReturnToTop from './ReturnToTop';
 
 interface Props {
   userEmail: string;
@@ -64,6 +65,8 @@ function AccountBody({ userEmail, albumData }: Props) {
             <AccountBodyPurchase album={album} key={k} />
           ))}
         </div>
+        <hr className="my-3" style={{ borderTop: '1px solid #dee2e6' }} />
+        <ReturnToTop />
       </div>
     </>
   );
