@@ -50,6 +50,8 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DataContext>();
 
+// Add the necessary services for serving static files for a SPA
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -66,8 +68,30 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseStaticFiles();
+// Use the static files middleware to serve your static files
+// Make sure to replace "ClientApp/build" with the path to your React application's build directory
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ClientApp/build")),
+    RequestPath = ""
+});
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images")),
+    RequestPath = "/images"
+});
+
 
 app.MapControllers();
+
+// Fallback route
+app.MapFallback(context =>
+{
+    context.Response.ContentType = "text/html";
+    return context.Response.SendFileAsync(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ClientApp/build/index.html"));
+});
 
 app.Run();

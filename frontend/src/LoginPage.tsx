@@ -160,7 +160,9 @@ function LoginPage({ setLoggedIn }: any) {
             </p>
             <p className="text-start">
               Forgotten your credentials? Get a password reset{' '}
-              <a href={`${configData.CLIENT_URL}/passwordReset`}>here.</a>
+              <Link className="a" to="/passwordReset">
+                here.
+              </Link>
             </p>
             <p className="text-start">
               Do you need to confirm your email address?{' '}

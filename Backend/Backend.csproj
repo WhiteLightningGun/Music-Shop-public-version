@@ -23,12 +23,19 @@
     <PackageReference Include="RazorLight" Version="2.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.12" />
+    <Content Include="**\*.db" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
+<ItemGroup>
+  <Content Include="Music\**" CopyToPublishDirectory="PreserveNewest" />
+  <Content Include="TempMail\**" CopyToPublishDirectory="PreserveNewest" />
+</ItemGroup>
+
+<Target Name="CopyRazorTemplates" AfterTargets="Publish">
   <ItemGroup>
-    <Folder Include="Music\" />
-    <Folder Include="NewFolder\" />
-    <Folder Include="TempMail\" />
+    <RazorTemplates Include="EmailRazorTemplates\**" />
   </ItemGroup>
+  <Copy SourceFiles="@(RazorTemplates)" DestinationFolder="$(PublishDir)\EmailRazorTemplates" />
+</Target>
 
 </Project>
