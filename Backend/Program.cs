@@ -81,7 +81,14 @@ app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images")),
-    RequestPath = "/images"
+    RequestPath = "/images",
+    OnPrepareResponse = ctx =>
+    {
+        // Requires the following import:
+        // using Microsoft.AspNetCore.Http;
+        ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=600");
+    }
+
 });
 
 
