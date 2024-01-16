@@ -68,8 +68,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-// Use the static files middleware to serve your static files
-// Make sure to replace "ClientApp/build" with the path to your React application's build directory
+
+// Use the static files middleware to serve your static files]
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(

@@ -15,12 +15,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text.Encodings.Web;
 using System.Text;
 using System.Security.Claims;
-using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Backend.Repository;
-using Backend.Services;
-
-
 
 namespace Backend.Controllers
 {
@@ -32,7 +28,7 @@ namespace Backend.Controllers
         private readonly IHttpClientFactory _clientFactory;
         private UserManager<IdentityUser> _userManager;
         public readonly IWebHostEnvironment _env;
-        private string AdminRole = "Administrator";
+        //private readonly string AdminRole = "Administrator";
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly string? baseUrl;
         private static string MainDirectory = Environment.CurrentDirectory;

@@ -13,16 +13,16 @@ namespace Backend.Data
 
         [Required]
         [StringLength(100)]
-        public string AlbumName { get; set; }
+        public required string AlbumName { get; set; }
 
         [Required]
-        public string AlbumId { get; set; } // Unique ID associated with parent album
+        public required string AlbumId { get; set; } // Unique ID associated with parent album
 
         [Required]
-        public string Length { get; set; } // Song length
+        public required string Length { get; set; } // Song length
 
         [Required]
-        public string FileGetCode { get; set; } // Unique ID, used for identifying song on get requests and cross referencing with user account list of purchased songs, will also be used to name song on harddrive
+        public required string FileGetCode { get; set; } // Unique ID, used for identifying song on get requests and cross referencing with user account list of purchased songs, will also be used to name song on harddrive
 
         public int AlbumPosition { get; set; }
 

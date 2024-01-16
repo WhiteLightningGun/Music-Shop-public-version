@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Backend.Data;
+﻿using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repository
@@ -350,7 +349,6 @@ namespace Backend.Repository
                     songJsonsForAlbum.Add(songJson);
                 }
                 var frontCoverFileName = FindImageInWwwRoot(thisAlbum.AlbumId!);
-                frontCoverFileName ??= "default.png";
                 albumJsons.Add(
                     new AlbumJsonModel
                     {
@@ -382,7 +380,7 @@ namespace Backend.Repository
                 }
             }
 
-            return null;
+            return "default.png";
         }
     }
 }

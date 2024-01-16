@@ -6,5 +6,5 @@ public class PaypalOrder
     public string? OrderId {get; set;}
     public bool OrderCompleted {get; set;}
     public string? UserId {get; set;}
-    public List<string?> ProductIds {get; set;}
+    public required List<string?> ProductIds {get; set;}
 }
