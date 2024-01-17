@@ -6,15 +6,15 @@ import FooterTemplate from './FooterTemplate';
 import { PostLogin, GetInfoEmail } from './PostLogin';
 import { useState, useContext, useEffect } from 'react';
 import { useLoginContext } from './LoggedInContext';
-import Logout from './Logout';
 import {
   LoginForm,
   GetPurchasedAlbums,
   GetPurchasedSongs,
 } from './JsonConverters';
 import { Link, useSearchParams } from 'react-router-dom';
-import configData from './config.json';
 import { MyCartContext } from './CartContext';
+import LoginPageForm from './LoginPageLoginForm';
+import LoginPageLoggedIn from './LoginPageLoggedIn';
 
 function LoginPage({ setLoggedIn }: any) {
   const { register, handleSubmit, reset } = useForm<LoginForm>();
@@ -106,49 +106,22 @@ function LoginPage({ setLoggedIn }: any) {
               ) : (
                 ''
               )}
-              {loggedIn ? <>Welcome back {userEmail}</> : <></>}
+              {loggedIn ? <>Welcome back {userEmail}</> : <>-</>}
             </p>
-            <form className="text-start" onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-group">
-                <label className="mb-2">Email address</label>
-                <input
-                  {...register('email')}
-                  type="email"
-                  name="email"
-                  className="form-control"
-                  placeholder="Enter email"
-                  defaultValue={''}
-                  autoComplete="email"
+            {loggedIn ? (
+              <LoginPageLoggedIn setLoggedIn={setLoggedIn} />
+            ) : (
+              <>
+                {' '}
+                <LoginPageForm
+                  register={register}
+                  handleSubmit={handleSubmit}
+                  onSubmit={onSubmit}
+                  notification={notification}
+                  spinner={spinner}
                 />
-              </div>
-              <div className="form-group">
-                <label className="my-2">Password</label>
-                <input
-                  {...register('password')}
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  placeholder="Password"
-                  defaultValue={''}
-                />
-              </div>
-              <div className="form-group form-check my-2">
-                <p className="small text-danger">{notification}</p>
-              </div>
-              {spinner ? (
-                <div className="spinner-border text-info" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              ) : (
-                <button type="submit" className="btn btn-info btn-login">
-                  <span className="badge">LOGIN</span>
-                </button>
-              )}
-            </form>
-          </div>
-          <div className="text-start">
-            <br></br>
-            <Logout setLoggedIn={setLoggedIn} />
+              </>
+            )}
           </div>
           <div className="text-dark normal-font-light no-underline py-3">
             <p className="text-start">

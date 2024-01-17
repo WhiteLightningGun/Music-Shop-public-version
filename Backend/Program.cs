@@ -3,7 +3,6 @@ using Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Backend.Configuration;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -51,7 +50,6 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<DataContext>();
 
 // Add the necessary services for serving static files for a SPA
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -84,11 +82,8 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/images",
     OnPrepareResponse = ctx =>
     {
-        // Requires the following import:
-        // using Microsoft.AspNetCore.Http;
         ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=600");
     }
-
 });
 
 
