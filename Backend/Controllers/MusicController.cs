@@ -18,26 +18,19 @@ namespace Backend.Controllers
     public class MusicController : ControllerBase
     {
 
-        private readonly IHttpClientFactory _clientFactory;
-        private UserManager<IdentityUser> _userManager;
         public readonly IWebHostEnvironment _env;
         private string AdminRole = "Administrator";
-        private readonly RoleManager<IdentityRole> roleManager;
         private readonly string? baseUrl;
         private static string MainDirectory = Environment.CurrentDirectory;
         public DataContext dataContext;
         public DataRepository dataRepository;
-        public MusicController(IHttpClientFactory clientFactory, 
-            UserManager<IdentityUser> userManager, 
+        public MusicController(
             IWebHostEnvironment env, 
             IServer server, 
-            RoleManager<IdentityRole> _roleManager, DataContext _dataContext)
+            DataContext _dataContext)
         {
-            _clientFactory = clientFactory;
-            _userManager = userManager;
             _env = env;
             baseUrl = server.Features.Get<IServerAddressesFeature>()?.Addresses.FirstOrDefault();
-            roleManager = _roleManager;
             dataContext = _dataContext;
             dataRepository = new DataRepository(_dataContext);
         }
