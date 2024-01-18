@@ -18,18 +18,15 @@ namespace Backend.Controllers
     public class MusicController : ControllerBase
     {
 
-        public readonly IWebHostEnvironment _env;
         private string AdminRole = "Administrator";
         private readonly string? baseUrl;
         private static string MainDirectory = Environment.CurrentDirectory;
         public DataContext dataContext;
         public DataRepository dataRepository;
         public MusicController(
-            IWebHostEnvironment env, 
             IServer server, 
             DataContext _dataContext)
         {
-            _env = env;
             baseUrl = server.Features.Get<IServerAddressesFeature>()?.Addresses.FirstOrDefault();
             dataContext = _dataContext;
             dataRepository = new DataRepository(_dataContext);
@@ -45,7 +42,6 @@ namespace Backend.Controllers
                 return NotFound();
             }
 
-            var isUserLoggedIn = IsUserLoggedIn();
             var userId = GetUserId();
             var isUserAdmin = IsUserAdmin();
             var userHasMusicPurchased = await dataRepository.HasUserPurchased(userId, fileGetCode);
