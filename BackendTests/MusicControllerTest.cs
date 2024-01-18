@@ -4,16 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Backend.Controllers;
 using Backend.Data;
+using Microsoft.AspNetCore.Hosting.Server;
 
 public class MusicControllerTests
 {
-    /*
     [Fact]
     public void GetMusicDownload_ShouldRejectAnonymousRequest()
     {
         // Arrange
-        //var mockService = new Mock<IMusicService>();
-        var controller = new MusicController( 
+        var controller = new MusicController(new Mock<IServer>().Object, new Mock<DataContext>().Object);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()
@@ -25,5 +24,4 @@ public class MusicControllerTests
         // Assert
         Assert.IsType<UnauthorizedResult>(result);
     }
-    */
 }
