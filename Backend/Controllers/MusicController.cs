@@ -2,10 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using static System.IO.Path;
 using Newtonsoft.Json;
 using Backend.Repository;
 using System.Security.Claims;
