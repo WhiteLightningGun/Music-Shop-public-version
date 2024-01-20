@@ -1,5 +1,4 @@
 // https://localhost:7158/api/Music/MusicHello
-import configData from './config.json';
 import { SongData } from './ScaffoldData';
 
 const StringGrabber = () => {
@@ -17,7 +16,7 @@ export default StringGrabber;
  */
 async function GetDownload(data: SongData) {
   const response = await fetch(
-    `${configData.SERVER_URL}/api/Music/MusicFileArgDownload?fileGetCode=${data.FilePathName}`,
+    `${process.env.REACT_APP_SERVER_URL}/api/Music/MusicFileArgDownload?fileGetCode=${data.FilePathName}`,
     {
       method: 'GET',
       headers: {

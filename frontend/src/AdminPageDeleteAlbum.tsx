@@ -94,7 +94,7 @@ async function postFormData(albumID: string) {
 
   try {
     const response = await fetch(
-      `${configData.SERVER_URL}/api/Account/ManageAlbum`,
+      `${process.env.REACT_APP_SERVER_URL}/api/Account/ManageAlbum`,
       {
         method: 'DELETE',
         headers: {

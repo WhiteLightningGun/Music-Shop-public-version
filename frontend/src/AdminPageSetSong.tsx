@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AlbumManagerJsonModel } from './JsonConverters';
-import configData from './config.json';
 
 interface AlbumManagerJsons {
   data: AlbumManagerJsonModel[];
@@ -119,13 +118,16 @@ async function postFormData(
   formData.append('AlbumPosition', songPosition.toString());
   formData.append('SongPrice', songPrice.toString());
 
-  const response = await fetch(`${configData.SERVER_URL}/api/Account/SetSong`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/SetSong`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+      },
+      body: formData,
     },
-    body: formData,
-  });
+  );
 
   if (!response.ok) {
     // handle error

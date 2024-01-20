@@ -5,7 +5,6 @@ import Header from './Header';
 import FooterTemplate from './FooterTemplate';
 import AdminPageSetAlbumCover from './AdminPageSetAlbumCover';
 import AdminPageAddNewAlbum from './AdminPageAddNewAlbum';
-import configData from './config.json';
 import { AlbumManagerJsonModel } from './JsonConverters';
 import AdminPageDeleteAlbum from './AdminPageDeleteAlbum';
 import AdminPageSetSong from './AdminPageSetSong';
@@ -63,7 +62,7 @@ export default AdminPage;
 
 async function GetAlbumsList() {
   let albumsList = await fetch(
-    `${configData.SERVER_URL}/api/Account/GetAlbumsList`,
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/GetAlbumsList`,
     {
       method: 'GET',
       headers: {

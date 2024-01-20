@@ -3,18 +3,7 @@ import { css } from '@emotion/react';
 import { set, useForm } from 'react-hook-form';
 import Header from './Header';
 import FooterTemplate from './FooterTemplate';
-import React, { useState, useContext, useEffect } from 'react';
-import { useLoginContext } from './LoggedInContext';
-import Logout from './Logout';
-import {
-  RegisterPost,
-  LoginForm,
-  GetPurchasedAlbums,
-  GetPurchasedSongs,
-} from './JsonConverters';
-import { Link, useSearchParams } from 'react-router-dom';
-import configData from './config.json';
-import { MyCartContext } from './CartContext';
+import React, { useState } from 'react';
 
 interface ConfirmEmailForm {
   email: string;
@@ -94,7 +83,7 @@ async function PostRequestEmailConfirm(userEmail: string) {
   };
 
   const response = await fetch(
-    `${configData.SERVER_URL}/resendConfirmationEmail`,
+    `${process.env.REACT_APP_SERVER_URL}/resendConfirmationEmail`,
     {
       method: 'POST',
       body: JSON.stringify(body),

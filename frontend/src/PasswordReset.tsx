@@ -5,7 +5,6 @@ import Header from './Header';
 import FooterTemplate from './FooterTemplate';
 import React, { useState } from 'react';
 import { LoginForm } from './JsonConverters';
-import configData from './config.json';
 import PasswordResetCodeInput from './PasswordResetCodeInput';
 
 function PasswordReset() {
@@ -96,13 +95,16 @@ function PasswordReset() {
 export default PasswordReset;
 
 async function postEmail(email: string) {
-  const response = await fetch(`${configData.SERVER_URL}/forgotPassword`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/forgotPassword`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
     },
-    body: JSON.stringify({ email }),
-  });
+  );
 
   return response;
 }

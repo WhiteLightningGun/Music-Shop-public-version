@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import configData from './config.json';
 
 type FormData = {
   albumName: string;
@@ -106,7 +105,7 @@ async function postFormData(
 
   try {
     const response = await fetch(
-      `${configData.SERVER_URL}/api/Account/ManageAlbum`,
+      `${process.env.REACT_APP_SERVER_URL}/api/Account/ManageAlbum`,
       {
         method: 'POST',
         headers: {

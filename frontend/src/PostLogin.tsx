@@ -1,5 +1,4 @@
 import { LoginForm } from './JsonConverters';
-import configData from './config.json';
 
 type LoginPostBody = {
   email: string;
@@ -16,13 +15,16 @@ async function PostLogin(formData: LoginForm) {
     twoFactorRecoveryCode: '',
   };
 
-  const response = await fetch(`${configData.SERVER_URL}/api/Account/Login`, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/Login`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
     },
-  });
+  );
 
   if (response.status === 401) {
     let responseDetail = await response.json();
@@ -80,12 +82,15 @@ async function GetInfoTest() {
   //console.log(sessionStorage.getItem('Bearer'));
   //console.log(localStorage.getItem('refresh'));
 
-  let infoTestResult = await fetch(`${configData.SERVER_URL}/manage/info`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+  let infoTestResult = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/manage/info`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+      },
     },
-  })
+  )
     .then((response) => (response.status === 200 ? response.json() : false))
     .then((data) => {
       console.log(data);
@@ -102,12 +107,15 @@ async function GetInfoEmail() {
   //console.log(sessionStorage.getItem('Bearer'));
   //console.log(localStorage.getItem('refresh'));
 
-  let infoTestResult = await fetch(`${configData.SERVER_URL}/manage/info`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+  let infoTestResult = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/manage/info`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+      },
     },
-  })
+  )
     .then((response) => (response.status === 200 ? response.json() : false))
     .then((data) => {
       return data;
@@ -124,12 +132,15 @@ async function CheckLoggedIn() {
     return false;
   }
 
-  let infoTestResult = await fetch(`${configData.SERVER_URL}/manage/info`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+  let infoTestResult = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/manage/info`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+      },
     },
-  }).then((response) => {
+  ).then((response) => {
     return response.status === 200;
   });
   return infoTestResult;
@@ -137,7 +148,7 @@ async function CheckLoggedIn() {
 export { CheckLoggedIn };
 
 async function TryRefresh(refreshTokenArg: string | null) {
-  const backendUrl = configData.SERVER_URL;
+  const backendUrl = process.env.REACT_APP_SERVER_URL;
   let body: any = {
     refreshToken: refreshTokenArg,
   };

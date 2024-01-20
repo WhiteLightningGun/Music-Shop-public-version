@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { AlbumData } from './ScaffoldData';
 import { Link } from 'react-router-dom';
-import config from './config.json';
 
 interface Props {
   album: AlbumData;
 }
 
 function AccountBodyPurchase({ album }: Props) {
-  const albumLinkHref = `${config.CLIENT_URL}/Albums/${album.kebabCase}`;
+  const albumLinkHref = `${process.env.REACT_APP_CLIENT_URL}/Albums/${album.kebabCase}`;
   return (
     <>
       <div className="row text-dark normal-font-light py-1">

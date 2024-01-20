@@ -2,7 +2,6 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { PasswordResetWithCode } from './JsonConverters';
-import configData from './config.json';
 
 function PasswordResetCodeInput() {
   const { register, handleSubmit, reset, getValues } =
@@ -106,14 +105,17 @@ export default PasswordResetCodeInput;
 
 async function postNewPassword(body: PasswordResetWithCode) {
   console.log(JSON.stringify(body));
-  const response = await fetch(`${configData.SERVER_URL}/resetPassword`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept-Encoding': 'gzip, deflate, br',
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/resetPassword`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Encoding': 'gzip, deflate, br',
+      },
+      body: JSON.stringify(body),
     },
-    body: JSON.stringify(body),
-  });
+  );
 
   return response;
 }

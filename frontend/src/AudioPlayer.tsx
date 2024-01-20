@@ -3,7 +3,6 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { AlbumData, SongData } from './ScaffoldData';
 import AudioElement from './AudioElement';
 import ProgressBar from './ProgressBar';
-import configData from './config.json';
 import { useLoginContext } from './LoggedInContext';
 import AudioPlayerControls from './AudioPlayerControls';
 import AudioPlayerControlsLoading from './AudioPlayerControlsLoading';
@@ -167,9 +166,12 @@ function AudioPlayer({ data }: Props) {
         <p className="fs-6">Track Count: {data.TrackCount}</p>
         {!loggedIn ? (
           <p className="fs-6">
-            <a href={`${configData.CLIENT_URL}/login`}>Login</a>&nbsp; / &nbsp;
-            <a href={`${configData.CLIENT_URL}/register`}>Register</a> to
-            purchase and hear all the music.
+            <a href={`${process.env.REACT_APP_SERVER_URL}/login`}>Login</a>
+            &nbsp; / &nbsp;
+            <a href={`${process.env.REACT_APP_SERVER_URL}/register`}>
+              Register
+            </a>{' '}
+            to purchase and hear all the music.
           </p>
         ) : null}
         {loggedIn ? (

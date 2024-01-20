@@ -1,12 +1,10 @@
-import configData from './config.json';
-
 async function CheckIsAdmin() {
   let bearerToken = sessionStorage.getItem('Bearer');
   if (bearerToken === null) {
     return false;
   }
   let response = await fetch(
-    `${configData.SERVER_URL}/api/account/isadministrator`,
+    `${process.env.REACT_APP_SERVER_URL}/api/account/isadministrator`,
     {
       method: 'GET',
       headers: {

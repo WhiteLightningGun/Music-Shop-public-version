@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useEffect } from 'react';
 import { SongData } from './ScaffoldData';
-import configData from './config.json';
 
 interface Props {
   data: SongData;
@@ -29,7 +28,7 @@ function AudioElement({
   useEffect(() => {
     const url = async () => {
       let url = await loadAudioWithToken(
-        `${configData.SERVER_URL}/api/music/MusicFileArg?fileGetCode=${data.FilePathName}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/music/MusicFileArg?fileGetCode=${data.FilePathName}`,
         sessionStorage.getItem('Bearer'),
       );
       setAudioUrl(url);

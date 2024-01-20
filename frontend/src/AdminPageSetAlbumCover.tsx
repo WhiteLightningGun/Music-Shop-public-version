@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useRef } from 'react';
-import configData from './config.json';
 import { AlbumManagerJsonModel } from './JsonConverters';
 
 interface AlbumManagerJsons {
@@ -98,7 +97,7 @@ async function postFormData(
   formData.append('PictureFile', selectedFile);
 
   const response = await fetch(
-    `${configData.SERVER_URL}/api/Account/SetAlbumCover`,
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/SetAlbumCover`,
     {
       method: 'POST',
       headers: {

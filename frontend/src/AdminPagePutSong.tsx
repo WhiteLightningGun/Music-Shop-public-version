@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AlbumManagerJsonModel } from './JsonConverters';
-import configData from './config.json';
 
 interface AlbumManagerJsons {
   data: AlbumManagerJsonModel[];
@@ -143,7 +142,7 @@ export default AdminPagePutSong;
 
 async function getSongsListForAlbum(albumID: string) {
   const response = await fetch(
-    `${configData.SERVER_URL}/api/Account/SongsByAlbumList?albumID=${albumID}`,
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/SongsByAlbumList?albumID=${albumID}`,
     {
       method: 'GET',
       headers: {
@@ -176,13 +175,16 @@ async function postFormData(
   formData.append('AlbumPosition', AlbumPosition.toString());
   formData.append('SongPrice', SongPrice.toString());
 
-  const response = await fetch(`${configData.SERVER_URL}/api/Account/PutSong`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/PutSong`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('Bearer')}`,
+      },
+      body: formData,
     },
-    body: formData,
-  });
+  );
 
   if (!response.ok) {
     // handle error

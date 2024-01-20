@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AlbumManagerJsonModel } from './JsonConverters';
-import configData from './config.json';
 
 interface AlbumManagerJsons {
   data: AlbumManagerJsonModel[];
@@ -108,7 +107,7 @@ export default AdminPageDeleteSong;
 
 async function getSongsListForAlbum(albumID: string) {
   const response = await fetch(
-    `${configData.SERVER_URL}/api/Account/SongsByAlbumList?albumID=${albumID}`,
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/SongsByAlbumList?albumID=${albumID}`,
     {
       method: 'GET',
       headers: {
@@ -129,7 +128,7 @@ async function getSongsListForAlbum(albumID: string) {
 
 async function postFormData(SongID: string) {
   const response = await fetch(
-    `${configData.SERVER_URL}/api/Account/DeleteSong?songID=${SongID}`,
+    `${process.env.REACT_APP_SERVER_URL}/api/Account/DeleteSong?songID=${SongID}`,
     {
       method: 'DELETE',
       headers: {

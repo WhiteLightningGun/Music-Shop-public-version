@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { AlbumData, SongData } from './ScaffoldData';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import configData from './config.json';
 import { useNavigate } from 'react-router-dom';
 
 interface CartBodyEntry {
@@ -32,7 +31,7 @@ function CheckoutBodyPayPal({
     let cartBody = mapDataToCartBodyEntry(songData, albumData);
 
     const response = await fetch(
-      `${configData.SERVER_URL}/api/payments/create-order`,
+      `${process.env.REACT_APP_SERVER_URL}/api/payments/create-order`,
       {
         method: 'POST',
         headers: {
@@ -51,7 +50,7 @@ function CheckoutBodyPayPal({
   };
   const onApprove = async (data: any, actions: any) => {
     const response = await fetch(
-      `${configData.SERVER_URL}/api/payments/capture-paypal-order`,
+      `${process.env.REACT_APP_SERVER_URL}/api/payments/capture-paypal-order`,
       {
         method: 'POST',
         headers: {

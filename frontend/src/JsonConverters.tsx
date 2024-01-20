@@ -1,9 +1,10 @@
-import configData from './config.json';
-
 async function GetAlbums() {
-  let albumsResult = fetch(`${configData.SERVER_URL}/api/Music/GrabAlbums`, {
-    method: 'GET',
-  })
+  let albumsResult = fetch(
+    `${process.env.REACT_APP_SERVER_URL}/api/Music/GrabAlbums`,
+    {
+      method: 'GET',
+    },
+  )
     .then((response) => (response.status === 200 ? response.json() : false))
     .then((data) => {
       return data;
@@ -26,10 +27,13 @@ async function GetPurchasedAlbums() {
     };
   }
 
-  let albumsResult = fetch(`${configData.SERVER_URL}/api/Music/GetUserAlbums`, {
-    method: 'GET',
-    headers: headers,
-  })
+  let albumsResult = fetch(
+    `${process.env.REACT_APP_SERVER_URL}/api/Music/GetUserAlbums`,
+    {
+      method: 'GET',
+      headers: headers,
+    },
+  )
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -59,10 +63,13 @@ async function GetPurchasedSongs() {
       Authorization: `Bearer ${bearerToken}`,
     };
   }
-  let songsResult = fetch(`${configData.SERVER_URL}/api/Music/GetUserSongs`, {
-    method: 'GET',
-    headers: headers,
-  })
+  let songsResult = fetch(
+    `${process.env.REACT_APP_SERVER_URL}/api/Music/GetUserSongs`,
+    {
+      method: 'GET',
+      headers: headers,
+    },
+  )
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -109,15 +116,18 @@ async function RegisterPost(formData: RegisterPostBody): Promise<Response> {
   const jsonBody = JSON.stringify(formData);
 
   try {
-    const response = await fetch(`${configData.SERVER_URL}/register`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept-Encoding': 'gzip, deflate, br',
+    const response = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/register`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept-Encoding': 'gzip, deflate, br',
+        },
+        body: jsonBody,
       },
-      body: jsonBody,
-    });
+    );
     return response;
   } catch (error) {
     throw new Error(String(error));
