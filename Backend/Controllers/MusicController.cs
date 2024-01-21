@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Backend.Repository;
 using System.Security.Claims;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 namespace Backend.Controllers
 {
@@ -32,6 +34,10 @@ namespace Backend.Controllers
         [HttpGet("MusicFileArg"), AllowAnonymous]
         public async Task<IActionResult> GetMusic(string fileGetCode)
         {
+            //var client = new SecretClient(new Uri("https://etmusicstorekeys.vault.azure.net/"), new DefaultAzureCredential());
+            //KeyVaultSecret secret = await client.GetSecretAsync("TestSecret");
+            //Console.WriteLine($"Your secret value is: {secret.Value}");
+
             var songData = dataRepository.GetMusic(fileGetCode);
             if (songData is null)
             {

@@ -34,7 +34,7 @@ namespace Backend.Controllers
             clientUrl = configuration["ClientURL"];
             dataContext = _dataContext;
             dataRepository = new DataRepository(_dataContext);
-            emailSender = _emailSender; 
+            emailSender = _emailSender;
         }
 
         [HttpPost("create-order")]
