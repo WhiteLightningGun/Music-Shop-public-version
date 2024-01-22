@@ -9,7 +9,7 @@ Pa$$w0rd!!1
 aguirre@zorngott.de
 Pa$$w0rd!!1
 
---
+-- - -
 
 Access .env variables in React client: process.env.REACT_APP_SERVER_URL and/or process.env.REACT_APP_CLIENT_URL 
 
