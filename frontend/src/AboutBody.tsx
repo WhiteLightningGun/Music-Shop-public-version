@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import { useEffect } from 'react';
 import { draw } from './AboutBodyCanvasDraw';
 import { CreateParticlesArray } from './AboutBodyCanvasDraw';
@@ -9,8 +10,11 @@ function AboutBody() {
   useEffect(() => {
     const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
     const context = canvas.getContext('2d');
-    let particles = CreateParticlesArray(150, canvas.width, canvas.height);
+    let particles = CreateParticlesArray(120, canvas.width, canvas.height);
     let animationFrameId: number;
+
+    //disable the horizontal scroll bar
+    document.body.style.overflowX = 'hidden';
 
     if (context) {
       const animate = (time: number) => {
@@ -23,9 +27,18 @@ function AboutBody() {
         if (animationFrameId) {
           cancelAnimationFrame(animationFrameId);
         }
+        document.body.style.overflowX = 'auto';
       };
     }
   }, []);
+  const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
   return (
     <>
       {' '}
@@ -36,29 +49,30 @@ function AboutBody() {
           left: 50%;
           transform: translateX(-50%);
           height: 100vh;
-          width: auto;
           object-fit: contain;
           z-index: -1;
+          animation: ${fadeIn} 1s ease-in-out; // Apply the animation
         `}
         id="myCanvas"
         width="2200"
         height="1080"
       ></canvas>
-      <div
-        css={css`
-          min-height: 88vh;
-          z-index: 1;
-          background: radial-gradient(
-            circle at center,
-            transparent 10%,
-            rgb(255, 255, 255) 85%
-          );
-        `}
-      >
-        <AboutBodyFrame />
+      <div className="container">
+        <div
+          className="row d-flex align-items-center justify-content-center"
+          css={css`
+            min-height: 88vh;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.6);
+          `}
+        >
+          <AboutBodyFrame />
+        </div>
       </div>
     </>
   );
 }
 
 export default AboutBody;
+
+//

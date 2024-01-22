@@ -30,8 +30,8 @@ export const draw = (
         context.stroke();
       }
     }
-    let value = 1.25628140704 * closestParticle - 201.256281407;
-    if (value > 55 || closestParticle > 160) {
+    let value = 1.76258992806 * closestParticle - 191.762589928;
+    if (value > 55 || closestParticle > 170) {
       value = 55;
     } else if (value < -200) {
       value = -200;
