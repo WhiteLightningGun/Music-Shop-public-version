@@ -3,12 +3,13 @@ import { css } from '@emotion/react';
 import { useEffect } from 'react';
 import { draw } from './AboutBodyCanvasDraw';
 import { CreateParticlesArray } from './AboutBodyCanvasDraw';
+import AboutBodyFrame from './AboutBodyFrame';
 
 function AboutBody() {
   useEffect(() => {
     const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
     const context = canvas.getContext('2d');
-    let particles = CreateParticlesArray(130, canvas.width, canvas.height);
+    let particles = CreateParticlesArray(150, canvas.width, canvas.height);
     let animationFrameId: number;
 
     if (context) {
@@ -54,7 +55,7 @@ function AboutBody() {
           );
         `}
       >
-        <h1>I am the about page</h1>
+        <AboutBodyFrame />
       </div>
     </>
   );
