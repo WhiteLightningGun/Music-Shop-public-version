@@ -25,6 +25,7 @@ import { CartProvider } from './CartContext';
 import Checkout from './Checkout';
 import Account from './Account';
 import { PurchasedProvider } from './PurchasesContext';
+import About from './About';
 
 function App() {
   const [albums, setLoadedAlbums] = useState<AlbumData[]>([]);
@@ -112,6 +113,7 @@ function App() {
                   path="RequestEmailConfirmation"
                   element={<RequestEmailConfirm />}
                 />
+                <Route path="About" element={<About />} />
                 <Route
                   path="Account"
                   element={<Account albumData={albums} />}
