@@ -7,9 +7,8 @@ export const draw = (
   // Clear the canvas
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Fill the canvas with light pink color
-  context.fillStyle = 'white';
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  // Fill the canvas with color
+
   for (let n = 0; n < particles.length; n += 1) {
     let closestParticle = 2000;
     for (let j = 0; j < particles.length; j += 1) {
@@ -39,6 +38,9 @@ export const draw = (
     particles[n].drawParticle(context, value);
     particles[n].update(canvas);
   }
+
+  context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+  context.fillRect(0, 0, canvas.width, canvas.height);
 };
 
 export class Particle {

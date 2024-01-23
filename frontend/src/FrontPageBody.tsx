@@ -7,6 +7,7 @@ import { useLoginContext } from './LoggedInContext';
 
 function FrontPageBody() {
   const { loggedIn } = useLoginContext();
+  const [isLoaded, setIsLoaded] = React.useState(false);
   return (
     <>
       <div
@@ -15,6 +16,10 @@ function FrontPageBody() {
           background: #ffffff;
           min-height: 85vh;
         `}
+        style={{
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.01s ease-in-out',
+        }}
       >
         <div className="row d-flex align-items-center">
           <div className="col-lg-6">
@@ -53,6 +58,7 @@ function FrontPageBody() {
                 src={ETLogoPic}
                 className="img-fluid align-top border rounded"
                 alt=""
+                onLoad={() => setIsLoaded(true)}
               />
             </div>
           </div>
