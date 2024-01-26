@@ -5,6 +5,9 @@ obj/
 # Ignore .env file
 .env
 
+# Ignore contents of TempMail development folder
+TempMail/*
+
 # Ignore NuGet Packages
 *.nupkg
 # The packages folder can be ignored because of Package Restore

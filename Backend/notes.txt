@@ -1,28 +1,16 @@
 ﻿
   Development Account Creds:
-  
-  "email": "DrMeds@Meds.com",
-  "password": "Sn33dfeed!!!111olollol",
-
-  "email": "clemsnide@thingfish.com",
-  "password": "Sn33dfeed!!!111",
 
   "email": "chrisbaylis85@gmail.com",
-  "password": "Sn33dfeed!1",
-
-  dotnet run --launch-profile https
+  "password": "Pa$$w0rd!!1",
 
   ---
+Ethereal Email - Test Email Account: 
 
 Name	Isabell Murazik
 Username	isabell.murazik@ethereal.email
 Password	7bh5R5hzNnMxPFchnh!!!
-
-carpenterbrut@music.co.uk
-7bh5R5hzNnMxPFchnh!!!
-
 -
-
 Host	smtp.ethereal.email
 Port	587
 Security	STARTTLS
