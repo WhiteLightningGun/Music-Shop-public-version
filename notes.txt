@@ -9,14 +9,8 @@ Pa$$w0rd!!1
 aguirre@zorngott.de
 Pa$$w0rd!!1
 
--- - -
-
-Access .env variables in React client: process.env.REACT_APP_SERVER_URL and/or process.env.REACT_APP_CLIENT_URL 
-
 --
 
 ToDO
 
-1. Make sure user can only login if account is confirmed (done)
-2. Ensure user can complete album purchases should they purchase > 90% of album value worth
-3. Get secrets from Azure key storage
+Get secrets from Azure key storage in deployment
